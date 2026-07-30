@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GRAVIT | High-Performance Digital Engineering</title>
+    <meta name="description" content="We build high-performance digital flagship experiences for global brands. No templates. No compromises." />
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="GRAVIT | High-Performance Digital Engineering" />
+    <meta property="og:description" content="We build high-performance digital flagship experiences for global brands. No templates. No compromises." />
+    <meta property="og:image" content="/og-image.jpg" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0A0A0F" />
+  </head>
+  <body>
+    <script>
+      window.onerror = function(msg, url, line, col, error) {
+        document.body.innerHTML = '<div style="color:red;font-size:20px;padding:20px;z-index:999999;position:fixed;top:0;left:0;background:white;width:100%;height:100%;overflow:auto;">' + 
+          'Error: ' + msg + '<br>Line: ' + line + '<br>Col: ' + col + '<br><pre>' + (error && error.stack ? error.stack : '') + '</pre>' + 
+          '</div>';
+      };
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
