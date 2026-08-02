@@ -5,13 +5,13 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useScrollStore } from '../store/useScrollStore';
 
-gsap.registerPlugin(ScrollTrigger);
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<any>(null);
   const location = useLocation();
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     // Disable Lenis on mobile devices for better native scrolling performance
     if (typeof window !== 'undefined' && window.innerWidth < 768) return;
 

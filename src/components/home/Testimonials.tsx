@@ -3,31 +3,31 @@ import { HoverBorderGradient } from '../ui/hover-border-gradient';
 
 const testimonials = [
   {
-    quote: "Gravit didn't just build our platform; they completely reimagined how our users interact with data in a 3D space.",
-    name: "Sarah Jenkins",
-    role: "CTO, FinTech Innovators",
-    company: "FinTech Innovators",
+    quote: "Gravit built an amazing platform that makes it easy for our users to explore data in 3D.",
+    name: "Priya Sharma",
+    role: "CTO, Bharat FinTech",
+    company: "Bharat FinTech",
     avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=150&auto=format&fit=crop"
   },
   {
-    quote: "The visual fidelity and performance they achieved on the web is indistinguishable from a native application. Absolutely stellar.",
-    name: "Marcus Aurelius",
-    role: "Head of Product, Roma Tech",
-    company: "Roma Tech",
+    quote: "The website looks and runs so smoothly, it feels like a high-end mobile app. Outstanding work.",
+    name: "Rohan Desai",
+    role: "Head of Product, Mumbai Tech",
+    company: "Mumbai Tech",
     avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=150&auto=format&fit=crop"
   },
   {
-    quote: "Working with Gravit was a paradigm shift. They operate at the bleeding edge of what browsers can handle.",
-    name: "Elena Rostova",
-    role: "Founder, Spatial Labs",
-    company: "Spatial Labs",
+    quote: "Working with Gravit changed everything for us. They push the limits of what a website can do.",
+    name: "Ananya Patel",
+    role: "Founder, Spatial Labs India",
+    company: "Spatial Labs India",
     avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=150&auto=format&fit=crop"
   },
   {
-    quote: "From the initial concept to the final WebGL render, their attention to detail and aesthetic taste is unmatched.",
-    name: "David Chen",
-    role: "Creative Director, Studio X",
-    company: "Studio X",
+    quote: "From the first idea to the final design, their attention to detail is unmatched.",
+    name: "Vikram Singh",
+    role: "Creative Director, Studio X Delhi",
+    company: "Studio X Delhi",
     avatar: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=150&auto=format&fit=crop"
   }
 ];

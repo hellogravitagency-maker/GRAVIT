@@ -1,7 +1,9 @@
 import { motion } from 'motion/react';
-import { Canvas } from '@react-three/fiber';
 import { Link } from 'react-router-dom';
-import FloatingPrism from './FloatingPrism';
+import React, { lazy, Suspense, useState, useEffect } from 'react';
+
+const FloatingPrism = lazy(() => import('./FloatingPrism'));
+const Canvas = lazy(() => import('@react-three/fiber').then(m => ({ default: m.Canvas })));
 
 export default function Hero() {
   const spring = { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] as const };
@@ -10,9 +12,11 @@ export default function Hero() {
     <section id="home" className="relative w-full min-h-screen overflow-hidden flex items-center pt-24 pb-24">
       {/* 3D Asset Background Overlay */}
       <div className="absolute inset-0 z-0 pointer-events-none opacity-50 hidden md:block">
-        <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
-          <FloatingPrism />
-        </Canvas>
+        <Suspense fallback={<div className="w-full h-full bg-[#050505]" />}>
+          <Canvas camera={{ position: [0, 0, 5], fov: 45 }}>
+            <FloatingPrism />
+          </Canvas>
+        </Suspense>
       </div>
 
       {/* Ghost Text Watermark */}
@@ -45,7 +49,7 @@ export default function Hero() {
           className="w-full flex flex-col items-center"
         >
           <div className="text-[clamp(36px,5vw,72px)] leading-[1.05] font-bold tracking-tighter mb-8 text-white max-w-[900px] text-center">
-            We build cinematic digital experiences that elevate your brand's perception.
+            We build beautiful, fast websites that help your business grow.
           </div>
           
           <motion.p 
@@ -54,7 +58,7 @@ export default function Hero() {
             transition={{ ...spring, delay: 0.3 }}
             className="text-[clamp(15px,1.8vw,18px)] text-[#F8F8F0]/45 max-w-[680px] mx-auto mb-12 font-normal leading-[1.65]"
           >
-            GRAVIT is a digital studio blending rigorous engineering with cinematic motion design. We build digital experiences that refuse to be ignored.
+            GRAVIT is a web design studio combining strong coding with beautiful animations. We build websites that stand out.
           </motion.p>
 
           <motion.div 

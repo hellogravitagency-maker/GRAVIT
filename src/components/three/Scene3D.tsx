@@ -3,7 +3,7 @@ import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment, Float, Preload, AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette, SMAA, Noise, ChromaticAberration } from '@react-three/postprocessing';
 import { BlendFunction } from 'postprocessing';
-import * as THREE from 'three';
+import { MathUtils, Vector3, ACESFilmicToneMapping, SRGBColorSpace } from 'three';
 import { useScrollStore } from '../../store/useScrollStore';
 import Galaxy from '../Galaxy';
 import ParticleMorph from './ParticleMorph';
@@ -26,14 +26,14 @@ function CameraRig() {
     const pointerY = pointer.y * 0.5;
     
     // Smoothly interpolate position
-    camera.position.z = THREE.MathUtils.lerp(camera.position.z, targetZ, 0.05);
-    camera.position.x = THREE.MathUtils.lerp(camera.position.x, pointerX, 0.05);
-    camera.position.y = THREE.MathUtils.lerp(camera.position.y, targetYScroll + pointerY, 0.05);
+    camera.position.z = MathUtils.lerp(camera.position.z, targetZ, 0.05);
+    camera.position.x = MathUtils.lerp(camera.position.x, pointerX, 0.05);
+    camera.position.y = MathUtils.lerp(camera.position.y, targetYScroll + pointerY, 0.05);
     
     // Look ahead into the depth, slightly offset by pointer
-    const targetLookAt = new THREE.Vector3(pointerX * 0.2, targetYScroll + pointerY * 0.2, targetZ - 5);
+    const targetLookAt = new Vector3(pointerX * 0.2, targetYScroll + pointerY * 0.2, targetZ - 5);
     
-    const currentLook = new THREE.Vector3();
+    const currentLook = new Vector3();
     camera.getWorldDirection(currentLook);
     
     camera.lookAt(targetLookAt);
@@ -43,7 +43,7 @@ function CameraRig() {
     const clampedVelocity = Math.min(Math.abs(velocity), 100);
     const targetFov = 45 + (clampedVelocity * 0.2); // max 65 FOV
     // @ts-ignore
-    camera.fov = THREE.MathUtils.lerp(camera.fov, targetFov, 0.1);
+    camera.fov = MathUtils.lerp(camera.fov, targetFov, 0.1);
     camera.updateProjectionMatrix();
   });
   
@@ -88,9 +88,9 @@ export default function Scene3D() {
           camera={{ fov: 45, near: 0.1, far: 200, position: [0, 0, 6] }}
           gl={{
             antialias: false,
-            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMapping: ACESFilmicToneMapping,
             toneMappingExposure: 1.2,
-            outputColorSpace: THREE.SRGBColorSpace,
+            outputColorSpace: SRGBColorSpace,
             powerPreference: 'high-performance',
             alpha: true
           }}

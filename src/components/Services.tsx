@@ -8,30 +8,30 @@ import BlackHole from './BlackHole';
 
 const services = [
   {
-    id: 'Platform Engineering',
-    title: 'High-Performance Architecture',
-    desc: 'We build scalable, high-performance web applications using the modern React ecosystem. From complex SaaS dashboards to high-conversion storefronts.',
+    id: 'Web Development',
+    title: 'Fast & Reliable Websites',
+    desc: 'We build fast and scalable web applications. From business dashboards to online stores.',
     tags: ['React', 'Next.js', 'TypeScript', 'Node.js'],
     colSpan: 'md:col-span-2'
   },
   {
-    id: 'Creative Engineering',
-    title: 'Immersive Motion',
-    desc: 'Utilizing WebGL and advanced CSS/JS animations for cinematic storytelling that drives engagement.',
+    id: 'Creative Design',
+    title: 'Engaging Animations',
+    desc: 'We use advanced animations to tell a story that keeps your users engaged.',
     tags: ['WebGL', 'GSAP', 'Three.js'],
     colSpan: 'md:col-span-1'
   },
   {
     id: 'Digital Strategy',
-    title: 'Conversion Architecture',
-    desc: 'We analyze markets and audit UX to build strategies that convert traffic into revenue.',
+    title: 'Websites That Sell',
+    desc: 'We analyze your market and design websites that turn visitors into paying customers.',
     tags: ['UX Audit', 'SEO', 'Analytics'],
     colSpan: 'md:col-span-1'
   },
   {
-    id: 'Brand & Product Design',
-    title: 'Premium Identity',
-    desc: 'We design comprehensive systems and high-fidelity prototypes that prioritize both stunning aesthetics and seamless usability.',
+    id: 'Brand Design',
+    title: 'Premium Look & Feel',
+    desc: 'We design beautiful and easy-to-use websites that make your brand look premium.',
     tags: ['Figma', 'Design Systems', 'Prototyping'],
     colSpan: 'md:col-span-2'
   }
@@ -72,13 +72,13 @@ export default function Services() {
 
             <h1 className="font-extrabold tracking-tighter leading-[0.9] text-[clamp(4rem,10vw,12rem)] uppercase w-full flex flex-col items-center text-white z-10 pointer-events-auto" style={{ letterSpacing: "-0.04em" }}>
               <span className="block overflow-hidden">
-                <span className="inline-block text-white drop-shadow-2xl select-text">Shaping</span>
+                <span className="inline-block text-white drop-shadow-2xl select-text">Building</span>
               </span>
               <span className="block overflow-hidden">
-                <span className="inline-block text-white/90 drop-shadow-2xl select-text">Digital</span>
+                <span className="inline-block text-white/90 drop-shadow-2xl select-text">Better</span>
               </span>
               <span className="block overflow-hidden">
-                <span className="inline-block text-white/80 drop-shadow-2xl select-text">Realities</span>
+                <span className="inline-block text-white/80 drop-shadow-2xl select-text">Websites</span>
               </span>
             </h1>
             
@@ -88,7 +88,7 @@ export default function Services() {
               transition={{ duration: 1, delay: 0.5 }}
               className="mt-12 w-11/12 md:w-full max-w-2xl text-center text-white/80 text-lg md:text-xl leading-relaxed font-light backdrop-blur-3xl bg-black/40 p-8 rounded-3xl border border-white/10 shadow-2xl relative pointer-events-auto select-text"
             >
-              We abandon standard templates. Our disciplines converge to create <strong className="text-white font-medium">custom digital architectures</strong> that pull audiences in and dominate their markets.
+              We don't use boring templates. We create <strong className="text-white font-medium">custom websites</strong> that attract customers and help you lead your market.
             </motion.div>
           </motion.div>
         </div>

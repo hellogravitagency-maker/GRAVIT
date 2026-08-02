@@ -1,6 +1,6 @@
 import React, { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
-import * as THREE from 'three';
+import { AdditiveBlending, ShaderMaterial } from 'three';
 import { useScrollStore } from '../../store/useScrollStore';
 const PARTICLE_COUNT = 1000;
 
@@ -94,7 +94,7 @@ void main() {
 `;
 
 export default function ParticleMorph() {
-  const shaderRef = useRef<THREE.ShaderMaterial>(null);
+  const shaderRef = useRef<ShaderMaterial>(null);
   const progress = useScrollStore((s) => s.progress);
 
   // Generate Particle Data
@@ -167,7 +167,7 @@ export default function ParticleMorph() {
         fragmentShader={fragmentShader}
         transparent
         depthWrite={false}
-        blending={THREE.AdditiveBlending}
+        blending={AdditiveBlending}
         uniforms={{
           uTime: { value: 0 },
           uProgress: { value: 0 },

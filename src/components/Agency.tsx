@@ -16,20 +16,20 @@ gsap.registerPlugin(ScrollTrigger);
 
 const dnaItems = [
   {
-    title: "Headless Architecture",
-    desc: "We strictly decouple the frontend presentation layer from backend business logic. By utilizing composable, API-first architectures, we ensure your digital infrastructure scales infinitely.",
+    title: "Modern Technology",
+    desc: "We use the latest tools to make sure your website is fast and can grow with your business.",
   },
   {
-    title: "Deterministic Performance",
-    desc: "Performance is a core aesthetic. We engineer for zero CLS and sub-millisecond TTFB. Our approach to asset optimization guarantees maximum conversion rates.",
+    title: "Top Performance",
+    desc: "Speed is our priority. We optimize every part of your website to ensure it loads instantly and keeps users happy.",
   },
   {
-    title: "Cinematic Interactions",
-    desc: "We leverage raw WebGL, custom GLSL shaders, and highly optimized GSAP animation timelines to orchestrate physics-driven micro-interactions.",
+    title: "Beautiful Animations",
+    desc: "We use advanced animation tools to create smooth, beautiful effects that delight your users.",
   },
   {
-    title: "Radical Transparency",
-    desc: "No account managers acting as gatekeepers. We integrate directly with your internal teams via shared GitHub repositories and continuous staging environments.",
+    title: "Full Transparency",
+    desc: "We work directly with your team, keeping everything open and clear at every step of the process.",
   }
 ];
 
@@ -109,7 +109,7 @@ export default function Agency() {
       <section className="relative w-full min-h-[60vh] flex items-center justify-start pt-32 pb-24 px-6 md:px-12 max-w-7xl mx-auto border-b border-white/10 overflow-hidden">
         <div className="relative z-10 flex flex-col items-start justify-center w-full h-full">
            <h1 className="text-[clamp(3rem,8vw,8rem)] leading-[0.9] font-bold tracking-tighter mb-6 text-white uppercase flex flex-col items-start justify-center">
-              <ScrambleText text="Radical" className="block" />
+              <ScrambleText text="Expert" className="block" />
               <ScrambleText text="Engineering." className="block" />
            </h1>
            <motion.h2 
@@ -118,7 +118,7 @@ export default function Agency() {
              transition={{ duration: 0.8 }}
              className="text-white/60 text-lg md:text-xl font-light tracking-wide max-w-2xl mt-4"
            >
-             We don't build generic templates. We construct high-performance digital infrastructure with brutal precision.
+             We don't build generic templates. We build fast, reliable websites with great attention to detail.
            </motion.h2>
         </div>
       </section>

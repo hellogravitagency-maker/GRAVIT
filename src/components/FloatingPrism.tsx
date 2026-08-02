@@ -1,10 +1,16 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useFrame } from '@react-three/fiber';
 import { Float, MeshTransmissionMaterial } from '@react-three/drei';
-import * as THREE from 'three';
+import { Mesh } from 'three';
 
 export default function FloatingPrism() {
-  const meshRef = useRef<THREE.Mesh>(null);
+  const meshRef = useRef<Mesh>(null);
+  const [init, setInit] = useState(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setInit(true), 100);
+    return () => clearTimeout(timer);
+  }, []);
 
   useFrame((state, delta) => {
     if (meshRef.current) {
@@ -12,6 +18,8 @@ export default function FloatingPrism() {
       meshRef.current.rotation.y += delta * 0.3;
     }
   });
+
+  if (!init) return null;
 
   return (
     <Float speed={2} rotationIntensity={1} floatIntensity={2}>
