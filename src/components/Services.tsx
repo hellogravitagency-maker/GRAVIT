@@ -112,7 +112,7 @@ export default function Services() {
       <section id="services" className="py-24 md:py-48 px-4 md:px-8 lg:px-16 max-w-[1600px] mx-auto relative z-10 bg-black">
         <div className="mb-16 text-center lg:text-left">
            <div className="h-[2px] w-12 bg-white mb-8 mx-auto lg:mx-0" />
-           <h3 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-6">Expertise that scales.</h3>
+           <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-6">Expertise that scales.</h2>
            <p className="text-white/50 text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0">
              Our disciplines converge to create digital platforms that dominate their respective markets.
            </p>
@@ -133,7 +133,7 @@ export default function Services() {
               <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4 group-hover:bg-white/10 transition-colors duration-700 pointer-events-none"></div>
 
               <div className="relative z-10 pointer-events-none">
-                <span className="font-mono text-xl font-bold text-white/20 group-hover:text-white transition-colors duration-500 mb-4 block">0{i + 1}</span>
+                <span className="font-mono text-xl font-bold text-white/60 group-hover:text-white transition-colors duration-500 mb-4 block">0{i + 1}</span>
                 <span className="text-white font-mono text-xs tracking-[0.2em] uppercase font-bold text-white/50 block mb-6">
                   {s.id}
                 </span>
@@ -190,7 +190,7 @@ export default function Services() {
             >
               <GlowingEffect spread={40} glow={true} proximity={64} inactiveZone={0.01} />
               <div className="relative z-10 pointer-events-none">
-                <div className="text-white/20 font-mono text-5xl font-bold mb-6 group-hover:text-white transition-colors duration-500">{step.phase}</div>
+                <div className="text-white/60 font-mono text-5xl font-bold mb-6 group-hover:text-white transition-colors duration-500">{step.phase}</div>
                 <h3 className="text-xl font-bold tracking-tight text-white mb-4">{step.title}</h3>
                 <p className="text-white/50 font-light leading-relaxed">{step.desc}</p>
               </div>

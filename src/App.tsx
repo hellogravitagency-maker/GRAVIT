@@ -115,10 +115,19 @@ export default function App() {
   const location = useLocation();
 
   useEffect(() => {
+    // Skip loader for returning users to improve LCP & UX
+    if (sessionStorage.getItem('hasSeenLoader')) {
+      setIsLoading(false);
+      return;
+    }
+
     // Cinematic fade-in loader
     const timer = setTimeout(() => {
       setLoadingText('GRAVIT_');
-      setTimeout(() => setIsLoading(false), 800);
+      setTimeout(() => {
+        setIsLoading(false);
+        sessionStorage.setItem('hasSeenLoader', 'true');
+      }, 800);
     }, 1500);
     return () => clearTimeout(timer);
   }, []);

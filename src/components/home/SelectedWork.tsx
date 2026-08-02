@@ -81,10 +81,10 @@ export default function SelectedWork() {
               {/* Content Area */}
               <div className="absolute inset-0 p-8 md:p-12 flex flex-col justify-between z-30 pointer-events-none">
                 <div className="flex justify-between items-start">
-                  <span className="text-xl md:text-2xl font-mono font-bold text-white/40 group-hover:text-[var(--color-accent)] transition-colors duration-500">
+                  <span className="text-xl md:text-2xl font-mono font-bold text-white/60 group-hover:text-[var(--color-accent)] transition-colors duration-500">
                     {p.index}
                   </span>
-                  <span className="text-white/40 opacity-0 group-hover:opacity-100 group-hover:text-white transition-all duration-500 transform group-hover:translate-x-0 -translate-x-4">
+                  <span className="text-white/60 opacity-0 group-hover:opacity-100 group-hover:text-white transition-all duration-500 transform group-hover:translate-x-0 -translate-x-4">
                     <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="square"><path d="M7 17l9.2-9.2M17 17V7H7"/></svg>
                   </span>
                 </div>

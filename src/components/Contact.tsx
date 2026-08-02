@@ -25,7 +25,7 @@ export default function Contact() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
               >
-                <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/40 block mb-8 flex items-center gap-4">
+                <span className="font-mono text-xs tracking-[0.2em] uppercase text-white/60 block mb-8 flex items-center gap-4">
                   <span className="w-8 h-[1px] bg-white/20"></span>
                   START A PROJECT
                 </span>
@@ -33,7 +33,7 @@ export default function Contact() {
                   Let's Build Something<br className="hidden md:block" /> Precise.
                 </h1>
                 <p className="text-base md:text-lg text-white/60 max-w-xl mt-6">
-                  Tell us about your institution. We reply within 24 hours.
+                  Tell us about your project. We reply within 24 hours.
                 </p>
               </motion.div>
               

@@ -209,7 +209,7 @@ export default function Home() {
             <p className="text-2xl md:text-5xl font-normal text-white leading-[1.2] tracking-tight">
               We reject the mundane. We engineer digital spaces that operate with absolute precision and leave an indelible mark on brand perception.
             </p>
-            <div className="mt-16 text-sm font-mono tracking-widest text-white/40 uppercase">
+            <div className="mt-16 text-sm font-mono tracking-widest text-white/60 uppercase">
               <p>METHODOLOGY: High-Performance Architecture</p>
               <p className="mt-2">AESTHETIC: Structural Minimalism</p>
             </div>
@@ -233,7 +233,7 @@ export default function Home() {
             { step: '04.', title: 'Deployment', desc: 'Final execution and global edge network distribution.' }
           ].map((p, i) => (
             <div key={p.step} className="grid grid-cols-1 md:grid-cols-12 gap-8 py-8 border-b border-white/10 group hover:bg-white/5 transition-all duration-500 hover:px-6 cursor-default -mx-6 px-6">
-              <div className="md:col-span-3 font-mono text-white/40 text-sm group-hover:text-[var(--color-accent)] transition-colors duration-500">{p.step}</div>
+              <div className="md:col-span-3 font-mono text-white/60 text-sm group-hover:text-[var(--color-accent)] transition-colors duration-500">{p.step}</div>
               <div className="md:col-span-4 text-white text-lg tracking-tight group-hover:translate-x-4 transition-transform duration-500">{p.title}</div>
               <div className="md:col-span-5 text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">{p.desc}</div>
             </div>
@@ -250,17 +250,17 @@ export default function Home() {
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
            <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 transition-all duration-500 cursor-default relative overflow-hidden">
-             <div className="font-mono text-xs text-white/40 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
+             <div className="font-mono text-xs text-white/60 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
              <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Precision Code</h2>
              <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">Clean architecture and robust systems built without generic frameworks.</p>
            </div>
            <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 transition-all duration-500 cursor-default relative overflow-hidden">
-             <div className="font-mono text-xs text-white/40 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
+             <div className="font-mono text-xs text-white/60 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
              <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Cinematic Contrast</h2>
              <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">Motion must be purposeful. We use stark contrasts over colorful noise.</p>
            </div>
            <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 transition-all duration-500 cursor-default relative overflow-hidden">
-             <div className="font-mono text-xs text-white/40 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
+             <div className="font-mono text-xs text-white/60 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
              <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Unapologetic</h2>
              <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">If you want to blend in with safe SaaS designs, we are not the agency for you.</p>
            </div>
@@ -277,7 +277,7 @@ export default function Home() {
         <div className="flex flex-col border-t border-white/10">
            {['Web Engineering', 'Creative Design', 'Motion Graphics'].map((service, i) => (
              <div key={service} className="grid grid-cols-1 md:grid-cols-12 gap-8 py-8 border-b border-white/10 group hover:bg-white/5 transition-all duration-500 hover:px-6 cursor-default -mx-6 px-6">
-               <div className="md:col-span-3 font-mono text-white/40 text-sm group-hover:text-[var(--color-accent)] transition-colors duration-500">0{i+1}.</div>
+               <div className="md:col-span-3 font-mono text-white/60 text-sm group-hover:text-[var(--color-accent)] transition-colors duration-500">0{i+1}.</div>
                <div className="md:col-span-9 text-2xl md:text-3xl font-normal tracking-tight text-white group-hover:translate-x-4 transition-transform duration-500">{service}</div>
              </div>
            ))}

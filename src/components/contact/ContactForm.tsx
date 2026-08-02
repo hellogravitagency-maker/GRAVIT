@@ -1,18 +1,20 @@
-import { useState } from 'react';
+import { useState, useRef, useEffect, useMemo } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
-import { AlertCircle, CheckCircle2 } from 'lucide-react';
+import { AlertCircle, CheckCircle2, Search, ChevronDown } from 'lucide-react';
 import { HoverBorderGradient } from '../ui/hover-border-gradient';
 import { motion, AnimatePresence } from 'motion/react';
+import { countries } from '../../lib/countries';
 
 const contactSchema = z.object({
   name: z.string().min(1, 'REQUIRED'),
   institution: z.string().min(1, 'REQUIRED'),
   role: z.string().min(1, 'REQUIRED'),
   email: z.string().min(1, 'REQUIRED').email('INVALID FORMAT'),
+  countryCode: z.string().min(1, 'REQUIRED'),
   phone: z.string().min(1, 'REQUIRED'),
   institutionType: z.string().min(1, 'REQUIRED'),
   needs: z.string().min(1, 'REQUIRED'),
@@ -35,15 +37,48 @@ export default function ContactForm() {
     register,
     handleSubmit,
     reset,
+    setValue,
+    watch,
     formState: { errors }
   } = useForm<ContactFormData>({
     resolver: zodResolver(contactSchema),
     defaultValues: {
       budget: '',
       source: '',
-      _hp: ''
+      _hp: '',
+      countryCode: '+91'
     }
   });
+
+  const [isCountryDropdownOpen, setIsCountryDropdownOpen] = useState(false);
+  const [countrySearch, setCountrySearch] = useState('');
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  const selectedCountryCode = watch('countryCode');
+  
+  const filteredCountries = useMemo(() => {
+    return countries.filter(c => {
+      const search = countrySearch.toLowerCase();
+      return (
+        c.name.toLowerCase().includes(search) || 
+        c.dial_code.includes(search) ||
+        c.code.toLowerCase().includes(search) ||
+        (search === 'usa' && c.code === 'US') ||
+        (search === 'uk' && c.code === 'GB') ||
+        (search === 'uae' && c.code === 'AE')
+      );
+    });
+  }, [countrySearch]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+        setIsCountryDropdownOpen(false);
+      }
+    };
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => document.removeEventListener('mousedown', handleClickOutside);
+  }, []);
 
   const onSubmit = async (data: ContactFormData) => {
     // Honeypot check
@@ -65,7 +100,7 @@ export default function ContactForm() {
             institution: data.institution,
             role: data.role,
             email: data.email,
-            phone: data.phone,
+            phone: `${data.countryCode} ${data.phone}`,
             institutionType: data.institutionType,
             needs: data.needs,
             budget: data.budget,
@@ -93,7 +128,7 @@ export default function ContactForm() {
             from_name: 'GRAVIT Agency Form',
             name: data.name,
             email: data.email,
-            phone: data.phone,
+            phone: `${data.countryCode} ${data.phone}`,
             institution: data.institution,
             role: data.role,
             institutionType: data.institutionType,
@@ -179,11 +214,11 @@ export default function ContactForm() {
         </div>
         
         <div>
-          <label htmlFor="institution" className={labelClasses}>Institution / Organization Name</label>
+          <label htmlFor="institution" className={labelClasses}>Company / Organization Name</label>
           <input 
             id="institution"
             type="text" 
-            placeholder="E.g. XYZ Academy"
+            placeholder="E.g. Acme Inc."
             className={inputClasses(!!errors.institution)} 
             {...register('institution')} 
           />
@@ -201,10 +236,10 @@ export default function ContactForm() {
               {...register('role')}
             >
               <option value="" disabled className="bg-[#0A0A0F]">Select...</option>
-              <option value="Principal" className="bg-[#0A0A0F]">Principal</option>
-              <option value="Correspondent" className="bg-[#0A0A0F]">Correspondent</option>
-              <option value="Trustee" className="bg-[#0A0A0F]">Trustee</option>
-              <option value="Admin Staff" className="bg-[#0A0A0F]">Admin Staff</option>
+              <option value="Founder / CEO" className="bg-[#0A0A0F]">Founder / CEO</option>
+              <option value="Director / Manager" className="bg-[#0A0A0F]">Director / Manager</option>
+              <option value="Marketing / Sales" className="bg-[#0A0A0F]">Marketing / Sales</option>
+              <option value="Freelancer / Consultant" className="bg-[#0A0A0F]">Freelancer / Consultant</option>
               <option value="Other" className="bg-[#0A0A0F]">Other</option>
             </select>
             <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -230,18 +265,78 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div>
           <label htmlFor="phone" className={labelClasses}>Phone / WhatsApp Number</label>
-          <input 
-            id="phone"
-            type="tel" 
-            placeholder="+91 000 000 0000"
-            className={inputClasses(!!errors.phone)} 
-            {...register('phone')} 
-          />
+          <div className="flex gap-4">
+            <div className="relative w-[120px] flex-shrink-0" ref={dropdownRef}>
+              <button
+                type="button"
+                onClick={() => setIsCountryDropdownOpen(!isCountryDropdownOpen)}
+                className={`${inputClasses(false)} flex items-center justify-between px-2`}
+              >
+                <span>{selectedCountryCode}</span>
+                <ChevronDown className="w-4 h-4 text-white/50" />
+              </button>
+              
+              <AnimatePresence>
+                {isCountryDropdownOpen && (
+                  <motion.div
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0, y: -10 }}
+                    className="absolute top-full left-0 mt-2 w-[280px] bg-[#0A0A0F] border border-white/10 shadow-2xl z-50 rounded-lg overflow-hidden flex flex-col"
+                  >
+                    <div className="p-2 border-b border-white/10 flex items-center gap-2">
+                      <Search className="w-4 h-4 text-white/40" />
+                      <input 
+                        type="text"
+                        placeholder="Search country..."
+                        className="bg-transparent border-none outline-none text-sm text-white w-full placeholder:text-white/30"
+                        value={countrySearch}
+                        onChange={(e) => setCountrySearch(e.target.value)}
+                        onClick={(e) => e.stopPropagation()}
+                      />
+                    </div>
+                    <div 
+                      className="max-h-[240px] overflow-y-auto overflow-x-hidden overscroll-contain touch-pan-y pointer-events-auto"
+                      data-lenis-prevent="true"
+                    >
+                      {filteredCountries.map(country => (
+                        <button
+                          key={`${country.code}-${country.dial_code}`}
+                          type="button"
+                          className="w-full text-left px-4 py-3 text-sm text-white/70 hover:text-white hover:bg-white/5 transition-colors flex items-center justify-between"
+                          onClick={() => {
+                            setValue('countryCode', country.dial_code, { shouldValidate: true });
+                            setIsCountryDropdownOpen(false);
+                            setCountrySearch('');
+                          }}
+                        >
+                          <span className="truncate pr-2">{country.name}</span>
+                          <span className="text-white/40 flex-shrink-0">{country.dial_code}</span>
+                        </button>
+                      ))}
+                      {filteredCountries.length === 0 && (
+                        <div className="px-4 py-3 text-sm text-white/40 text-center">
+                          No countries found
+                        </div>
+                      )}
+                    </div>
+                  </motion.div>
+                )}
+              </AnimatePresence>
+            </div>
+            <input 
+              id="phone"
+              type="tel" 
+              placeholder="000 000 0000"
+              className={`${inputClasses(!!errors.phone)} flex-1`} 
+              {...register('phone')} 
+            />
+          </div>
           {errorLabel(errors.phone?.message)}
         </div>
 
         <div>
-          <label htmlFor="institutionType" className={labelClasses}>Institution Type</label>
+          <label htmlFor="institutionType" className={labelClasses}>Industry / Sector</label>
           <div className="relative">
             <select 
               id="institutionType"
@@ -249,9 +344,11 @@ export default function ContactForm() {
               {...register('institutionType')}
             >
               <option value="" disabled className="bg-[#0A0A0F]">Select...</option>
-              <option value="School" className="bg-[#0A0A0F]">School</option>
-              <option value="Junior College" className="bg-[#0A0A0F]">Junior College</option>
-              <option value="Degree College" className="bg-[#0A0A0F]">Degree College</option>
+              <option value="Technology / Software" className="bg-[#0A0A0F]">Technology / Software</option>
+              <option value="E-Commerce / Retail" className="bg-[#0A0A0F]">E-Commerce / Retail</option>
+              <option value="Education / Institution" className="bg-[#0A0A0F]">Education / Institution</option>
+              <option value="Healthcare / Wellness" className="bg-[#0A0A0F]">Healthcare / Wellness</option>
+              <option value="Finance / Consulting" className="bg-[#0A0A0F]">Finance / Consulting</option>
               <option value="Other" className="bg-[#0A0A0F]">Other</option>
             </select>
             <div className="absolute right-0 top-1/2 -translate-y-1/2 pointer-events-none">
@@ -370,11 +467,17 @@ export default function ContactForm() {
           as="button"
           type="submit"
           disabled={isSubmitting}
-          containerClassName="w-full md:w-auto"
-          className="px-8 py-4 text-sm uppercase tracking-widest font-mono text-white bg-[#050505] disabled:opacity-50"
+          containerClassName="w-full md:w-auto relative"
+          className="px-8 py-4 text-sm uppercase tracking-widest font-mono text-white bg-[#050505] disabled:opacity-50 disabled:cursor-not-allowed transition-all"
         >
           {isSubmitting ? (
-            <span className="animate-pulse">Sending...</span>
+            <span className="flex items-center justify-center gap-3">
+              <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+              </svg>
+              <span>INITIATING...</span>
+            </span>
           ) : (
             <span>Initiate Contact</span>
           )}

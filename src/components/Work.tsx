@@ -165,7 +165,7 @@ export default function Work() {
           </ScrollReveal>
         </div>
         
-        <div className="absolute bottom-12 flex flex-col items-center gap-4 text-white/30 text-xs tracking-[0.2em] uppercase animate-pulse">
+        <div className="absolute bottom-12 flex flex-col items-center gap-4 text-white/60 text-xs tracking-[0.2em] uppercase animate-pulse">
           <div className="w-[1px] h-12 bg-gradient-to-b from-transparent to-white/50"></div>
           Scroll to explore
         </div>
@@ -228,7 +228,7 @@ export default function Work() {
       {/* Archive Grid (Flowing Menu) */}
       <section className="py-32 w-full z-10 relative border-t border-b border-white/5 bg-[#0a0a0a]">
          <div className="px-6 max-w-[1200px] mx-auto w-full mb-16">
-           <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-white/40 pb-6 border-b border-white/10">Project Archive</h3>
+           <h3 className="text-xs font-bold tracking-[0.2em] uppercase text-white/60 pb-6 border-b border-white/10">Project Archive</h3>
          </div>
          <div style={{ height: '600px', position: 'relative' }}>
            <FlowingMenu 
@@ -276,7 +276,7 @@ export default function Work() {
                 <span className="font-mono text-[10px] md:text-xs text-white/50 tracking-[0.2em] uppercase transition-colors duration-500 group-hover:text-[var(--color-accent)]">
                   {article.category}
                 </span>
-                <span className="font-mono text-[10px] md:text-xs text-white/40 uppercase tracking-[0.1em] transition-colors duration-500 bg-white/5 px-4 py-2 rounded-full border border-white/10 group-hover:border-white/30 group-hover:text-white">
+                <span className="font-mono text-[10px] md:text-xs text-white/60 uppercase tracking-[0.1em] transition-colors duration-500 bg-white/5 px-4 py-2 rounded-full border border-white/10 group-hover:border-white/30 group-hover:text-white">
                   {article.date}
                 </span>
               </div>

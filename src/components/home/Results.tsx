@@ -66,7 +66,7 @@ export default function Results() {
         <div>
           <span className="text-[10px] font-mono tracking-[0.2em] text-[#ff6a00] uppercase block mb-6">[07. RESULTS]</span>
           <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white font-heading">
-            Metrics that <span className="text-white/40">matter.</span>
+            Metrics that <span className="text-white/60">matter.</span>
           </h2>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function Results() {
             />
             
             <div className="absolute inset-0 p-10 flex flex-col justify-between z-10 pointer-events-none">
-              <div className="text-white/40 text-xs font-mono uppercase tracking-widest group-hover:text-white transition-colors duration-500">
+              <div className="text-white/60 text-xs font-mono uppercase tracking-widest group-hover:text-white transition-colors duration-500">
                 {String(idx + 1).padStart(2, '0')} // {card.title}
               </div>
               

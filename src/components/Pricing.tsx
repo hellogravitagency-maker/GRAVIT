@@ -117,7 +117,7 @@ const PricingCard = ({ tier, index }: { tier: any, index: number }) => {
               </p>
             </div>
             <div className="flex flex-col gap-1 mt-2">
-              <span className="text-white/40 text-[10px] font-mono uppercase tracking-widest">Starting at</span>
+              <span className="text-white/60 text-[10px] font-mono uppercase tracking-widest">Starting at</span>
               <div className="flex items-baseline gap-2">
                 <span className={cn(
                   "font-bold tracking-tighter text-white",
@@ -125,7 +125,7 @@ const PricingCard = ({ tier, index }: { tier: any, index: number }) => {
                 )}>
                   {tier.price}
                 </span>
-                <span className="text-white/40 text-xl font-light tracking-tighter">+</span>
+                <span className="text-white/60 text-xl font-light tracking-tighter">+</span>
               </div>
             </div>
           </div>
@@ -133,7 +133,7 @@ const PricingCard = ({ tier, index }: { tier: any, index: number }) => {
           <div className="flex-1 flex flex-col gap-3 mb-10">
             {tier.features.map((feature: string, idx: number) => (
               <div key={idx} className="flex items-start gap-3 text-white/80">
-                <svg className={cn("w-4 h-4 mt-0.5 shrink-0", tier.isPrimary ? "text-white" : "text-white/40")} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg className={cn("w-4 h-4 mt-0.5 shrink-0", tier.isPrimary ? "text-white" : "text-white/60")} fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                 </svg>
                 <span className="text-xs md:text-sm font-light leading-relaxed">{feature}</span>
@@ -275,7 +275,7 @@ export default function Pricing() {
                 <span className="text-4xl lg:text-5xl font-extrabold tracking-tighter text-white">
                   {billingCycle === 'amc' ? plan.priceAMC : plan.priceMMC}
                 </span>
-                <span className="text-white/40 text-sm font-mono tracking-widest uppercase">
+                <span className="text-white/60 text-sm font-mono tracking-widest uppercase">
                   / {billingCycle === 'amc' ? 'year' : 'mo'}
                 </span>
               </div>
@@ -296,11 +296,11 @@ export default function Pricing() {
           </div>
           <div className="flex flex-wrap gap-4">
             <div className="bg-black/50 px-6 py-4 rounded-2xl border border-white/5">
-              <span className="block text-white/40 text-[10px] uppercase tracking-widest mb-1">Hourly Rate</span>
+              <span className="block text-white/60 text-[10px] uppercase tracking-widest mb-1">Hourly Rate</span>
               <span className="text-white font-mono font-medium">₹1,000 – ₹1,500</span>
             </div>
             <div className="bg-black/50 px-6 py-4 rounded-2xl border border-white/5">
-              <span className="block text-white/40 text-[10px] uppercase tracking-widest mb-1">Day Rate (Large Chunks)</span>
+              <span className="block text-white/60 text-[10px] uppercase tracking-widest mb-1">Day Rate (Large Chunks)</span>
               <span className="text-white font-mono font-medium">₹6,000 – ₹8,000</span>
             </div>
           </div>
@@ -335,7 +335,7 @@ export default function Pricing() {
               <li className="pt-8 mt-4 border-t border-white/10 text-sm leading-relaxed text-white/50">
                 Advance payments reserve project time and are non-refundable once work has started.
               </li>
-              <li className="text-xs text-white/30 leading-relaxed">
+              <li className="text-xs text-white/60 leading-relaxed">
                 GRAVIT is an unregistered sole proprietorship operating under the GST registration threshold; invoices are standard non-GST invoices.
               </li>
             </ul>
@@ -354,22 +354,22 @@ export default function Pricing() {
             <div className="space-y-6 text-white/80 font-light">
               <div className="flex justify-between items-center group">
                 <span className="font-medium text-lg">Domain (.in/.com)</span>
-                <span className="font-mono text-white/40 group-hover:text-[#ffffff] transition-colors">₹700 – ₹1,500 / yr</span>
+                <span className="font-mono text-white/60 group-hover:text-[#ffffff] transition-colors">₹700 – ₹1,500 / yr</span>
               </div>
               <div className="w-full h-[1px] bg-white/5"></div>
               <div className="flex justify-between items-center group">
                 <span className="font-medium text-lg">Hosting (Shared/Business)</span>
-                <span className="font-mono text-white/40 group-hover:text-[#ffffff] transition-colors">₹4,000 – ₹10,000 / yr</span>
+                <span className="font-mono text-white/60 group-hover:text-[#ffffff] transition-colors">₹4,000 – ₹10,000 / yr</span>
               </div>
               <div className="w-full h-[1px] bg-white/5"></div>
               <div className="flex justify-between items-center group">
                 <span className="font-medium text-lg">SSL Certificate</span>
-                <span className="font-mono text-white/40 group-hover:text-[#ffffff] transition-colors">Free – ₹3,000 / yr</span>
+                <span className="font-mono text-white/60 group-hover:text-[#ffffff] transition-colors">Free – ₹3,000 / yr</span>
               </div>
               <div className="w-full h-[1px] bg-white/5"></div>
               <div className="flex justify-between items-center group">
                 <span className="font-medium text-lg">Payment Gateway</span>
-                <span className="font-mono text-white/40 group-hover:text-[#ffffff] transition-colors">~2% per txn</span>
+                <span className="font-mono text-white/60 group-hover:text-[#ffffff] transition-colors">~2% per txn</span>
               </div>
             </div>
           </motion.div>

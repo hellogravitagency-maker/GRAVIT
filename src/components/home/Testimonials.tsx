@@ -78,7 +78,7 @@ export default function Testimonials() {
                 />
                 <div className="flex flex-col">
                   <span className="text-white font-bold tracking-wide text-sm">{testimonial.name}</span>
-                  <span className="text-white/40 text-xs font-mono tracking-widest uppercase">{testimonial.role}</span>
+                  <span className="text-white/60 text-xs font-mono tracking-widest uppercase">{testimonial.role}</span>
                 </div>
               </div>
             </div>

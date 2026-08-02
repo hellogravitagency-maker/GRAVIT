@@ -92,7 +92,7 @@ export default function TrustedBy() {
               key={name} 
               className="trusted-item border-t border-white/10 py-6 group hover:border-[#ff6a00]/50 transition-colors duration-500 cursor-default flex justify-between items-center"
             >
-              <span className="font-mono text-sm md:text-base tracking-widest text-white/40 uppercase group-hover:text-white transition-colors duration-500">
+              <span className="font-mono text-sm md:text-base tracking-widest text-white/60 uppercase group-hover:text-white transition-colors duration-500">
                 {name}
               </span>
               <span className="opacity-0 group-hover:opacity-100 transform translate-x-4 group-hover:translate-x-0 transition-all duration-500 text-[#ff6a00]">

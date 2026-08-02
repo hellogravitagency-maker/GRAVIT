@@ -10,7 +10,7 @@ export default function Footer() {
           <div>
             <h2 className="text-4xl md:text-6xl font-bold tracking-tighter leading-[1.1] mb-6 font-heading">
               Got a project? <br />
-              <span className="text-white/40">Let's build the future.</span>
+              <span className="text-white/60">Let's build the future.</span>
             </h2>
             <Link to="/contact" className="inline-flex items-center gap-3 bg-white text-black px-8 py-4 rounded-full font-bold uppercase tracking-widest text-xs hover:scale-105 transition-transform shadow-[0_0_30px_-5px_rgba(255,255,255,0.3)]">
               Initiate Sequence
@@ -22,11 +22,11 @@ export default function Footer() {
           
           <div className="flex flex-col gap-8 md:text-right">
             <div>
-              <span className="text-white/30 text-[10px] uppercase tracking-widest block mb-2 font-mono">Location</span>
+              <span className="text-white/60 text-[10px] uppercase tracking-widest block mb-2 font-mono">Location</span>
               <p className="text-lg text-white/80 font-body">Kurnool, AP [IN]<br />Remote Global</p>
             </div>
             <div>
-              <span className="text-white/30 text-[10px] uppercase tracking-widest block mb-2 font-mono">Direct Line</span>
+              <span className="text-white/60 text-[10px] uppercase tracking-widest block mb-2 font-mono">Direct Line</span>
               <a href="mailto:hellogravit.agency@gmail.com" className="text-lg text-white/80 hover:text-white transition-colors relative group inline-block font-body">
                 hellogravit.agency@gmail.com
                 <span className="absolute bottom-0 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-right md:origin-right"></span>
@@ -38,14 +38,14 @@ export default function Footer() {
         {/* Links Grid */}
         <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-16 border-t border-white/10 pt-16">
           <div className="col-span-2 md:col-span-2 pr-8">
-            <h4 className="text-white/30 text-[10px] uppercase tracking-widest mb-6 font-mono">Mission</h4>
+            <h3 className="text-white/60 text-[10px] uppercase tracking-widest mb-6 font-mono">Mission</h3>
             <p className="text-white/50 text-sm leading-relaxed max-w-sm font-body">
               We are a digital engineering studio focused on building premium web experiences, interactive 3D environments, and robust scalable applications.
             </p>
           </div>
           
           <div>
-            <h4 className="text-white/30 text-[10px] uppercase tracking-widest mb-6 font-mono">Navigation</h4>
+            <h3 className="text-white/60 text-[10px] uppercase tracking-widest mb-6 font-mono">Navigation</h3>
             <ul className="space-y-4 text-sm font-medium font-body">
               <li><Link to="/" className="text-white/70 hover:text-white transition-colors relative group inline-block">Home<span className="absolute bottom-0 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span></Link></li>
               <li><Link to="/agency" className="text-white/70 hover:text-white transition-colors relative group inline-block">Agency<span className="absolute bottom-0 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span></Link></li>
@@ -55,7 +55,7 @@ export default function Footer() {
           </div>
           
           <div>
-            <h4 className="text-white/30 text-[10px] uppercase tracking-widest mb-6 font-mono">Socials</h4>
+            <h3 className="text-white/60 text-[10px] uppercase tracking-widest mb-6 font-mono">Socials</h3>
             <ul className="space-y-4 text-sm font-medium font-body">
               <li>
                 <a href="https://x.com/gravit_agency" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors group inline-flex items-center gap-2">
@@ -85,7 +85,7 @@ export default function Footer() {
           </div>
 
           <div>
-            <h4 className="text-white/30 text-[10px] uppercase tracking-widest mb-6 font-mono">Support</h4>
+            <h3 className="text-white/60 text-[10px] uppercase tracking-widest mb-6 font-mono">Support</h3>
             <ul className="space-y-4 text-sm font-medium font-body">
               <li><Link to="/pricing" className="text-white/70 hover:text-white transition-colors relative group inline-block">Pricing<span className="absolute bottom-0 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span></Link></li>
               <li><Link to="/privacy" className="text-white/70 hover:text-white transition-colors relative group inline-block">Privacy Policy<span className="absolute bottom-0 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span></Link></li>
@@ -101,7 +101,7 @@ export default function Footer() {
         </div>
 
         {/* Bottom Bar */}
-        <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/10 pt-8 text-white/30 text-[10px] uppercase tracking-widest font-mono">
+        <div className="flex flex-col md:flex-row justify-between items-center gap-4 border-t border-white/10 pt-8 text-white/60 text-[10px] uppercase tracking-widest font-mono">
           <div>&copy; {new Date().getFullYear()} GRAVIT STUDIO. ALL SYSTEMS NOMINAL.</div>
           <div className="flex gap-6">
             <span className="hover:text-white transition-colors cursor-default">Designed for the Future</span>

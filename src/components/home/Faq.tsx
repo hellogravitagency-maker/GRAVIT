@@ -74,7 +74,7 @@ export default function Faq() {
               className="w-full py-8 flex items-center justify-between text-left cursor-pointer outline-none"
             >
               <div className="flex items-center gap-6">
-                <span className="font-mono text-xs text-white/40 group-hover:text-[#ff6a00] transition-colors duration-300">
+                <span className="font-mono text-xs text-white/60 group-hover:text-[#ff6a00] transition-colors duration-300">
                   {(index + 1).toString().padStart(2, '0')}
                 </span>
                 <span className="text-lg md:text-xl font-medium tracking-tight text-white group-hover:text-white/80 transition-colors duration-300">
@@ -83,7 +83,7 @@ export default function Faq() {
               </div>
               <div className="flex-shrink-0 ml-4">
                 <div 
-                  className={`text-2xl font-mono text-white/40 group-hover:text-[#ff6a00] transition-all duration-400 ease-[0.16,1,0.3,1] flex items-center justify-center w-8 h-8 ${openIndex === index ? 'rotate-45 !text-white' : ''}`}
+                  className={`text-2xl font-mono text-white/60 group-hover:text-[#ff6a00] transition-all duration-400 ease-[0.16,1,0.3,1] flex items-center justify-center w-8 h-8 ${openIndex === index ? 'rotate-45 !text-white' : ''}`}
                 >
                   +
                 </div>
