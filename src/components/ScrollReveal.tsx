@@ -6,6 +6,19 @@ import './ScrollReveal.css';
 
 gsap.registerPlugin(ScrollTrigger);
 
+interface ScrollRevealProps {
+  children?: React.ReactNode;
+  scrollContainerRef?: React.RefObject<HTMLElement | null>;
+  enableBlur?: boolean;
+  baseOpacity?: number;
+  baseRotation?: number;
+  blurStrength?: number;
+  containerClassName?: string;
+  textClassName?: string;
+  rotationEnd?: string;
+  wordAnimationEnd?: string;
+}
+
 const ScrollReveal = ({
   children,
   scrollContainerRef,
@@ -17,7 +30,7 @@ const ScrollReveal = ({
   textClassName = '',
   rotationEnd = 'bottom bottom',
   wordAnimationEnd = 'bottom bottom'
-}) => {
+}: ScrollRevealProps) => {
   const containerRef = useRef(null);
 
   const splitText = useMemo(() => {

@@ -113,7 +113,6 @@ export default function ContactForm() {
         console.error('Supabase Error:', error);
         // Continue even if Supabase fails to attempt sending the email
       }
-      // @ts-expect-error - Vite env
       const web3FormsKey = import.meta.env.VITE_WEB3FORMS_ACCESS_KEY;
       if (web3FormsKey) {
         await fetch('https://api.web3forms.com/submit', {

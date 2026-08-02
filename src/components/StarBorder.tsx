@@ -20,7 +20,7 @@ const StarBorder = ({
   children,
   ...rest
 }: StarBorderProps) => {
-  const C = Component as React.ElementType<any>;
+  const C = Component as any;
   return (
     <C
       className={`star-border-container ${className}`}

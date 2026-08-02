@@ -181,12 +181,12 @@ export default function Home() {
             transition={{ duration: 0.8, delay: 1, ease: "easeOut" }}
             className="flex flex-col sm:flex-row gap-6 pointer-events-auto"
           >
-            <Magnetic intensity={0.2} actionArea="global" range={100}>
+            <Magnetic>
               <HoverBorderGradient as={Link} to="/contact" containerClassName="w-full sm:w-auto" className="px-8 py-4 bg-white text-black text-center font-mono text-xs uppercase tracking-widest block w-full">
                 <span>Start Project</span>
               </HoverBorderGradient>
             </Magnetic>
-            <Magnetic intensity={0.2} actionArea="global" range={100}>
+            <Magnetic>
               <HoverBorderGradient as={Link} to="/work" containerClassName="w-full sm:w-auto" className="px-8 py-4 bg-[#050505] text-white text-center font-mono text-xs uppercase tracking-widest block w-full">
                 <span>View Work</span>
               </HoverBorderGradient>
