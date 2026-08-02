@@ -80,6 +80,8 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
       if (!marqueeContent) return;
 
       const contentWidth = marqueeContent.offsetWidth;
+      if (contentWidth === 0) return; // Prevent Infinity repetitions
+
       const viewportWidth = window.innerWidth;
 
       const needed = Math.ceil(viewportWidth / contentWidth) + 2;
@@ -109,7 +111,8 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
         x: -contentWidth,
         duration: speed,
         ease: 'none',
-        repeat: -1
+        repeat: -1,
+        force3D: true
       });
     };
 
@@ -131,7 +134,7 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
     const edge = findClosestEdge(x, y, rect.width, rect.height);
 
     gsap
-      .timeline({ defaults: animationDefaults })
+      .timeline({ defaults: { ...animationDefaults, force3D: true } })
       .set(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }, 0)
       .set(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0)
       .to([marqueeRef.current, marqueeInnerRef.current], { y: '0%' }, 0);
@@ -145,7 +148,7 @@ function MenuItem({ link, text, image, speed, textColor, marqueeBgColor, marquee
     const edge = findClosestEdge(x, y, rect.width, rect.height);
 
     gsap
-      .timeline({ defaults: animationDefaults })
+      .timeline({ defaults: { ...animationDefaults, force3D: true } })
       .to(marqueeRef.current, { y: edge === 'top' ? '-101%' : '101%' }, 0)
       .to(marqueeInnerRef.current, { y: edge === 'top' ? '101%' : '-101%' }, 0);
   };

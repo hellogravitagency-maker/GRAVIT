@@ -1,4 +1,4 @@
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useState, useEffect } from 'react';
 import { Canvas, useFrame, useThree } from '@react-three/fiber';
 import { Environment, Float, Preload, AdaptiveDpr, AdaptiveEvents } from '@react-three/drei';
 import { EffectComposer, Bloom, Vignette, SMAA, Noise, ChromaticAberration } from '@react-three/postprocessing';
@@ -53,13 +53,22 @@ function CameraRig() {
 // FloatingShapes removed in favor of ParticleMorph
 
 export default function Scene3D() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <div className="fixed inset-0 z-0 pointer-events-none bg-[#000000]">
       <div className="absolute inset-0 z-0">
         <Galaxy 
-          mouseRepulsion={true}
-          mouseInteraction={true}
-          density={0.2}
+          mouseRepulsion={!isMobile}
+          mouseInteraction={!isMobile}
+          density={isMobile ? 0.05 : 0.2}
           twinkleIntensity={0}
           repulsionStrength={0.6}
           starSpeed={0.4}
@@ -72,40 +81,43 @@ export default function Scene3D() {
           transparent={false}
         />
       </div>
-      <Canvas
-        className="absolute inset-0 z-10"
-        camera={{ fov: 45, near: 0.1, far: 200, position: [0, 0, 6] }}
-        gl={{
-          antialias: false,
-          toneMapping: THREE.ACESFilmicToneMapping,
-          toneMappingExposure: 1.2,
-          outputColorSpace: THREE.SRGBColorSpace,
-          powerPreference: 'high-performance',
-          alpha: true
-        }}
-        dpr={[1, 1.5]}
-      >
-        <AdaptiveDpr pixelated />
-        <AdaptiveEvents />
+      
+      {!isMobile && (
+        <Canvas
+          className="absolute inset-0 z-10"
+          camera={{ fov: 45, near: 0.1, far: 200, position: [0, 0, 6] }}
+          gl={{
+            antialias: false,
+            toneMapping: THREE.ACESFilmicToneMapping,
+            toneMappingExposure: 1.2,
+            outputColorSpace: THREE.SRGBColorSpace,
+            powerPreference: 'high-performance',
+            alpha: true
+          }}
+          dpr={[1, 1.5]}
+        >
+          <AdaptiveDpr pixelated />
+          <AdaptiveEvents />
 
-        <ambientLight intensity={0.5} />
-        <directionalLight position={[10, 10, 5]} intensity={1.5} />
+          <ambientLight intensity={0.5} />
+          <directionalLight position={[10, 10, 5]} intensity={1.5} />
 
-        <ParticleMorph />
-        <CameraRig />
+          <ParticleMorph />
+          <CameraRig />
 
-        <EffectComposer multisampling={0}>
-          <Bloom
-            luminanceThreshold={0.8}
-            luminanceSmoothing={0.9}
-            intensity={1.0}
-            mipmapBlur
-          />
-          <Vignette eskil={false} offset={0.1} darkness={1.1} />
-        </EffectComposer>
+          <EffectComposer multisampling={0}>
+            <Bloom
+              luminanceThreshold={0.8}
+              luminanceSmoothing={0.9}
+              intensity={1.0}
+              mipmapBlur
+            />
+            <Vignette eskil={false} offset={0.1} darkness={1.1} />
+          </EffectComposer>
 
-        <Preload all />
-      </Canvas>
+          <Preload all />
+        </Canvas>
+      )}
     </div>
   );
 }

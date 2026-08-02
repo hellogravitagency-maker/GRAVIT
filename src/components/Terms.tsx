@@ -2,104 +2,90 @@ import LegalPage from './ui/LegalPage';
 
 export default function Terms() {
   return (
-    <LegalPage title="Terms & Conditions" lastUpdated="30 July 2026">
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">1. Scope of Work</h2>
-        <p>
-          Defined per the signed proposal/quote for each project. Anything outside that scope (extra pages, new features, additional integrations) requires a written change order and may affect price and timeline.
+    <LegalPage title="Terms of Service" lastUpdated="January 10, 2026">
+      <div className="max-w-3xl">
+        <p className="mb-16 text-xl text-white/90">
+          These Terms of Service ("Terms") govern your use of gravit.agency (the "Website"), operated by GRAVIT ("GRAVIT", "we", "us"). By using the Website, you agree to these Terms.
         </p>
-      </section>
 
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">2. Payment Terms</h2>
-        <p>
-          Per the schedule on our Pricing page for the relevant tier. Milestone invoices are due within 5 working days unless otherwise agreed in writing. Work pauses if a payment is more than 7 days overdue.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">3. Revisions</h2>
-        <p>
-          Each tier includes a fixed number of revision rounds (see Pricing). A "round" is one consolidated set of feedback delivered together. A request for a new direction after a design has already been approved is treated as new scope, not a revision.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">4. Timeline</h2>
-        <p>
-          Project timelines assume the client supplies content (text, images, logos, approvals) within the agreed windows. Delays caused by late client content or feedback shift the delivery date accordingly and are not GRAVIT's responsibility.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">5. Intellectual Property & Ownership</h2>
-        <p>
-          Full ownership of the final custom design and code transfers to the client only once final payment is received in full. Until then, GRAVIT retains ownership. GRAVIT retains ownership of its own pre-existing frameworks, internal tools, design systems, and reusable components used to build the site — the client receives the right to use these as part of their delivered site, not the underlying framework itself. Licensed third-party assets (stock photography, premium fonts, plugins) remain subject to their own licenses.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">6. Portfolio Rights</h2>
-        <p>
-          GRAVIT may display completed work (screenshots, case studies, links) in its own portfolio, website, and social media, unless the client requests otherwise in writing (e.g. for confidential or NDA-covered projects).
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">7. Third-Party Costs</h2>
-        <p>
-          Domain registration, hosting, premium plugins, and other third-party services are billed at cost and are non-refundable once purchased. Renewal is the client's responsibility unless a maintenance plan is in place.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">8. Client Content Warranty</h2>
-        <p>
-          The client confirms they own or hold the rights to any text, images, logos, or other material they provide, and agrees to hold GRAVIT harmless from any third-party copyright claim arising from that material.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">9. Confidentiality</h2>
-        <p>
-          Both parties agree to keep project details, credentials, and business information confidential during and after the engagement.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">10. Limitation of Liability</h2>
-        <p>
-          GRAVIT's liability for any claim relating to a project is limited to the total amount paid for that project. GRAVIT is not liable for indirect or consequential losses (e.g. lost business, lost data) arising from use of the delivered site.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">11. Termination</h2>
-        <p>
-          Either party may terminate a project in writing. The client remains liable for all work completed and any costs already incurred up to the termination date.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">12. Force Majeure</h2>
-        <p>
-          Neither party is liable for delays caused by events outside their reasonable control.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">13. Governing Law</h2>
-        <p>
-          These terms are governed by the laws of India, with courts in Kurnool, Andhra Pradesh having exclusive jurisdiction.
-        </p>
-      </section>
-
-      <section>
-        <h2 className="text-2xl font-bold text-white mb-4 font-heading">14. Changes to These Terms</h2>
-        <p>
-          GRAVIT may update these terms from time to time. Continued engagement after an update constitutes acceptance of the revised terms.
-        </p>
-      </section>
+        <div className="grid grid-cols-1 gap-0 border-t border-white/20">
+          {[
+            {
+              id: '01',
+              title: 'About GRAVIT',
+              content: `GRAVIT is a digital design and web development agency based in Kurnool, Andhra Pradesh, offering website design, development, brand identity, and digital strategy services.`,
+            },
+            {
+              id: '02',
+              title: 'Use of This Website',
+              content: `You may browse this Website and use its contact/enquiry forms for legitimate business purposes.
+You may not scrape, copy, republish Website content, attempt to disrupt the Website, or upload any malicious code or illegal material through our forms.`,
+            },
+            {
+              id: '03',
+              title: 'Intellectual Property',
+              content: `All text, graphics, logos, and design on this Website belong to GRAVIT, unless otherwise credited, and may not be reproduced without written permission. Portfolio projects shown on this Website remain the property of their respective clients where applicable and are displayed with permission, per each client\'s Portfolio Release Consent.`,
+            },
+            {
+              id: '04',
+              title: 'Engaging Our Services',
+              content: `This Website provides general information about GRAVIT. Any actual project—its scope, price, timeline, and terms—is governed exclusively by the Master Service Agreement and Statement of Work (SOW) signed between GRAVIT and the client for that specific engagement. In case of conflict, the signed Service Agreement takes precedence over these Website Terms.`,
+            },
+            {
+              id: '05',
+              title: 'Testimonials & Case Studies',
+              content: `Client testimonials and case studies shown on this Website reflect individual client experiences and are shared with the relevant client\'s consent. They do not constitute a guarantee, warranty, or prediction regarding the outcome of your specific project.`,
+            },
+            {
+              id: '06',
+              title: 'Limitation of Liability',
+              content: `To the maximum extent permitted by applicable law, GRAVIT shall not be liable for any indirect, incidental, special, or consequential damages arising from your use of this Website. Furthermore, GRAVIT\'s total aggregate liability for any direct damages arising out of or related to your use of this Website shall not exceed ₹1,000 INR. This clause does not apply to liabilities arising under a signed client Service Agreement, which is governed by its own terms.`,
+            },
+            {
+              id: '07',
+              title: 'Indemnification',
+              content: `You agree to indemnify, defend, and hold harmless GRAVIT from any claims, damages, or legal expenses arising out of your misuse of the Website or your violation of these Terms.`,
+            },
+            {
+              id: '08',
+              title: 'Third-Party Links',
+              content: `This Website may link to third-party sites (e.g., social media, partner tools). We are not responsible for the content, security, or privacy practices of those external sites.`,
+            },
+            {
+              id: '09',
+              title: 'Governing Law & Jurisdiction',
+              content: `These Terms are governed by the laws of India, and any dispute shall be subject to the exclusive jurisdiction of the courts at Kurnool, Andhra Pradesh.`,
+            },
+            {
+              id: '10',
+              title: 'Changes to These Terms',
+              content: `We may update these Terms from time to time. The "Last updated" date above reflects the most recent revision.`,
+            },
+            {
+              id: '11',
+              title: 'Contact Us',
+              content: `Questions about these Terms can be sent to hellogravit.agency@gmail.com or via the contact form on gravit.agency.`,
+            },
+          ].map((section) => (
+            <section 
+              key={section.id} 
+              className="py-12 border-b border-white/20 grid grid-cols-1 md:grid-cols-12 gap-8 items-start group hover:bg-white/5 transition-colors -mx-6 px-6"
+            >
+              <div className="md:col-span-3 flex flex-col gap-2">
+                <span className="font-mono text-xs uppercase tracking-[0.2em] text-white/40 group-hover:text-white transition-colors">{section.id}</span>
+                <h2 className="text-xl md:text-2xl font-normal tracking-tight text-white font-heading">{section.title}</h2>
+              </div>
+              <div className="md:col-span-9">
+                {section.content.split('\n').map((para, i) => (
+                  <p key={i} className="text-white/70 font-body text-base md:text-lg leading-relaxed group-hover:text-white/90 transition-colors mb-4 last:mb-0">
+                    {para}
+                  </p>
+                ))}
+              </div>
+            </section>
+          ))}
+        </div>
+      </div>
     </LegalPage>
   );
 }

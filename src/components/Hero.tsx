@@ -1,8 +1,6 @@
 import { motion } from 'motion/react';
 import { Canvas } from '@react-three/fiber';
 import { Link } from 'react-router-dom';
-import TextType from './TextType';
-import RotatingText from './RotatingText';
 import FloatingPrism from './FloatingPrism';
 
 export default function Hero() {
@@ -46,27 +44,8 @@ export default function Hero() {
           transition={{ ...spring, delay: 0.2 }}
           className="w-full flex flex-col items-center"
         >
-          <div className="text-[clamp(36px,8vw,96px)] leading-[0.95] font-bold tracking-tighter mb-8 text-white flex flex-col items-center justify-center">
-            <TextType 
-              text="We make the web"
-              typingSpeed={50}
-              showCursor={false}
-              className="block drop-shadow-lg"
-            />
-            <div className="flex items-center justify-center mt-2">
-              <RotatingText
-                texts={['feel alive.', 'defy physics.', 'earn attention.', 'unforgettable.']}
-                mainClassName="bg-clip-text text-transparent bg-gradient-to-r from-[#6e7bff] via-[#a78bfa] to-[#ff6a39] font-serif-italic font-normal tracking-normal pb-4"
-                staggerFrom={"last"}
-                initial={{ y: "100%" }}
-                animate={{ y: 0 }}
-                exit={{ y: "-120%" }}
-                staggerDuration={0.025}
-                splitLevelClassName="overflow-hidden pb-1"
-                transition={{ type: "spring", damping: 30, stiffness: 400 }}
-                rotationInterval={3000}
-              />
-            </div>
+          <div className="text-[clamp(36px,5vw,72px)] leading-[1.05] font-bold tracking-tighter mb-8 text-white max-w-[900px] text-center">
+            We build cinematic digital experiences that elevate your brand's perception.
           </div>
           
           <motion.p 

@@ -52,7 +52,7 @@ export default function PixelHeroBackground({ children }: { children: React.Reac
       if (cells[index]) {
         const cell = cells[index];
         cell.style.transition = 'none';
-        cell.style.backgroundColor = '#ff6a39';
+        cell.style.backgroundColor = '#ffffff';
         
         setTimeout(() => {
           cell.style.transition = 'background-color 2s ease-out';

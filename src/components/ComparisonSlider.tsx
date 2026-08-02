@@ -56,6 +56,8 @@ export default function ComparisonSlider({
       <img 
         src={afterImage} 
         alt="After" 
+        loading="lazy"
+        decoding="async"
         className="absolute inset-0 w-full h-full object-cover pointer-events-none z-0"
       />
       
@@ -67,6 +69,8 @@ export default function ComparisonSlider({
         <img 
           src={beforeImage} 
           alt="Before" 
+          loading="lazy"
+          decoding="async"
           className="absolute inset-0 w-full h-full object-cover pointer-events-none"
         />
       </div>
@@ -92,7 +96,7 @@ export default function ComparisonSlider({
         {beforeLabel}
       </div>
       <div 
-        className="absolute top-6 right-6 px-4 py-2 bg-[#ff6a39]/80 backdrop-blur-md rounded-full text-white text-xs font-mono tracking-widest pointer-events-none transition-opacity z-30"
+        className="absolute top-6 right-6 px-4 py-2 bg-[#ffffff]/80 backdrop-blur-md rounded-full text-white text-xs font-mono tracking-widest pointer-events-none transition-opacity z-30"
         style={{ opacity: sliderPosition < 85 ? 1 : 0 }}
       >
         {afterLabel}

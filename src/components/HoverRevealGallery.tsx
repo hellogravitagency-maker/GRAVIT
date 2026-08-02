@@ -48,7 +48,7 @@ export default function HoverRevealGallery() {
     >
       {/* Floating Image Reveal with 3D Tilt */}
       <motion.div 
-        className="pointer-events-none absolute left-0 top-0 z-0 origin-center"
+        className="pointer-events-none absolute left-0 top-0 z-0 origin-center will-change-transform"
         style={{
           x: mouseX,
           y: mouseY,
@@ -75,6 +75,8 @@ export default function HoverRevealGallery() {
               <img 
                 src={project.image} 
                 alt={project.title} 
+                loading="lazy"
+                decoding="async"
                 className="w-full h-full object-cover grayscale brightness-75 contrast-125 transition-transform duration-[1.5s] ease-out"
                 style={{ transform: activeProject === index ? 'scale(1)' : 'scale(1.15)' }}
               />

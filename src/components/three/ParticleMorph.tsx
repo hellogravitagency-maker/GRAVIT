@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { useFrame } from '@react-three/fiber';
 import * as THREE from 'three';
 import { useScrollStore } from '../../store/useScrollStore';
-const PARTICLE_COUNT = 4000;
+const PARTICLE_COUNT = 1000;
 
 const vertexShader = `
 uniform float uProgress;

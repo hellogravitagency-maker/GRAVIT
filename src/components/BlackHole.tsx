@@ -160,6 +160,22 @@ export default function BlackHole(props: Props) {
     const sizeRef = useRef({ w: 600, h: 600 })
     // Bumped whenever the real canvas size changes, so particles re-seed in place
     const [sizeVersion, setSizeVersion] = useState(0)
+    
+    // Track visibility to pause rendering when off-screen
+    const [isVisible, setIsVisible] = useState(true)
+
+    // ─── Intersection Observer ────────────────────────────────
+    useEffect(() => {
+        const container = containerRef.current
+        if (!container) return
+        
+        const io = new IntersectionObserver((entries) => {
+            setIsVisible(entries[0].isIntersecting)
+        }, { threshold: 0 })
+        
+        io.observe(container)
+        return () => io.disconnect()
+    }, [])
 
     // ─── Initialize Particles ────────────────────────────────
 
@@ -243,6 +259,11 @@ export default function BlackHole(props: Props) {
     // ─── Animation Loop ──────────────────────────────────────
 
     useEffect(() => {
+        if (!isVisible) {
+            if (animRef.current) cancelAnimationFrame(animRef.current)
+            return
+        }
+
         const canvas = canvasRef.current
         const fgCanvas = fgCanvasRef.current
         if (!canvas || !fgCanvas) return
@@ -525,6 +546,7 @@ export default function BlackHole(props: Props) {
         orbitSpeed,
         pullSpeed,
         perspective,
+        isVisible,
     ])
 
     return (

@@ -1,4 +1,4 @@
-import { useRef, useCallback, useEffect, ReactNode, PointerEvent as ReactPointerEvent } from 'react';
+import React, { useRef, useCallback, useEffect } from 'react';
 import './BorderGlow.css';
 
 interface HSL {
@@ -39,8 +39,8 @@ function buildGradientVars(colors: string[]): Record<string, string> {
   return vars;
 }
 
-function easeOutCubic(x: number): number { return 1 - Math.pow(1 - x, 3); }
-function easeInCubic(x: number): number { return x * x * x; }
+function easeOutCubic(x: number) { return 1 - Math.pow(1 - x, 3); }
+function easeInCubic(x: number) { return x * x * x; }
 
 interface AnimationProps {
   start?: number;
@@ -56,7 +56,7 @@ function animateValue({ start = 0, end = 100, duration = 1000, delay = 0, ease =
   const t0 = performance.now() + delay;
   function tick() {
     const elapsed = performance.now() - t0;
-    const t = Math.min(elapsed / Math.max(duration, 1), 1);
+    const t = Math.min(elapsed / duration, 1);
     onUpdate(start + (end - start) * ease(t));
     if (t < 1) requestAnimationFrame(tick);
     else if (onEnd) onEnd();
@@ -65,7 +65,7 @@ function animateValue({ start = 0, end = 100, duration = 1000, delay = 0, ease =
 }
 
 export interface BorderGlowProps {
-  children?: ReactNode;
+  children?: React.ReactNode;
   className?: string;
   edgeSensitivity?: number;
   glowColor?: string;
@@ -77,22 +77,24 @@ export interface BorderGlowProps {
   animated?: boolean;
   colors?: string[];
   fillOpacity?: number;
+  style?: React.CSSProperties;
 }
 
-const BorderGlow = ({
+const BorderGlow: React.FC<BorderGlowProps> = ({
   children,
   className = '',
   edgeSensitivity = 30,
-  glowColor = '40 80 80',
+  glowColor = '0 0 100',
   backgroundColor = '#120F17',
   borderRadius = 28,
   glowRadius = 40,
   glowIntensity = 1.0,
   coneSpread = 25,
   animated = false,
-  colors = ['#c084fc', '#f472b6', '#38bdf8'],
+  colors = ['#ffffff', '#ffffff', '#ffffff'],
   fillOpacity = 0.5,
-}: BorderGlowProps) => {
+  style,
+}) => {
   const cardRef = useRef<HTMLDivElement>(null);
 
   const getCenterOfElement = useCallback((el: HTMLElement) => {
@@ -122,7 +124,7 @@ const BorderGlow = ({
     return degrees;
   }, [getCenterOfElement]);
 
-  const handlePointerMove = useCallback((e: ReactPointerEvent<HTMLDivElement>) => {
+  const handlePointerMove = useCallback((e: React.PointerEvent<HTMLDivElement>) => {
     const card = cardRef.current;
     if (!card) return;
 
@@ -145,7 +147,7 @@ const BorderGlow = ({
     card.classList.add('sweep-active');
     card.style.setProperty('--cursor-angle', `${angleStart}deg`);
 
-    animateValue({ duration: 500, onUpdate: v => card.style.setProperty('--edge-proximity', String(v)) });
+    animateValue({ duration: 500, onUpdate: v => card.style.setProperty('--edge-proximity', `${v}`) });
     animateValue({ ease: easeInCubic, duration: 1500, end: 50, onUpdate: v => {
       card.style.setProperty('--cursor-angle', `${(angleEnd - angleStart) * (v / 100) + angleStart}deg`);
     }});
@@ -153,7 +155,7 @@ const BorderGlow = ({
       card.style.setProperty('--cursor-angle', `${(angleEnd - angleStart) * (v / 100) + angleStart}deg`);
     }});
     animateValue({ ease: easeInCubic, delay: 2500, duration: 1500, start: 100, end: 0,
-      onUpdate: v => card.style.setProperty('--edge-proximity', String(v)),
+      onUpdate: v => card.style.setProperty('--edge-proximity', `${v}`),
       onEnd: () => card.classList.remove('sweep-active'),
     });
   }, [animated]);
@@ -174,10 +176,11 @@ const BorderGlow = ({
         '--fill-opacity': fillOpacity,
         ...glowVars,
         ...buildGradientVars(colors),
+        ...style
       } as React.CSSProperties}
     >
       <span className="edge-light" />
-      <div className="border-glow-inner h-full">
+      <div className="border-glow-inner h-full w-full">
         {children}
       </div>
     </div>

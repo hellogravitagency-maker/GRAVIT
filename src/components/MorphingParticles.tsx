@@ -71,7 +71,7 @@ function ParticleMesh({ count = 2000 }) {
   const uniforms = useMemo(() => ({
     uTime: { value: 0 },
     uSize: { value: 60.0 }, // Adjust size based on container
-    uColor: { value: new THREE.Color('#ff6a39') }, // Matching project vibe (orange)
+    uColor: { value: new THREE.Color('#ffffff') }, // Matching project vibe (orange)
   }), []);
 
   useFrame(({ clock }) => {

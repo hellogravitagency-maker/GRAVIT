@@ -49,7 +49,7 @@ export const TextHoverEffect = ({
         >
           {hovered && (
             <>
-              <stop offset="0%" stopColor="#ff6a39" />
+              <stop offset="0%" stopColor="#ffffff" />
               <stop offset="50%" stopColor="#5227FF" />
               <stop offset="100%" stopColor="#B497CF" />
             </>
@@ -83,7 +83,7 @@ export const TextHoverEffect = ({
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="fill-transparent stroke-white/10 font-['Outfit'] tracking-tighter text-7xl font-bold"
+        className="fill-transparent stroke-white/10 font-heading tracking-tighter text-7xl font-bold"
         style={{ opacity: hovered ? 0.7 : 0 }}
       >
         {text}
@@ -94,7 +94,7 @@ export const TextHoverEffect = ({
         textAnchor="middle"
         dominantBaseline="middle"
         strokeWidth="0.3"
-        className="fill-transparent stroke-white/20 font-['Outfit'] tracking-tighter text-7xl font-bold"
+        className="fill-transparent stroke-white/20 font-heading tracking-tighter text-7xl font-bold"
         initial={{ strokeDashoffset: 1000, strokeDasharray: 1000 }}
         animate={{
           strokeDashoffset: 0,
@@ -115,7 +115,7 @@ export const TextHoverEffect = ({
         stroke="url(#textGradient)"
         strokeWidth="0.3"
         mask="url(#textMask)"
-        className="fill-transparent font-['Outfit'] tracking-tighter text-7xl font-bold"
+        className="fill-transparent font-heading tracking-tighter text-7xl font-bold"
       >
         {text}
       </text>

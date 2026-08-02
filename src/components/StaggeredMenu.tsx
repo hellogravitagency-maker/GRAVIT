@@ -374,7 +374,15 @@ export const StaggeredMenu = ({
         })()}
       </div>
       <header className="staggered-menu-header" aria-label="Main navigation header">
-        <Link to="/" className="sm-logo flex items-center gap-2" aria-label="Logo">
+        <Link 
+          to="/" 
+          className="sm-logo flex items-center gap-2" 
+          aria-label="Logo"
+          onClick={() => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (open) toggleMenu();
+          }}
+        >
           {logoUrl ? (
             <img
               src={logoUrl}
