@@ -12,6 +12,7 @@ import { MorphingText } from './MorphingText';
 import Magnetic from './Magnetic';
 import SplitText from './SplitText';
 import { HoverBorderGradient } from './ui/hover-border-gradient';
+import PromoPopup from './PromoPopup';
 
 const SelectedWork = lazy(() => import('./home/SelectedWork'));
 const Results = lazy(() => import('./home/Results'));
@@ -92,6 +93,7 @@ export default function Home() {
 
   return (
     <div ref={containerRef} className="w-full flex flex-col bg-transparent">
+      <PromoPopup />
       {/* 1. Cinematic Hero Section */}
       <section className="relative w-full min-h-screen flex items-center justify-center pt-24 pb-24 border-b border-white/5 overflow-hidden">
         
@@ -249,20 +251,20 @@ export default function Home() {
           </div>
         </div>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-           <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 transition-all duration-500 cursor-default relative overflow-hidden">
+           <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 hover:border-white/20 transition-all duration-500 cursor-default relative overflow-hidden">
              <div className="font-mono text-xs text-white/60 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
-             <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Precision Code</h2>
-             <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">Clean architecture and robust systems built without generic frameworks.</p>
+             <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Precision Engineering</h2>
+             <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">We architect robust, scalable systems utilizing bespoke codebases, ensuring maximum performance without relying on bloated frameworks.</p>
            </div>
-           <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 transition-all duration-500 cursor-default relative overflow-hidden">
+           <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 hover:border-white/20 transition-all duration-500 cursor-default relative overflow-hidden">
              <div className="font-mono text-xs text-white/60 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
-             <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Cinematic Contrast</h2>
-             <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">Motion must be purposeful. We use stark contrasts over colorful noise.</p>
+             <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Cinematic Aesthetics</h2>
+             <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">Every interaction is meticulously crafted. We prioritize purposeful motion and stark visual contrasts over superficial design noise.</p>
            </div>
-           <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 transition-all duration-500 cursor-default relative overflow-hidden">
+           <div className="p-10 border border-white/10 rounded-2xl group hover:bg-white/5 hover:border-white/20 transition-all duration-500 cursor-default relative overflow-hidden">
              <div className="font-mono text-xs text-white/60 mb-8 group-hover:text-[var(--color-accent)] transform group-hover:rotate-90 origin-center transition-all duration-500 inline-block">[+]</div>
-             <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Unapologetic</h2>
-             <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">If you want to blend in with safe SaaS designs, we are not the agency for you.</p>
+             <h2 className="text-xl font-normal text-white mb-4 tracking-tight transform group-hover:translate-x-2 transition-transform duration-500">Uncompromising Vision</h2>
+             <p className="text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">We partner with ambitious brands seeking to disrupt their industries through bold, distinctive, and unforgettable digital experiences.</p>
            </div>
         </div>
       </section>

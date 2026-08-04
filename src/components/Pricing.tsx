@@ -11,7 +11,8 @@ const pricingTiers = [
   {
     name: "Starter / Standard",
     subtitle: "Static & Brochure Sites",
-    price: "₹20k",
+    originalPrice: "₹20k",
+    price: "₹10k",
     description: "Ideal for portfolios, single-service businesses, and event landing pages. (Typical range: ₹20K–₹45K)",
     features: [
       "Up to 6 custom-designed pages",
@@ -30,7 +31,8 @@ const pricingTiers = [
   {
     name: "Professional / Dynamic",
     subtitle: "CMS & Educational Sites",
-    price: "₹30k",
+    originalPrice: "₹30k",
+    price: "₹15k",
     description: "Perfect for schools, clinics, and brands needing self-editable content. (Typical range: ₹30K–₹80K)",
     features: [
       "Up to 15 pages with custom CMS / Admin panel",
@@ -50,7 +52,8 @@ const pricingTiers = [
   {
     name: "Premium / Custom",
     subtitle: "Cinematic 3D & WebGL",
-    price: "₹80k",
+    originalPrice: "₹80k",
+    price: "₹40k",
     description: "For flagship brand sites and bespoke digital experiences. (Starts at ₹80K, scalable)",
     features: [
       "Custom WebGL, Three.js / R3F scenes & GLSL Shaders",
@@ -118,7 +121,12 @@ const PricingCard = ({ tier, index }: { tier: any, index: number }) => {
             </div>
             <div className="flex flex-col gap-1 mt-2">
               <span className="text-white/60 text-[10px] font-mono uppercase tracking-widest">Starting at</span>
-              <div className="flex items-baseline gap-2">
+              <div className="flex items-baseline gap-1">
+                {tier.originalPrice && (
+                  <span className="text-white/40 text-2xl font-light line-through mr-1">
+                    {tier.originalPrice}
+                  </span>
+                )}
                 <span className={cn(
                   "font-bold tracking-tighter text-white",
                   tier.isPrimary ? "text-5xl text-white" : "text-4xl"
