@@ -39,7 +39,7 @@ export default defineConfig(() => {
           manualChunks: {
             'vendor-react': ['react', 'react-dom', 'react-router-dom'],
             'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
-            'vendor-framer': ['framer-motion'],
+            'vendor-motion': ['motion'],
             'vendor-gsap': ['gsap'],
             'vendor-zustand': ['zustand']
           }

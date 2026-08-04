@@ -26,6 +26,17 @@
   <body style="background-color: #0A0A0F; margin: 0;">
     <script>
       window.onerror = function(msg, url, line, col, error) {
+        // Ignore errors from Instagram/Facebook in-app browser injected scripts
+        if (
+          (url && typeof url === 'string' && url.includes('iabjs://')) ||
+          (msg && typeof msg === 'string' && msg.includes('Java exception was raised')) ||
+          (msg && typeof msg === 'string' && msg.includes('navigation_performance_logger')) ||
+          (error && error.stack && error.stack.includes('iabjs://'))
+        ) {
+          console.warn('Ignored in-app browser script error:', msg);
+          return true; // return true prevents the error from bubbling up
+        }
+
         document.body.innerHTML = '<div style="color:red;font-size:20px;padding:20px;z-index:999999;position:fixed;top:0;left:0;background:white;width:100%;height:100%;overflow:auto;">' + 
           'Error: ' + msg + '<br>Line: ' + line + '<br>Col: ' + col + '<br><pre>' + (error && error.stack ? error.stack : '') + '</pre>' + 
           '</div>';

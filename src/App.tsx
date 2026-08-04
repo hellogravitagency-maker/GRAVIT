@@ -30,25 +30,10 @@ export function DelayedRender({ children, delay = 8000 }: { children: React.Reac
     
     const triggerRender = () => {
       setShouldRender(true);
-      cleanup();
-    };
-
-    const cleanup = () => {
-      clearTimeout(timer);
-      window.removeEventListener('mousemove', triggerRender);
-      window.removeEventListener('scroll', triggerRender);
-      window.removeEventListener('touchstart', triggerRender);
-      window.removeEventListener('keydown', triggerRender);
     };
 
     const startTimer = () => {
       timer = setTimeout(triggerRender, delay);
-      
-      // Also listen for any interaction to render immediately
-      window.addEventListener('mousemove', triggerRender, { once: true });
-      window.addEventListener('scroll', triggerRender, { once: true });
-      window.addEventListener('touchstart', triggerRender, { once: true });
-      window.addEventListener('keydown', triggerRender, { once: true });
     };
 
     if (document.readyState === 'complete') {
@@ -57,11 +42,11 @@ export function DelayedRender({ children, delay = 8000 }: { children: React.Reac
       window.addEventListener('load', startTimer);
       return () => {
         window.removeEventListener('load', startTimer);
-        cleanup();
+        clearTimeout(timer);
       };
     }
     
-    return cleanup;
+    return () => clearTimeout(timer);
   }, [delay]);
   
   return shouldRender ? <>{children}</> : null;
