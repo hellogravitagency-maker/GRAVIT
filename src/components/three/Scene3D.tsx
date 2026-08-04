@@ -68,7 +68,7 @@ export default function Scene3D() {
         <Galaxy 
           mouseRepulsion={!isMobile}
           mouseInteraction={!isMobile}
-          density={isMobile ? 0.05 : 0.2}
+          density={isMobile ? 0.2 : 0.2}
           twinkleIntensity={0}
           repulsionStrength={0.6}
           starSpeed={0.4}
