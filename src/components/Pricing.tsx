@@ -128,8 +128,8 @@ const PricingCard = ({ tier, index }: { tier: any, index: number }) => {
                   </span>
                 )}
                 <span className={cn(
-                  "font-bold tracking-tighter text-white",
-                  tier.isPrimary ? "text-5xl text-white" : "text-4xl"
+                  "font-bold tracking-tighter text-[#ff6a00]",
+                  tier.isPrimary ? "text-5xl" : "text-4xl"
                 )}>
                   {tier.price}
                 </span>

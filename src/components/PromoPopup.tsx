@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import { motion, AnimatePresence } from 'motion/react';
 import { useNavigate } from 'react-router-dom';
 import { X, Sparkles } from 'lucide-react';
@@ -10,11 +11,7 @@ export default function PromoPopup() {
   useEffect(() => {
     // Show popup after a short delay on mount
     const timer = setTimeout(() => {
-      // Check if user has already dismissed it in this session (optional, but good UX)
-      const hasDismissed = sessionStorage.getItem('promo_dismissed');
-      if (!hasDismissed) {
-        setIsVisible(true);
-      }
+      setIsVisible(true);
     }, 3000);
 
     return () => clearTimeout(timer);
@@ -22,7 +19,6 @@ export default function PromoPopup() {
 
   const handleClose = () => {
     setIsVisible(false);
-    sessionStorage.setItem('promo_dismissed', 'true');
   };
 
   const handleAction = () => {
@@ -30,7 +26,9 @@ export default function PromoPopup() {
     navigate('/pricing');
   };
 
-  return (
+  if (typeof document === 'undefined') return null;
+
+  return createPortal(
     <AnimatePresence>
       {isVisible && (
         <motion.div
@@ -38,7 +36,7 @@ export default function PromoPopup() {
           animate={{ opacity: 1, y: 0, scale: 1 }}
           exit={{ opacity: 0, y: 20, scale: 0.9 }}
           transition={{ type: 'spring', damping: 20, stiffness: 300 }}
-          className="fixed bottom-6 right-6 z-[100] max-w-sm w-[calc(100%-3rem)] md:w-96"
+          className="fixed bottom-6 right-6 z-[9999] max-w-sm w-[calc(100%-3rem)] md:w-96"
         >
           <div className="relative p-6 rounded-2xl bg-[#0a0a0a] border border-white/20 shadow-2xl overflow-hidden group">
             {/* Ambient Glow */}
@@ -63,19 +61,23 @@ export default function PromoPopup() {
               </h3>
               
               <p className="text-white/70 text-sm mb-5 leading-relaxed">
-                Start your project today and get our premium development packages at half the price.
+                Transform your digital presence. Claim our exclusive discount on all development and design packages.
               </p>
               
-              <button 
+              <button
                 onClick={handleAction}
-                className="w-full py-3 px-4 bg-white text-black rounded-full font-bold text-xs uppercase tracking-widest hover:bg-[#ff6a00] hover:text-white transition-colors duration-300"
+                className="w-full relative px-6 py-3 bg-white text-black font-bold uppercase tracking-widest text-sm rounded-lg overflow-hidden group/btn"
               >
-                Claim Offer
+                <div className="absolute inset-0 bg-[#ff6a00] translate-y-full group-hover/btn:translate-y-0 transition-transform duration-300 ease-out" />
+                <span className="relative z-10 group-hover/btn:text-white transition-colors duration-300">
+                  Claim Offer
+                </span>
               </button>
             </div>
           </div>
         </motion.div>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   );
 }

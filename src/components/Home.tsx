@@ -107,7 +107,7 @@ export default function Home() {
         <div className="corner-plus br" />
 
         <div className="absolute inset-0 z-0 pointer-events-auto opacity-70">
-          <DelayedRender delay={8000}>
+          <DelayedRender delay={500}>
             <Suspense fallback={<div className="w-full h-full bg-transparent" />}>
               <Ballpit
                 count={isMobile ? 15 : 30}

@@ -145,7 +145,7 @@ export default function App() {
 
       {/* Global 3D Interactive Scroll Scene */}
       {!isTextHeavyRoute && (
-        <DelayedRender delay={3500}>
+        <DelayedRender delay={500}>
           <Suspense fallback={null}>
             <Scene3D />
           </Suspense>
