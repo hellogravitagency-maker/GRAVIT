@@ -8,7 +8,6 @@ interface Project {
   title: string;
   category: string;
   description: string;
-  image: string;
   link: string;
   className: string;
 }
@@ -19,7 +18,6 @@ const projects: Project[] = [
     title: 'SSVEMHS', 
     category: 'EdTech Portal', 
     description: 'An immersive, AI-powered interactive web portal featuring a 3D interactive scene, fluid physics-based scrolling, and role-based dashboards powered by Gemini AI and Supabase.',
-    image: '/assets/projects/ssvemhs.webp', 
     link: '/work',
     className: 'md:col-span-2 md:row-span-2 min-h-[400px] md:min-h-[600px]'
   },
@@ -28,7 +26,6 @@ const projects: Project[] = [
     title: 'Little Stars', 
     category: 'Playgroup Academy', 
     description: 'A beautifully designed, high-performance web application tailored for a kindergarten.',
-    image: '/assets/projects/littlestars.webp', 
     link: '/work',
     className: 'col-span-1 row-span-1 min-h-[300px]'
   },
@@ -37,7 +34,6 @@ const projects: Project[] = [
     title: 'WonderKids', 
     category: 'Academy Dashboard', 
     description: 'A full-stack academy platform with an interactive user interface, cinematic scrolling, 3D elements, and a dedicated administrative dashboard.',
-    image: '/assets/projects/wonderkids.webp', 
     link: '/work',
     className: 'md:col-span-3 row-span-1 min-h-[300px]'
   }
@@ -60,11 +56,7 @@ const BentoCard = ({ project }: { project: Project }) => {
     >
       {/* Background Image */}
       <div className="absolute inset-0 z-0">
-        <img 
-          src={project.image} 
-          alt={project.title} 
-          className="w-full h-full object-cover grayscale brightness-50 contrast-125 transition-transform duration-[1.5s] ease-out group-hover:scale-110"
-        />
+        {/* Background Image Area (Images Removed) */}
         {/* Gradients */}
         <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/40 to-transparent" />
         <div className="absolute inset-0 bg-[#00F0FF]/0 group-hover:bg-[#00F0FF]/10 transition-colors duration-700 mix-blend-overlay" />

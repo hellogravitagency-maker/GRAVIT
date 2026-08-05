@@ -174,7 +174,7 @@ export default function Home() {
             transition={{ duration: 0.8 }}
             className="text-white/60 text-lg md:text-xl font-light tracking-wide max-w-2xl mt-4 mb-10"
           >
-            We build high-performance digital flagship experiences for global brands. <span className="text-white font-medium">No templates. No compromises.</span>
+            At GRAVIT, we build high-performance digital flagship experiences for global brands. <span className="text-white font-medium">No templates. No compromises.</span>
           </motion.h2>
 
           <motion.div 
@@ -209,7 +209,7 @@ export default function Home() {
           </div>
           <div className="md:col-span-9">
             <p className="text-2xl md:text-5xl font-normal text-white leading-[1.2] tracking-tight">
-              We reject the mundane. We engineer digital spaces that operate with absolute precision and leave an indelible mark on brand perception.
+              GRAVIT rejects the mundane. We engineer digital spaces that operate with absolute precision and leave an indelible mark on brand perception.
             </p>
             <div className="mt-16 text-sm font-mono tracking-widest text-white/60 uppercase">
               <p>METHODOLOGY: High-Performance Architecture</p>

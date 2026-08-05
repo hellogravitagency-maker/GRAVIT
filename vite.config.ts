@@ -24,7 +24,7 @@ export default defineConfig(() => {
     },
     build: {
       target: 'esnext',
-      modulePreload: false,
+      modulePreload: true,
       rollupOptions: {
         output: {
           assetFileNames: (assetInfo) => {

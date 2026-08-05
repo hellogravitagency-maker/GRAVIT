@@ -30,10 +30,10 @@ export default function Contact() {
                   START A PROJECT
                 </span>
                 <h1 className="text-5xl md:text-7xl font-bold font-['Space_Grotesk'] leading-[0.95] text-white">
-                  Let's Build Something<br className="hidden md:block" /> Precise.
+                  Let's Discuss Your<br className="hidden md:block" /> Objectives.
                 </h1>
                 <p className="text-base md:text-lg text-white/60 max-w-xl mt-6">
-                  Tell us about your project. We reply within 24 hours.
+                  Provide an overview of your project requirements. Our team will review your needs and respond within 24 hours.
                 </p>
               </motion.div>
               
