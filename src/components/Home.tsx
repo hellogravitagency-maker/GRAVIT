@@ -20,12 +20,7 @@ const TrustedBy = lazy(() => import('./home/TrustedBy'));
 const Testimonials = lazy(() => import('./home/Testimonials'));
 const Faq = lazy(() => import('./home/Faq'));
 
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SEO from './SEO';
-
-
-gsap.registerPlugin(ScrollTrigger);
 
 const TechMarquee = () => {
   return (
@@ -66,29 +61,37 @@ export default function Home() {
   }, []);
   
   useEffect(() => {
-    const ctx = gsap.context(() => {
-      // Grab all sections to animate
-      const sections = gsap.utils.toArray<HTMLElement>('section.animate-on-scroll');
-      
-      sections.forEach((section) => {
-        gsap.fromTo(section, 
-          { y: 100, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: section,
-              start: 'top 85%', // Trigger when the top of the section hits 85% of viewport
-              toggleActions: 'play none none reverse'
-            }
-          }
-        );
-      });
-    }, containerRef);
+    let ctx: any; // We use 'any' to avoid TS errors without importing gsap types statically
     
-    return () => ctx.revert();
+    import('gsap').then(({ gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+        
+        ctx = gsap.context(() => {
+          // Grab all sections to animate
+          const sections = gsap.utils.toArray<HTMLElement>('section.animate-on-scroll');
+          
+          sections.forEach((section) => {
+            gsap.fromTo(section, 
+              { y: 100, opacity: 0 },
+              {
+                y: 0,
+                opacity: 1,
+                duration: 1,
+                ease: 'power3.out',
+                scrollTrigger: {
+                  trigger: section,
+                  start: 'top 85%', // Trigger when the top of the section hits 85% of viewport
+                  toggleActions: 'play none none reverse'
+                }
+              }
+            );
+          });
+        }, containerRef);
+      });
+    });
+    
+    return () => ctx && ctx.revert();
   }, []);
 
   return (
