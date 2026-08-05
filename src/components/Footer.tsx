@@ -88,7 +88,7 @@ export default function Footer() {
                 </a>
               </li>
               <li>
-                <a href="https://dev.to/gravitagency" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors group inline-flex items-center gap-2">
+                <a href="https://dev.to/gravit_agency_7b1d6e18903" target="_blank" rel="noopener noreferrer" className="text-white/70 hover:text-white transition-colors group inline-flex items-center gap-2">
                   <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor" className="opacity-50 group-hover:opacity-100 transition-opacity"><path d="M7.42 10.05c-.18-.16-.46-.23-.84-.23H6l.02 2.44.04 2.45.56-.02c.41 0 .63-.07.83-.26.24-.24.26-.36.26-2.2 0-1.91-.02-1.96-.29-2.18zM0 4.94v14.12h24V4.94H0zM8.56 15.3c-.44.58-1.06.77-2.53.77H4.71V8.53h1.4c1.67 0 2.16.18 2.6.9.27.43.29.6.32 2.57.05 2.23-.02 2.73-.47 3.3zm5.09-5.47h-2.47v1.77h1.52v1.28l-.72.04-.75.03v1.77l1.22.03 1.2.04v1.28h-4V8.53h4v1.3zM22.02 8.5h-1.62l-1.4 3.87c-.85 2.4-1.28 3.52-1.36 3.65-.08.13-.13.1-.47-1.12l-1.44-4.04-.15-.36h-1.62l1.62 4.14c.89 2.29 1.63 4.22 1.65 4.3.02.06.1.18.2.26l.16.14.3-.06c.35-.1 1.77-4 1.95-4.32l1.62-4.16z"/></svg>
                   <span className="relative">DEV<span className="absolute bottom-0 left-0 w-full h-[1px] bg-white scale-x-0 group-hover:scale-x-100 transition-transform origin-left"></span></span>
                 </a>

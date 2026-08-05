@@ -187,7 +187,7 @@ export default function App() {
           { label: 'X (Twitter)', link: 'https://x.com/gravit_agency' },
           { label: 'LinkedIn', link: 'https://www.linkedin.com/in/gravit-agency-235943427' },
           { label: 'Medium', link: 'https://medium.com/@hellogravit.agency' },
-          { label: 'DEV', link: 'https://dev.to/gravitagency' }
+          { label: 'DEV', link: 'https://dev.to/gravit_agency_7b1d6e18903' }
         ]}
         displaySocials={true}
         displayItemNumbering={true}
