@@ -678,6 +678,11 @@ function createBallpit(e, t = {}) {
     size: 'parent',
     rendererOptions: { antialias: true, alpha: true }
   });
+  
+  // Cap resolution on mobile to prevent extreme GPU overhead
+  const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+  i.maxPixelRatio = isMobile ? 1 : 2;
+  
   let s;
   i.renderer.toneMapping = v;
   i.camera.position.set(0, 0, 20);

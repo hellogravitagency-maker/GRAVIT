@@ -373,7 +373,7 @@ export default function Home() {
           {/* Layer 1: Ballpit (Background) */}
           <div className="absolute inset-0 z-0 pointer-events-auto opacity-70">
             <Ballpit
-              count={isMobile ? 25 : 30} // Increased from 15 to 25 to fill the empty space more
+              count={isMobile ? 12 : 30}
               gravity={0.5}
               friction={0.99}
               wallBounce={0.8}
@@ -390,7 +390,7 @@ export default function Home() {
               <ParticleImage 
                 width="100%" 
                 height="100%" 
-                particleCount={isMobile ? 15 : 25} // Less particles on mobile to fix lag
+                particleCount={isMobile ? 8 : 25} // Severely lowered on mobile to fix lag
                 particleSize={isMobile ? (isDark ? 3 : 5) : (isDark ? 3 : 8)}
                 particleColor="single"
                 singleColor={isDark ? "#ffffff" : "#000000"}

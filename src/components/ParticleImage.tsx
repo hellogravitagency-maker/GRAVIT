@@ -332,7 +332,11 @@ function __OriginkitBase_ParticleImage(__props) {
         if (!canvas) return
         clearTimeout(animTimerRef.current)
         const gap = Math.max(2, Math.round(150 / Math.max(1, count)))
-        const dpr = window.devicePixelRatio || 1
+        
+        // Cap DPR on mobile to limit memory and pixel iterations
+        const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+        const dpr = isMobile ? Math.min(window.devicePixelRatio || 1, 1.5) : (window.devicePixelRatio || 1)
+        
         canvas.width = Math.round(W * dpr)
         canvas.height = Math.round(H * dpr)
         mouseRef.current = { x: -99999, y: -99999, active: false }
@@ -557,7 +561,8 @@ function __OriginkitBase_ParticleImage(__props) {
             const PW = canvas.width,
                 PH = canvas.height
             if (!PW || !PH) return
-            const dpr = window.devicePixelRatio || 1
+            const isMobile = typeof window !== 'undefined' && window.innerWidth < 768;
+            const dpr = isMobile ? Math.min(window.devicePixelRatio || 1, 1.5) : (window.devicePixelRatio || 1)
             const { particles } = sceneRef.current
             if (!particles.length) return
             if (!idata || PW !== bW || PH !== bH) {
