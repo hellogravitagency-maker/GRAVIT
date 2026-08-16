@@ -79,8 +79,21 @@ class x {
       powerPreference: 'high-performance',
       ...(this.#e.rendererOptions ?? {})
     };
-    this.renderer = new s(e);
-    this.renderer.outputColorSpace = n;
+    try {
+      this.renderer = new s(e);
+      this.renderer.outputColorSpace = n;
+    } catch (err) {
+      console.error("WebGL Context Error:", err);
+      this.renderer = {
+        dispose: () => {},
+        forceContextLoss: () => {},
+        setSize: () => {},
+        setPixelRatio: () => {},
+        render: () => {},
+        domElement: this.canvas
+      };
+      this.isDisposed = true;
+    }
   }
   #g() {
     if (!(this.#e.size instanceof Object)) {
@@ -228,7 +241,12 @@ class x {
     this.#c.dispose();
     this.clear();
     this.#t?.dispose();
-    this.renderer.dispose();
+    if (this.renderer && typeof this.renderer.forceContextLoss === 'function') {
+      this.renderer.forceContextLoss();
+    }
+    if (this.renderer && typeof this.renderer.dispose === 'function') {
+      this.renderer.dispose();
+    }
     this.isDisposed = true;
   }
 }
@@ -256,10 +274,10 @@ function S(e) {
         document.body.addEventListener('pointerleave', L);
         document.body.addEventListener('click', C);
 
-        document.body.addEventListener('touchstart', TouchStart, { passive: false });
-        document.body.addEventListener('touchmove', TouchMove, { passive: false });
-        document.body.addEventListener('touchend', TouchEnd, { passive: false });
-        document.body.addEventListener('touchcancel', TouchEnd, { passive: false });
+        document.body.addEventListener('touchstart', TouchStart, { passive: true });
+        document.body.addEventListener('touchmove', TouchMove, { passive: true });
+        document.body.addEventListener('touchend', TouchEnd, { passive: true });
+        document.body.addEventListener('touchcancel', TouchEnd, { passive: true });
 
         R = true;
       }
@@ -439,7 +457,7 @@ class W {
     if (t.controlSphere0) {
       r = 1;
       F.fromArray(s, 0);
-      F.lerp(i, 0.1).toArray(s, 0);
+      F.lerp(i, 0.05).toArray(s, 0);
       V.set(0, 0, 0).toArray(o, 0);
     }
     for (let idx = r; idx < t.count; idx++) {
@@ -554,12 +572,15 @@ const X = {
   colors: [0, 0, 0],
   ambientColor: 16777215,
   ambientIntensity: 1,
-  lightIntensity: 200,
+  lightIntensity: 40,
   materialParams: {
-    metalness: 0.5,
-    roughness: 0.5,
+    metalness: 0.1,
+    roughness: 0.15,
+    transmission: 1.0,
+    ior: 1.5,
+    thickness: 2.0,
     clearcoat: 1,
-    clearcoatRoughness: 0.15
+    clearcoatRoughness: 0.1
   },
   minSize: 0.5,
   maxSize: 1,
@@ -676,14 +697,19 @@ function createBallpit(e, t = {}) {
   const h = S({
     domElement: e,
     onMove() {
+      if (!s) return;
       n.setFromCamera(h.nPosition, i.camera);
       i.camera.getWorldDirection(o.normal);
       n.ray.intersectPlane(o, r);
       s.physics.center.copy(r);
       s.config.controlSphere0 = true;
     },
-    onClick() {
+    onLeave() {
       if (!s) return;
+      s.config.controlSphere0 = false;
+    },
+    onClick() {
+      if (!s || s.config.followCursor === false) return;
       const count = s.config.count;
       for (let j = 1; j < count; j++) {
         const dx = s.physics.positionData[j * 3] - s.physics.center.x;
@@ -696,12 +722,10 @@ function createBallpit(e, t = {}) {
           s.physics.velocityData[j * 3 + 1] += s.config.maxVelocity * (2.0 + Math.random());
         }
       }
-    },
-    onLeave() {
-      s.config.controlSphere0 = false;
     }
   });
   function initialize(e) {
+    if (i.isDisposed) return;
     if (s) {
       i.clear();
       i.scene.remove(s);
@@ -710,11 +734,13 @@ function createBallpit(e, t = {}) {
     i.scene.add(s);
   }
   i.onBeforeRender = e => {
-    if (!c) s.update(e);
+    if (!c && s) s.update(e);
   };
   i.onAfterResize = e => {
-    s.config.maxX = e.wWidth / 2;
-    s.config.maxY = e.wHeight / 2;
+    if (s) {
+      s.config.maxX = e.wWidth / 2;
+      s.config.maxY = e.wHeight / 2;
+    }
   };
   return {
     three: i,
@@ -735,12 +761,18 @@ function createBallpit(e, t = {}) {
 }
 
 const Ballpit = ({ className = '', followCursor = true, ...props }) => {
-  const canvasRef = useRef(null);
+  const containerRef = useRef(null);
   const spheresInstanceRef = useRef(null);
 
   useEffect(() => {
-    const canvas = canvasRef.current;
-    if (!canvas) return;
+    const container = containerRef.current;
+    if (!container) return;
+
+    const canvas = document.createElement('canvas');
+    canvas.className = className;
+    canvas.style.width = '100%';
+    canvas.style.height = '100%';
+    container.appendChild(canvas);
 
     spheresInstanceRef.current = createBallpit(canvas, { followCursor, ...props });
 
@@ -748,11 +780,14 @@ const Ballpit = ({ className = '', followCursor = true, ...props }) => {
       if (spheresInstanceRef.current) {
         spheresInstanceRef.current.dispose();
       }
+      if (canvas && container.contains(canvas)) {
+        container.removeChild(canvas);
+      }
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [followCursor]);
 
-  return <canvas className={className} ref={canvasRef} style={{ width: '100%', height: '100%' }} />;
+  return <div ref={containerRef} style={{ width: '100%', height: '100%' }} />;
 };
 
 export default Ballpit;

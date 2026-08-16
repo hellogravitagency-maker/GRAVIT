@@ -25,13 +25,25 @@
     <meta name="theme-color" content="#0A0A0F" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@700&family=Space+Mono:wght@400&family=Outfit:wght@400;700&display=swap" rel="preload" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@700&family=Space+Mono:wght@400&family=Outfit:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="preload" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500&family=Space+Grotesk:wght@700&family=Space+Mono:wght@400&family=Outfit:wght@400;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
     </noscript>
   </head>
-  <body style="background-color: #0A0A0F; margin: 0;">
+  <body>
+    <script>
+      (function() {
+        try {
+          var isDark = localStorage.getItem('theme') === 'dark';
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
     <script>
       window.onerror = function(msg, url, line, col, error) {
         // Ignore errors from Instagram/Facebook in-app browser injected scripts

@@ -1,11 +1,11 @@
 import React, { useEffect } from 'react';
-import { useParams, Navigate } from 'react-router-dom';
-import { motion } from 'framer-motion';
+import { useParams, Navigate, Link } from 'react-router-dom';
+import { motion } from 'motion/react';
 import { projectsData } from './Work';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import SEO from './SEO';
-
+import { generateBreadcrumbSchema } from '../lib/seo';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -18,17 +18,32 @@ export default function CaseStudy() {
   
   const project = projectsData[slug];
 
+  const breadcrumbs = [
+    { name: "Home", item: "/" },
+    { name: "Work", item: "/work" },
+    { name: project.title, item: `/work/${slug}` }
+  ];
+
+  const breadcrumbSchema = generateBreadcrumbSchema(breadcrumbs);
+
   useEffect(() => {
-    // Parallax hero effect
-    gsap.to('.hero-image', {
-      yPercent: 30,
-      ease: "none",
-      scrollTrigger: {
-        trigger: '.hero-section',
-        start: "top top",
-        end: "bottom top",
-        scrub: true
-      }
+    // Basic reveal animations for content
+    const elements = document.querySelectorAll('.reveal-up');
+    
+    elements.forEach((el) => {
+      gsap.fromTo(el, 
+        { y: 50, opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 1,
+          ease: "expo.out",
+          scrollTrigger: {
+            trigger: el,
+            start: "top 85%",
+          }
+        }
+      );
     });
 
     return () => {
@@ -37,140 +52,154 @@ export default function CaseStudy() {
   }, []);
 
   return (
-    <div className="w-full bg-[#0a0a0a] min-h-screen text-white font-sans overflow-x-hidden selection:bg-white selection:text-black">
-      <SEO title={`${project.title} | Case Study`} description={project.challenge} image={project.heroImage} />
+    <div className="w-full bg-transparent min-h-screen text-primary font-sans overflow-x-hidden selection:bg-primary selection:text-background">
+      <SEO 
+        title={`${project.title} Case Study | GRAVIT`} 
+        description={project.challenge} 
+        path={`/work/${slug}`}
+        jsonLd={breadcrumbSchema}
+      />
       
-      {/* Hero Section */}
-      <section className="hero-section relative w-full min-h-[80vh] h-auto flex flex-col justify-end pt-32 pb-12 md:pb-24 overflow-hidden px-6 md:px-12 lg:px-24">
-        <div className="absolute inset-0 z-0">
-          <div className="hero-image absolute inset-0 w-full h-[120%] -top-[10%] bg-cover bg-center will-change-transform" style={{ backgroundImage: `url(${project.heroImage})` }} />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/80 to-transparent" />
+      {/* 01: HERO */}
+      <section className="relative w-full min-h-[90vh] flex flex-col justify-end pt-32 pb-12 px-6 md:px-8 lg:px-12 max-w-[1800px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 w-full border-b border-border pb-12 mb-12">
+          <div className="md:col-span-12">
+            <span className="text-xs font-mono uppercase tracking-widest text-secondary block mb-6">
+              CASE STUDY — {project.year}
+            </span>
+            <h1 className="text-6xl md:text-[8vw] font-bold tracking-tighter uppercase leading-[0.85] mb-8">
+              {project.title}
+            </h1>
+          </div>
+          
+          <div className="md:col-span-6 lg:col-span-5">
+            <p className="text-xl md:text-3xl text-secondary leading-relaxed font-light">
+              {project.desc}
+            </p>
+          </div>
+          
+          <div className="md:col-span-6 lg:col-span-3 lg:col-start-10 flex flex-col justify-end">
+            <h3 className="text-xs font-mono uppercase tracking-widest text-secondary mb-4 border-b border-border pb-4">
+              Core Technologies
+            </h3>
+            <ul className="flex flex-col gap-2">
+              {project.tags?.map((tag: string) => (
+                <li key={tag} className="text-lg font-bold tracking-tight uppercase">
+                  {tag}
+                </li>
+              ))}
+            </ul>
+          </div>
         </div>
         
-        <div className="relative z-10 w-full max-w-7xl mx-auto flex flex-col">
-          <span className="text-white/50 font-mono text-xs md:text-sm tracking-[0.3em] uppercase mb-6 flex items-center gap-4">
-            <span className="w-8 h-[1px] bg-white/30"></span>
-            Case Study • {project.category}
-          </span>
-          <h1 className="text-[clamp(3rem,10vw,8rem)] font-bold tracking-tighter leading-[0.85] font-['Outfit',sans-serif] mb-8">
-            {project.title}
-          </h1>
-          <p className="text-xl md:text-3xl text-white/80 font-light max-w-3xl leading-relaxed">
-            {project.desc}
-          </p>
+        {/* Massive Visual / Abstract Placeholder */}
+        <div className="w-full aspect-video bg-surface border border-border relative overflow-hidden">
+          <div className="absolute inset-x-12 inset-y-12 md:inset-x-32 md:inset-y-16 bg-background border border-border shadow-2xl flex flex-col">
+             <div className="h-16 border-b border-border flex items-center px-8 gap-4">
+                <div className="flex gap-2">
+                  <div className="w-3 h-3 rounded-full bg-border"></div>
+                  <div className="w-3 h-3 rounded-full bg-border"></div>
+                  <div className="w-3 h-3 rounded-full bg-border"></div>
+                </div>
+             </div>
+             <div className="flex-1 bg-surface p-8">
+                <div className="w-full h-full border-2 border-dashed border-border/50 flex items-center justify-center">
+                   <div className="text-secondary font-mono text-xs uppercase tracking-widest">System Interface</div>
+                </div>
+             </div>
+          </div>
         </div>
       </section>
 
-      {/* Details Section */}
-      <section className="w-full py-24 px-6 md:px-12 lg:px-24 relative z-10 bg-[#0a0a0a]">
-        <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row gap-16 lg:gap-32">
+      {/* 02: EDITORIAL CONTENT */}
+      <section className="w-full py-24 px-6 md:px-8 lg:px-12 max-w-[1800px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 lg:gap-32">
           
-          {/* Main Content */}
-          <div className="w-full lg:w-2/3 flex flex-col gap-16">
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8 }}
-            >
-              <h3 className="text-sm font-mono tracking-[0.2em] text-[#ff6a00] uppercase mb-6">01 / The Challenge</h3>
-              <p className="text-lg md:text-2xl text-white/70 leading-relaxed font-light">
+          {/* Main Storytelling */}
+          <div className="md:col-span-8 flex flex-col gap-24">
+            
+            <div className="reveal-up border-t border-border pt-8">
+              <h2 className="text-sm font-mono tracking-widest text-secondary uppercase mb-8">
+                01 / The Problem
+              </h2>
+              <p className="text-2xl md:text-4xl text-primary leading-tight font-medium max-w-4xl">
                 {project.challenge}
               </p>
-            </motion.div>
+            </div>
 
-            <motion.div 
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.8, delay: 0.1 }}
-            >
-              <h3 className="text-sm font-mono tracking-[0.2em] text-[#ff6a00] uppercase mb-6">02 / The Solution</h3>
-              <p className="text-lg md:text-2xl text-white/70 leading-relaxed font-light">
+            <div className="reveal-up border-t border-border pt-8">
+              <h2 className="text-sm font-mono tracking-widest text-secondary uppercase mb-8">
+                02 / The Approach
+              </h2>
+              <p className="text-2xl md:text-4xl text-primary leading-tight font-medium max-w-4xl">
                 {project.solution}
               </p>
-            </motion.div>
+            </div>
+            
+            <div className="reveal-up border-t border-border pt-8">
+              <h2 className="text-sm font-mono tracking-widest text-secondary uppercase mb-8">
+                03 / The System
+              </h2>
+              {/* Mid-content image break */}
+              <div className="w-full aspect-[21/9] bg-surface border border-border my-12 relative overflow-hidden">
+                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-border flex items-center justify-center rotate-45">
+                    <div className="w-32 h-32 bg-primary"></div>
+                 </div>
+              </div>
+              <p className="text-xl md:text-2xl text-secondary leading-relaxed max-w-4xl">
+                By stripping away unnecessary visual decoration and focusing entirely on component performance and database architecture, we delivered a product that scales effortlessly. The resulting system acts as the foundation for the next decade of the company's growth.
+              </p>
+            </div>
+
           </div>
 
-          {/* Sidebar */}
-          <div className="w-full lg:w-1/3 flex flex-col gap-16 border-t lg:border-t-0 lg:border-l border-white/10 pt-16 lg:pt-0 lg:pl-16">
+          {/* Sidebar / Results */}
+          <div className="md:col-span-4 flex flex-col gap-16 md:sticky md:top-32 h-fit">
             
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6 }}
-            >
-              <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-white/40 mb-6 pb-4 border-b border-white/5">Tech Stack</h4>
-              <div className="flex flex-col gap-3">
-                {project.tags.map((tag: string) => (
-                  <span key={tag} className="text-white/80 font-mono text-sm tracking-widest uppercase flex items-center gap-3">
-                    <span className="w-1.5 h-1.5 rounded-full bg-white/20"></span>
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.1 }}
-            >
-              <h4 className="text-xs font-bold tracking-[0.2em] uppercase text-white/40 mb-6 pb-4 border-b border-white/5">The Results</h4>
-              <div className="flex flex-col gap-8">
-                {project.results.map((res: any, idx: number) => (
+            <div className="reveal-up border-t border-border pt-8">
+              <h3 className="text-sm font-mono tracking-widest uppercase text-secondary mb-12">
+                04 / The Result
+              </h3>
+              
+              <div className="flex flex-col gap-12">
+                {project.results?.map((res: any, idx: number) => (
                   <div key={idx} className="flex flex-col gap-2">
-                    <span className="text-4xl md:text-5xl font-bold tracking-tighter text-white font-['Outfit',sans-serif]">
+                    <span className="text-6xl lg:text-[6rem] font-bold tracking-tighter text-primary leading-none">
                       {res.metric}
                     </span>
-                    <span className="text-xs font-mono tracking-widest text-white/50 uppercase">
+                    <span className="text-sm font-mono tracking-widest text-secondary uppercase mt-4">
                       {res.label}
                     </span>
                   </div>
                 ))}
               </div>
-            </motion.div>
+            </div>
             
-            <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.2 }}
-              className="mt-8"
-            >
+            <div className="reveal-up mt-8">
               <a 
                 href={project.link}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group relative inline-flex items-center justify-center gap-4 px-8 py-5 bg-white text-black font-bold tracking-widest uppercase text-xs overflow-hidden rounded-full w-full"
+                className="inline-flex items-center justify-center bg-primary text-background px-8 py-5 text-sm font-bold uppercase tracking-widest hover:bg-accent transition-colors w-full text-center"
               >
-                <span className="relative z-10 transition-transform duration-500 group-hover:-translate-y-[150%]">Visit Live Site</span>
-                <span className="absolute z-10 transition-transform duration-500 translate-y-[150%] group-hover:translate-y-0 text-white">Launch</span>
-                <div className="absolute inset-0 bg-[#ff6a00] translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[cubic-bezier(0.19,1,0.22,1)]" />
+                VISIT LIVE PLATFORM →
               </a>
-            </motion.div>
+            </div>
 
           </div>
         </div>
       </section>
       
-      {/* Visual Divider */}
-      <div className="w-full max-w-7xl mx-auto h-[1px] bg-gradient-to-r from-transparent via-white/10 to-transparent my-12" />
-
-      {/* Next Steps / CTA */}
-      <section className="py-32 w-full max-w-5xl mx-auto text-center px-6">
-        <h2 className="text-4xl md:text-6xl font-bold tracking-tighter font-['Outfit',sans-serif] mb-8">
-          Ready to build your own reality?
+      {/* 03: NEXT PROJECT */}
+      <section className="py-32 px-6 md:px-8 lg:px-12 w-full max-w-[1800px] mx-auto text-center border-t border-border">
+        <span className="text-xs font-mono tracking-widest uppercase text-secondary block mb-12">
+          CONTINUE EXPLORING
+        </span>
+        <h2 className="text-5xl md:text-[8vw] font-bold tracking-tighter uppercase leading-[0.85] mb-16">
+          <Link to="/work" className="hover:text-accent transition-colors">
+            ARCHIVE
+          </Link>
         </h2>
-        <a 
-          href="/contact"
-          className="inline-flex items-center gap-4 text-lg font-bold tracking-widest uppercase hover:text-[#ff6a00] transition-colors group"
-        >
-          <span className="w-12 h-[1px] bg-white group-hover:bg-[#ff6a00] group-hover:w-16 transition-all duration-300"></span>
-          Start a Project
-        </a>
       </section>
 
     </div>

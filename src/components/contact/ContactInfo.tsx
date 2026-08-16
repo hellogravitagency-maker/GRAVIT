@@ -50,7 +50,7 @@ export default function ContactInfo() {
             <ArrowUpRight className="w-4 h-4 opacity-0 -translate-x-2 translate-y-2 group-hover:opacity-100 group-hover:translate-x-0 group-hover:translate-y-0 transition-all duration-300" />
           </motion.a>
           <motion.span variants={itemVariants} className="font-mono text-sm text-white/70 block py-1">
-            Kurnool, Andhra Pradesh, India
+            Bangalore, Karnataka, India
           </motion.span>
           <motion.a variants={itemVariants} href="https://instagram.com/gravit_agency" target="_blank" rel="noopener noreferrer" className="group font-mono text-sm text-white/70 hover:text-white transition-colors flex items-center gap-2">
             <span>@gravit_agency</span>

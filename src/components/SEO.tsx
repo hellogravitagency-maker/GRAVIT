@@ -1,5 +1,7 @@
 import React from 'react';
 import { Helmet } from 'react-helmet-async';
+import { siteConfig } from '../config/siteConfig';
+import { getCanonicalUrl, generateWebSiteSchema, generateOrganizationSchema } from '../lib/seo';
 
 interface SEOProps {
   title?: string;
@@ -8,32 +10,49 @@ interface SEOProps {
   name?: string;
   image?: string;
   url?: string;
+  path?: string;
+  jsonLd?: object | object[];
+  noindex?: boolean;
 }
 
 export default function SEO({ 
-  title = "Gravit Agency | We Shape Digital Realities", 
-  description = "A premium digital agency specializing in immersive 3D experiences, spatial computing, and high-performance web applications.", 
+  title = "GRAVIT | High-Performance Digital Engineering", 
+  description = siteConfig.description, 
   type = "website", 
-  name = "Gravit Agency", 
-  image = "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=1200&auto=format&fit=crop", 
-  url = "https://gravit.agency" 
+  name = siteConfig.name, 
+  image = `${siteConfig.siteUrl}/og-image.png`, 
+  url,
+  path = "/",
+  jsonLd,
+  noindex = false
 }: SEOProps) {
   
-  // Clean up title if it doesn't already contain the agency name
-  const formattedTitle = title.includes("Gravit") ? title : `${title} | Gravit Agency`;
+  // Format title cleanly
+  const formattedTitle = title.includes("GRAVIT") || title.includes("Gravit") 
+    ? title 
+    : `${title} | GRAVIT`;
+
+  const canonicalUrl = url || getCanonicalUrl(path);
+
+  // Default schemas for global WebSite and Organization
+  const baseSchemas = path === "/" ? [generateWebSiteSchema(), generateOrganizationSchema()] : [];
+  const customSchemas = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
+  const allSchemas = [...baseSchemas, ...customSchemas];
 
   return (
     <Helmet>
       {/* Standard metadata tags */}
       <title>{formattedTitle}</title>
-      <meta name='description' content={description} />
+      <meta name="description" content={description} />
+      <link rel="canonical" href={canonicalUrl} />
+      {noindex && <meta name="robots" content="noindex, nofollow" />}
       
       {/* OpenGraph tags */}
       <meta property="og:type" content={type} />
       <meta property="og:title" content={formattedTitle} />
       <meta property="og:description" content={description} />
       <meta property="og:site_name" content={name} />
-      <meta property="og:url" content={url} />
+      <meta property="og:url" content={canonicalUrl} />
       <meta property="og:image" content={image} />
       
       {/* Twitter tags */}
@@ -42,7 +61,14 @@ export default function SEO({
       <meta name="twitter:title" content={formattedTitle} />
       <meta name="twitter:description" content={description} />
       <meta name="twitter:image" content={image} />
-      <meta name="twitter:url" content={url} />
+      <meta name="twitter:url" content={canonicalUrl} />
+
+      {/* JSON-LD Structured Data */}
+      {allSchemas.map((schema, index) => (
+        <script key={index} type="application/ld+json">
+          {JSON.stringify(schema)}
+        </script>
+      ))}
     </Helmet>
   );
 }

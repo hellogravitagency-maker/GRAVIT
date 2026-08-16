@@ -1,134 +1,127 @@
-import React, { useEffect } from 'react';
-import { useParams, Link } from 'react-router-dom';
 import { motion } from 'motion/react';
-import PageTransition from './PageTransition';
-import SmoothScroll from './SmoothScroll';
+import { Link, useParams } from 'react-router-dom';
+import React from 'react';
 import SEO from './SEO';
 
-
-export const articlesData: Record<string, any> = {
-  "react-server-components": {
-    title: "Why React Server Components Change Everything.",
-    category: "ENGINEERING",
-    date: "JUL 2026",
-    content: "Server components are fundamentally shifting how we think about rendering and data fetching in React. By moving the component execution entirely to the server, we eliminate client-side JavaScript bloat and reduce waterfalls. This isn't just an incremental update; it's a structural revolution in web architecture.",
-    img: "https://images.unsplash.com/photo-1555099962-4199c345e5dd?q=80&w=2070&auto=format&fit=crop"
-  },
-  "death-6-line-hero": {
-    title: "The Death of the 6-Line Hero.",
-    category: "DESIGN",
-    date: "JUN 2026",
-    content: "For years, SaaS websites have relied on the predictable '6-line hero' formula: eyebrow text, bold H1, subtext, two buttons, and a dashboard mockup. As users develop blindness to this layout, brutalism and editorial design are stepping in to restore personality and differentiation.",
-    img: "https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=2064&auto=format&fit=crop"
-  },
-  "zero-latency-webgl": {
-    title: "Building Zero-Latency Video Players in WebGL.",
-    category: "CASE STUDY",
-    date: "MAY 2026",
-    content: "Standard HTML5 video players often struggle with frame-perfect synchronization when tied to scroll events. By decoding video frames directly into WebGL textures, we bypassed DOM repaints entirely, achieving buttery smooth 60fps playback tied directly to the user's scroll wheel.",
-    img: "https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=2070&auto=format&fit=crop"
-  },
-  "typography-interface": {
-    title: "Typography as Interface: Beyond Inter.",
-    category: "DESIGN",
-    date: "APR 2026",
-    content: "When you strip away gradients, shadows, and borders, typography becomes the interface. We explore how variable fonts and aggressive letter-spacing can create a visual hierarchy so strong that traditional UI components become unnecessary.",
-    img: "https://images.unsplash.com/photo-1561070791-2526d30994b5?q=80&w=2000&auto=format&fit=crop"
-  },
-  "vercel-to-aws": {
-    title: "Migrating from Vercel to AWS Bare Metal.",
-    category: "INFRASTRUCTURE",
-    date: "MAR 2026",
-    content: "Vercel offers unparalleled developer experience, but at a certain scale, the abstraction tax becomes too high. This is a deep dive into how we migrated a high-traffic e-commerce platform to AWS bare metal, cutting costs by 80% while maintaining sub-50ms TTFB.",
-    img: "https://images.unsplash.com/photo-1558494949-ef010cbdcc31?q=80&w=2034&auto=format&fit=crop"
-  }
+// Placeholder article content
+const getArticleData = (id: string) => {
+  return {
+    id,
+    title: 'Engineering for Scale: Our Approach to Modern Web Architecture',
+    category: 'Engineering',
+    date: 'Oct 24, 2023',
+    readTime: '6 min read',
+    author: {
+      name: 'Elena Rodriguez',
+      role: 'Head of Engineering'
+    },
+    content: `
+      <p class="lead">Building a digital product that looks beautiful is only half the battle. The true test of an engineering team lies in building architecture that can scale gracefully under pressure, maintain sub-second load times, and provide a seamless developer experience as the codebase grows.</p>
+      
+      <h2>The Monolith Dilemma</h2>
+      <p>For years, the industry standard was the monolithic application. Everything lived in one place: the database, the backend logic, the frontend templates. While this makes getting started incredibly easy, it creates massive bottlenecks as a company scales.</p>
+      
+      <p>When the marketing team wants to update copy, they need an engineer to deploy the whole app. When traffic spikes during a sale, the entire monolith needs to be scaled up, wasting resources on systems that aren't actually under load.</p>
+      
+      <blockquote>
+        <p>We don't build websites; we engineer systems. A system must be modular, resilient, and inherently scalable.</p>
+      </blockquote>
+      
+      <h2>Decoupling the Stack</h2>
+      <p>At GRAVIT, we strictly adhere to decoupled architectures. By separating the frontend presentation layer from the backend logic and content management, we unlock several key advantages:</p>
+      
+      <ul>
+        <li><strong>Security:</strong> The attack surface is drastically reduced when your frontend is decoupled.</li>
+        <li><strong>Performance:</strong> Static generation and edge caching become trivial to implement.</li>
+        <li><strong>Velocity:</strong> Frontend and backend teams can work completely independently.</li>
+      </ul>
+      
+      <h2>Our Core Technology Choices</h2>
+      <p>While we are technology agnostic and choose the right tool for the job, our default stack for modern web applications revolves around a few key players:</p>
+      
+      <p><strong>React & Next.js:</strong> Component-based architecture allows us to build robust design systems that ensure absolute visual consistency. Next.js provides the server-side rendering capabilities necessary for perfect SEO and initial load performance.</p>
+      
+      <p><strong>Headless CMS:</strong> Whether it's Sanity, Contentful, or a custom solution, treating content as raw data accessed via an API gives our clients the power to update their platforms without touching code.</p>
+      
+      <p>The future of the web isn't monolithic. It's composable, distributed, and incredibly fast. That's exactly what we build.</p>
+    `
+  };
 };
 
 export default function Article() {
   const { id } = useParams<{ id: string }>();
-  const article = id ? articlesData[id] : null;
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
-
-  if (!article) {
-    return (
-      <div className="min-h-screen bg-[#050505] flex items-center justify-center text-white font-['Outfit',sans-serif]">
-      <SEO title={`${article.title} | The Lab`} description={`Read about ${article.title} by Gravit Agency`} image={article.img} />
-        <div className="text-center">
-          <h1 className="text-4xl font-bold mb-4">Article Not Found</h1>
-          <Link to="/work" className="text-[var(--color-accent)] hover:underline">Return to Work</Link>
-        </div>
-      </div>
-    );
-  }
+  const article = getArticleData(id as string);
 
   return (
-    <div className="min-h-screen bg-[#050505] text-white pt-32 pb-24 font-['Outfit',sans-serif]">
-      <div className="max-w-4xl mx-auto px-6 md:px-12">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-16"
-        >
-          <Link to="/work" className="inline-flex items-center gap-2 text-white/50 hover:text-white transition-colors mb-12 uppercase tracking-widest text-xs font-bold">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-              <path d="M19 12H5M12 19l-7-7 7-7"/>
-            </svg>
-            Back to Work
+    <div className="w-full flex flex-col bg-transparent min-h-screen pt-32 pb-24">
+      <SEO 
+        title={`${article.title} | GRAVIT Insights`} 
+        description="GRAVIT Engineering & Strategy Insights." 
+        path={`/insights/${id}`}
+      />
+      
+      <article className="max-w-[1400px] mx-auto px-6 md:px-12 w-full">
+        {/* Top Nav */}
+        <div className="mb-16">
+          <Link to="/insights" className="text-muted hover:text-white transition-colors font-mono text-xs uppercase tracking-widest">
+            &larr; Back to Insights
           </Link>
-          
-          <div className="flex items-center gap-4 mb-8">
-            <span className="text-[var(--color-accent)] font-bold tracking-[0.2em] uppercase text-xs">
-              {article.category}
-            </span>
-            <span className="w-1 h-1 bg-white/20 rounded-full"></span>
-            <span className="text-white/40 tracking-[0.2em] uppercase text-xs">
-              {article.date}
-            </span>
-          </div>
+        </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold tracking-tighter leading-[1.1] mb-12">
+        {/* Article Header */}
+        <header className="max-w-4xl mx-auto mb-16 text-center">
+          <div className="flex items-center justify-center gap-3 mb-8">
+            <span className="text-accent text-xs font-mono uppercase">{article.category}</span>
+            <span className="text-muted text-xs font-mono">•</span>
+            <span className="text-muted text-xs font-mono">{article.date}</span>
+            <span className="text-muted text-xs font-mono">•</span>
+            <span className="text-muted text-xs font-mono">{article.readTime}</span>
+          </div>
+          
+          <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-white font-sans leading-tight mb-12">
             {article.title}
           </h1>
-        </motion.div>
+          
+          <div className="flex items-center justify-center gap-4 border-t border-b border-border-subtle py-6">
+            <div className="w-10 h-10 rounded-full bg-surface border border-border-subtle flex items-center justify-center font-mono text-xs text-secondary">
+              {article.author.name.charAt(0)}
+            </div>
+            <div className="text-left">
+              <div className="text-white font-sans font-medium">{article.author.name}</div>
+              <div className="text-muted font-mono text-xs">{article.author.role}</div>
+            </div>
+          </div>
+        </header>
 
-        <motion.div 
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 1, delay: 0.2, ease: [0.25, 0.46, 0.45, 0.94] }}
-          className="w-full aspect-[21/9] bg-[#111] mb-16 overflow-hidden rounded-[2rem] border border-white/10 will-change-transform"
-        >
-          <img src={article.img} alt={article.title} loading="lazy" decoding="async" className="w-full h-full object-cover grayscale opacity-80" />
-        </motion.div>
-
+        {/* Article Content */}
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.4, ease: "easeOut" }}
-          className="prose prose-invert prose-lg md:prose-xl max-w-3xl font-light text-white/70 leading-relaxed"
+          transition={{ duration: 0.8 }}
+          className="max-w-3xl mx-auto"
         >
-          <p className="text-2xl text-white/90 leading-tight mb-8">
-            {article.content}
-          </p>
-          <p>
-            This is a placeholder for the full article content. In a production environment, this would be fetched from a CMS like Sanity or Contentful. The brutalist design language continues here with stark contrast, large typography, and zero decorative noise. 
-          </p>
-          <div className="my-12 p-8 border border-white/10 rounded-2xl bg-white/5 backdrop-blur-md">
-            <h3 className="text-xl font-bold text-white mb-4 tracking-tight">Key Takeaways</h3>
-            <ul className="list-disc list-inside space-y-2 marker:text-[var(--color-accent)] text-base">
-              <li>Simplify architecture by removing unnecessary abstractions.</li>
-              <li>Prioritize raw performance over developer convenience where it matters.</li>
-              <li>Use aggressive visual contrast to guide the user's eye.</li>
-            </ul>
-          </div>
-          <p>
-            End of transmission.
-          </p>
+          {/* Prose styling using arbitrary variants since typography plugin isn't installed */}
+          <div 
+            className="[&>p]:text-secondary [&>p]:leading-relaxed [&>p]:mb-6 [&>p]:text-lg
+                       [&>h2]:text-white [&>h2]:font-bold [&>h2]:text-2xl [&>h2]:mt-12 [&>h2]:mb-6 [&>h2]:font-sans
+                       [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul>li]:text-secondary [&>ul>li]:mb-2 [&>ul>li>strong]:text-white
+                       [&>blockquote]:border-l-4 [&>blockquote]:border-accent [&>blockquote]:bg-surface [&>blockquote]:p-6 [&>blockquote]:mb-8 [&>blockquote>p]:text-white [&>blockquote>p]:font-medium [&>blockquote>p]:text-xl [&>blockquote>p]:mb-0
+                       [&>p.lead]:text-xl [&>p.lead]:text-white [&>p.lead]:font-medium [&>p.lead]:mb-10
+                       [&>p>strong]:text-white [&>p>strong]:font-bold"
+            dangerouslySetInnerHTML={{ __html: article.content }}
+          />
         </motion.div>
-      </div>
+
+        {/* Share / Footer */}
+        <div className="max-w-3xl mx-auto mt-24 pt-8 border-t border-border-subtle flex justify-between items-center">
+          <span className="text-muted font-mono text-xs uppercase tracking-widest">Share this article</span>
+          <div className="flex gap-4">
+            <button className="text-secondary hover:text-white transition-colors font-mono text-xs">Twitter</button>
+            <button className="text-secondary hover:text-white transition-colors font-mono text-xs">LinkedIn</button>
+            <button className="text-secondary hover:text-white transition-colors font-mono text-xs">Copy Link</button>
+          </div>
+        </div>
+      </article>
     </div>
   );
 }

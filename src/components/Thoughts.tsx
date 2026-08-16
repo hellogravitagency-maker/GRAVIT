@@ -1,8 +1,29 @@
 import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, useInView } from 'motion/react';
-import { articlesData } from './Article';
 import SEO from './SEO';
+
+type ArticleMeta = {
+  title: string;
+  category: string;
+  date: string;
+  img: string;
+};
+
+const articlesData: Record<string, ArticleMeta> = {
+  'engineering-for-scale': {
+    title: 'Engineering for Scale: Our Approach to Modern Web Architecture',
+    category: 'Engineering',
+    date: 'Oct 24, 2023',
+    img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=2070&auto=format&fit=crop'
+  },
+  'spatial-computing': {
+    title: 'Designing for Spatial Computing: The Next Frontier',
+    category: 'Design',
+    date: 'Sep 12, 2023',
+    img: 'https://images.unsplash.com/photo-1617802690992-15d93263134c?q=80&w=2070&auto=format&fit=crop'
+  }
+};
 
 
 export default function Thoughts() {

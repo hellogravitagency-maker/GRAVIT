@@ -1,239 +1,186 @@
 import React from 'react';
-import { motion } from 'motion/react';
-import { useNavigate } from 'react-router-dom';
-import SpecularButton from './SpecularButton';
-import { GlowingEffect } from './ui/glowing-effect';
+import { Link } from 'react-router-dom';
 import SEO from './SEO';
-import BlackHole from './BlackHole';
-
-const services = [
-  {
-    id: 'Web Development',
-    title: 'Fast & Reliable Websites',
-    desc: 'We build fast and scalable web applications. From business dashboards to online stores.',
-    tags: ['React', 'Next.js', 'TypeScript', 'Node.js'],
-    colSpan: 'md:col-span-2'
-  },
-  {
-    id: 'Creative Design',
-    title: 'Engaging Animations',
-    desc: 'We use advanced animations to tell a story that keeps your users engaged.',
-    tags: ['WebGL', 'GSAP', 'Three.js'],
-    colSpan: 'md:col-span-1'
-  },
-  {
-    id: 'Digital Strategy',
-    title: 'Websites That Sell',
-    desc: 'We analyze your market and design websites that turn visitors into paying customers.',
-    tags: ['UX Audit', 'SEO', 'Analytics'],
-    colSpan: 'md:col-span-1'
-  },
-  {
-    id: 'Brand Design',
-    title: 'Premium Look & Feel',
-    desc: 'We design beautiful and easy-to-use websites that make your brand look premium.',
-    tags: ['Figma', 'Design Systems', 'Prototyping'],
-    colSpan: 'md:col-span-2'
-  }
-];
+import { siteConfig } from '../config/siteConfig';
+import { generateBreadcrumbSchema } from '../lib/seo';
 
 export default function Services() {
-  const navigate = useNavigate();
+  const serviceList = [
+    { slug: 'web-development', num: '01', discipline: 'Architecture' },
+    { slug: 'web-design', num: '02', discipline: 'Design Systems' },
+    { slug: 'ui-ux-design', num: '03', discipline: 'Interface Engineering' },
+    { slug: '3d-web-experiences', num: '04', discipline: 'Spatial Computing' },
+    { slug: 'web-applications', num: '05', discipline: 'Full-Stack Platforms' },
+  ].map((item) => ({
+    ...item,
+    ...siteConfig.services[item.slug],
+  }));
+
+  const breadcrumbs = [
+    { name: 'Home', item: '/' },
+    { name: 'Services', item: '/services' },
+  ];
 
   return (
-    <div className="w-full max-w-full overflow-x-clip bg-black text-white font-sans min-h-screen">
-      <SEO title="Services" description="Our core capabilities across Strategy, Engineering, and Spatial Computing." />
-      
-      {/* 3D BlackHole Hero */}
-      <section className="relative min-h-[100svh] py-24 md:py-32 w-full flex flex-col justify-center items-center text-center overflow-hidden">
-        
-        {/* Absolute 3D Component */}
-        <div className="absolute inset-0 z-0 h-full w-full">
-          <BlackHole />
-        </div>
-        
-        <div className="absolute inset-0 z-0 bg-gradient-to-t from-black via-black/20 to-black/80 pointer-events-none mix-blend-multiply"></div>
+    <div className="w-full bg-transparent text-primary font-sans min-h-screen">
+      <SEO
+        title="Services & Capabilities | GRAVIT®"
+        description="Our core engineering disciplines: web development, design systems, UI/UX, 3D WebGL, and full-stack application platforms."
+        path="/services"
+        jsonLd={generateBreadcrumbSchema(breadcrumbs)}
+      />
 
-        <div className="max-w-[1600px] mx-auto w-full relative z-10 flex flex-col items-center mt-20 md:mt-32 pointer-events-none">
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            className="flex flex-col items-center w-full"
-          >
-            <div className="flex items-center justify-center mb-10 pointer-events-auto">
-              <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full border border-white/10 bg-white/5 backdrop-blur-md shadow-[0_0_30px_rgba(255,255,255,0.1)] hover:bg-white/10 transition-colors">
-                <span className="w-2 h-2 rounded-full bg-white animate-pulse shadow-[0_0_10px_#ffffff]"></span>
-                <span className="text-white text-xs md:text-sm tracking-[0.2em] uppercase font-semibold">
-                  Digital Engineering Studio
-                </span>
-              </div>
-            </div>
-
-            <h1 className="font-extrabold tracking-tighter leading-[0.9] text-[clamp(4rem,10vw,12rem)] uppercase w-full flex flex-col items-center text-white z-10 pointer-events-auto" style={{ letterSpacing: "-0.04em" }}>
-              <span className="block overflow-hidden">
-                <span className="inline-block text-white drop-shadow-2xl select-text">Building</span>
-              </span>
-              <span className="block overflow-hidden">
-                <span className="inline-block text-white/90 drop-shadow-2xl select-text">Better</span>
-              </span>
-              <span className="block overflow-hidden">
-                <span className="inline-block text-white/80 drop-shadow-2xl select-text">Websites</span>
-              </span>
+      {/* 01: HERO — No 3D. No blobs. Typography is the design. */}
+      <section className="pt-40 pb-16 px-6 md:px-8 lg:px-12 w-full max-w-[1800px] mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-12 border-b border-border pb-16">
+          <div className="md:col-span-12">
+            <span className="text-xs font-mono uppercase tracking-widest text-secondary block mb-6">
+              01 / Capabilities
+            </span>
+            <h1 className="text-5xl md:text-7xl lg:text-[120px] font-bold tracking-tighter uppercase leading-[0.85] mb-8">
+              WHAT<br />WE BUILD.
             </h1>
-            
-            <motion.div 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.5 }}
-              className="mt-12 w-11/12 md:w-full max-w-2xl text-center text-white/80 text-lg md:text-xl leading-relaxed font-light backdrop-blur-3xl bg-black/40 p-8 rounded-3xl border border-white/10 shadow-2xl relative pointer-events-auto select-text"
-            >
-              We don't use boring templates. We create <strong className="text-white font-medium">custom websites</strong> that attract customers and help you lead your market.
-            </motion.div>
-          </motion.div>
+          </div>
+          <div className="md:col-span-7 lg:col-span-5">
+            <p className="text-xl md:text-2xl text-secondary leading-relaxed font-light">
+              Five engineering disciplines. Each one precise. None of them templates.
+            </p>
+          </div>
+          <div className="md:col-span-5 lg:col-span-4 lg:col-start-9 flex flex-col justify-end">
+            <div className="font-mono text-xs uppercase tracking-widest text-secondary border-t border-border pt-4">
+              Based in Bangalore, KA · Remote Global
+              <ul className="mt-4 flex flex-col gap-2 font-sans font-bold text-primary">
+                <li>SWISS DESIGN</li>
+                <li>SYSTEMS ENGINEERING</li>
+                <li>ZERO TEMPLATES</li>
+              </ul>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Tech Stack Marquee */}
-      <section className="py-12 border-y border-white/5 overflow-hidden relative bg-black z-20">
-        <div className="absolute inset-0 z-10 pointer-events-none bg-gradient-to-r from-black via-transparent to-black w-full" />
-        <div className="flex w-max animate-[marquee_20s_linear_infinite] items-center">
-           {[1, 2].map((set) => (
-             <div key={set} className="flex gap-16 md:gap-32 pr-16 md:pr-32 items-center shrink-0">
-               {['REACT', 'THREE.JS', 'GSAP', 'WEBGL', 'NODE.JS', 'NEXT.JS', 'REACT', 'THREE.JS', 'GSAP', 'WEBGL', 'NODE.JS', 'NEXT.JS'].map((tech, idx) => (
-                 <span key={`${set}-${idx}`} className="text-2xl md:text-4xl font-bold text-transparent uppercase tracking-tighter" style={{ WebkitTextStroke: '1px rgba(255,255,255,0.2)' }}>{tech}</span>
-               ))}
-             </div>
-           ))}
-        </div>
-      </section>
-
-      {/* Services Bento Grid */}
-      <section id="services" className="py-24 md:py-48 px-4 md:px-8 lg:px-16 max-w-[1600px] mx-auto relative z-10 bg-black">
-        <div className="mb-16 text-center lg:text-left">
-           <div className="h-[2px] w-12 bg-white mb-8 mx-auto lg:mx-0" />
-           <h2 className="text-5xl md:text-7xl font-bold text-white tracking-tight leading-[1.1] mb-6">Expertise that scales.</h2>
-           <p className="text-white/50 text-xl leading-relaxed max-w-2xl mx-auto lg:mx-0">
-             Our disciplines converge to create digital platforms that dominate their respective markets.
-           </p>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 auto-rows-auto md:auto-rows-[400px]">
-          {services.map((s, i) => (
-            <motion.div 
-              key={s.id}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true, margin: "-100px" }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-              className={`bg-[#050505] border border-white/10 rounded-3xl p-8 md:p-10 flex flex-col justify-between min-h-[350px] md:min-h-0 relative overflow-hidden group hover:border-white/30 transition-all duration-500 ${s.colSpan}`}
+      {/* 02: SERVICE LIST — Flat, typographic, scannable */}
+      <section id="services" className="px-6 md:px-8 lg:px-12 w-full max-w-[1800px] mx-auto pb-32">
+        <div className="flex flex-col">
+          {serviceList.map((service) => (
+            <Link
+              key={service.slug}
+              to={`/services/${service.slug}`}
+              className="group grid grid-cols-12 gap-6 items-start border-b border-border py-12 hover:bg-primary/[0.02] transition-colors -mx-6 md:-mx-8 lg:-mx-12 px-6 md:px-8 lg:px-12"
             >
-              <GlowingEffect spread={40} glow={true} proximity={64} inactiveZone={0.01} />
-              
-              <div className="absolute top-0 right-0 w-64 h-64 bg-white/5 rounded-full blur-[80px] -translate-y-1/2 translate-x-1/4 group-hover:bg-white/10 transition-colors duration-700 pointer-events-none"></div>
-
-              <div className="relative z-10 pointer-events-none">
-                <span className="font-mono text-xl font-bold text-white/60 group-hover:text-white transition-colors duration-500 mb-4 block">0{i + 1}</span>
-                <span className="text-white font-mono text-xs tracking-[0.2em] uppercase font-bold text-white/50 block mb-6">
-                  {s.id}
-                </span>
-                <h3 className="text-3xl md:text-4xl font-bold tracking-tight text-white">{s.title}</h3>
+              {/* Index */}
+              <div className="col-span-1 text-xs font-mono text-secondary pt-2 group-hover:text-primary transition-colors">
+                {service.num}
               </div>
-              
-              <div className="relative z-10 mt-8 pointer-events-none">
-                <p className="text-white/60 text-lg leading-relaxed mb-8 max-w-xl">
-                  {s.desc}
+
+              {/* Title + discipline */}
+              <div className="col-span-11 md:col-span-4">
+                <span className="text-xs font-mono uppercase tracking-widest text-secondary block mb-3">
+                  {service.discipline}
+                </span>
+                <h2 className="text-2xl md:text-3xl font-bold tracking-tight uppercase group-hover:text-accent transition-colors">
+                  {service.title}
+                </h2>
+              </div>
+
+              {/* Description */}
+              <div className="col-span-11 md:col-span-5 col-start-2 md:col-start-auto">
+                <p className="text-secondary text-base leading-relaxed">
+                  {service.shortDesc}
                 </p>
-                <div className="flex flex-wrap gap-3">
-                  {s.tags.map((tag) => (
-                    <span 
-                      key={tag} 
-                      className="px-4 py-2 bg-white/5 border border-white/10 rounded-full font-mono text-xs text-white/80 group-hover:bg-white/10 transition-all duration-300"
+                {/* Tags */}
+                <div className="flex flex-wrap gap-2 mt-6">
+                  {service.technologies.slice(0, 4).map((tech) => (
+                    <span
+                      key={tech}
+                      className="text-xs font-mono uppercase tracking-wider text-secondary border border-border px-2 py-1"
                     >
-                      {tag}
+                      {tech}
                     </span>
                   ))}
                 </div>
               </div>
-            </motion.div>
+
+              {/* Arrow */}
+              <div className="col-span-1 md:col-span-2 hidden md:flex items-start justify-end pt-2">
+                <span className="text-primary opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all text-lg">
+                  →
+                </span>
+              </div>
+            </Link>
           ))}
         </div>
       </section>
 
-      {/* Our Methodology */}
-      <section className="py-24 px-6 md:px-12 max-w-[1600px] mx-auto border-t border-white/5 bg-black relative z-10">
-        <div className="mb-16 text-center md:text-left flex flex-col md:flex-row md:items-end justify-between gap-8">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 className="text-4xl md:text-6xl font-bold tracking-tighter text-white mb-4">Our Methodology</h2>
-            <p className="text-white/50 text-lg max-w-2xl font-light">A systematic approach to digital excellence.</p>
-          </motion.div>
-        </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-          {[
-            { phase: "01", title: "Discovery & Architecture", desc: "We map out the system architecture, define user flows, and establish the technical requirements." },
-            { phase: "02", title: "Design & Prototyping", desc: "Creating high-fidelity prototypes and design systems with a focus on premium aesthetics and UX." },
-            { phase: "03", title: "Engineering & Motion", desc: "Building the frontend and backend architectures, integrating APIs, and crafting GSAP/WebGL animations." },
-            { phase: "04", title: "Deployment & Scaling", desc: "Rigorous QA, performance auditing, and deployment with CI/CD pipelines for seamless scaling." }
-          ].map((step, idx) => (
-            <motion.div
-              key={step.phase}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: idx * 0.1 }}
-              className="bg-[#050505] border border-white/10 rounded-3xl p-8 hover:border-white/30 transition-colors group relative overflow-hidden"
+      {/* 03: PROCESS + INSIGHTS — clean two-column, no dark cards */}
+      <section className="py-24 px-6 md:px-8 lg:px-12 w-full max-w-[1800px] mx-auto border-t border-border">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-px bg-border">
+          <div className="bg-background p-12 md:p-16">
+            <span className="text-xs font-mono uppercase tracking-widest text-secondary block mb-8">
+              Methodology
+            </span>
+            <h3 className="text-3xl md:text-4xl font-bold uppercase tracking-tighter mb-6">
+              OUR PROCESS.
+            </h3>
+            <p className="text-secondary leading-relaxed mb-10 max-w-md">
+              Discovery → Architecture → Build → Test → Deploy → Monitor.
+              Six phases. No surprises. Every milestone signed off before the next begins.
+            </p>
+            <Link
+              to="/process"
+              className="text-sm font-bold uppercase tracking-widest border-b border-primary pb-1 hover:text-accent hover:border-accent transition-colors inline-flex items-center gap-2"
             >
-              <GlowingEffect spread={40} glow={true} proximity={64} inactiveZone={0.01} />
-              <div className="relative z-10 pointer-events-none">
-                <div className="text-white/60 font-mono text-5xl font-bold mb-6 group-hover:text-white transition-colors duration-500">{step.phase}</div>
-                <h3 className="text-xl font-bold tracking-tight text-white mb-4">{step.title}</h3>
-                <p className="text-white/50 font-light leading-relaxed">{step.desc}</p>
-              </div>
-            </motion.div>
-          ))}
+              View the Process →
+            </Link>
+          </div>
+          <div className="bg-surface p-12 md:p-16">
+            <span className="text-xs font-mono uppercase tracking-widest text-secondary block mb-8">
+              The Lab
+            </span>
+            <h3 className="text-3xl md:text-4xl font-bold uppercase tracking-tighter mb-6">
+              ENGINEERING NOTES.
+            </h3>
+            <p className="text-secondary leading-relaxed mb-10 max-w-md">
+              Performance analysis, architectural patterns, and technical writing from the studio.
+              No fluff. Written by engineers, for engineers.
+            </p>
+            <Link
+              to="/insights"
+              className="text-sm font-bold uppercase tracking-widest border-b border-primary pb-1 hover:text-accent hover:border-accent transition-colors inline-flex items-center gap-2"
+            >
+              Read the Notes →
+            </Link>
+          </div>
         </div>
       </section>
 
-      {/* ACTION: Massive CTA Footer */}
-      <section className="py-20 md:py-32 px-6 text-center border-t border-white/5 bg-black relative overflow-hidden z-10">
-        <div className="relative z-10 flex flex-col items-center max-w-4xl mx-auto">
-          <h2 className="font-bold text-white tracking-tighter leading-[1] mb-12 uppercase" style={{ fontSize: 'clamp(3rem, 7vw, 7rem)' }}>
-            Start the <br /> conversation
-          </h2>
-            <SpecularButton
-              size="lg"
-              radius={999}
-              tint="#ffffff"
-              tintOpacity={0.05}
-              textColor="#ffffff"
-              lineColor="#ffffff"
-              baseColor="#525252"
-              className="font-bold tracking-widest text-xl uppercase px-16 py-8"
-              onClick={() => navigate('/contact')}
+      {/* 04: CTA */}
+      <section className="py-32 md:py-48 px-6 md:px-8 lg:px-12 w-full max-w-[1800px] mx-auto border-t border-border">
+        <div className="grid grid-cols-1 md:grid-cols-12 gap-16 items-end">
+          <div className="md:col-span-8">
+            <span className="text-xs font-mono uppercase tracking-widest text-secondary block mb-8">
+              Ready
+            </span>
+            <h2 className="text-5xl md:text-7xl lg:text-[8vw] font-bold tracking-tighter uppercase leading-[0.85]">
+              BRIEF<br />THE STUDIO.
+            </h2>
+          </div>
+          <div className="md:col-span-4 flex flex-col gap-4 items-start md:items-end pb-2">
+            <Link
+              to="/contact"
+              className="inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-bold uppercase tracking-widest hover:bg-accent transition-colors w-full md:w-auto"
             >
-              <div className="flex items-center justify-center gap-6">
-                <span>Deploy Now</span>
-                <div className="w-12 h-12 rounded-full bg-white/10 flex items-center justify-center">
-                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                    <path d="M5 12h14M12 5l7 7-7 7"/>
-                  </svg>
-                </div>
-              </div>
-            </SpecularButton>
+              Start a Project →
+            </Link>
+            <a
+              href="mailto:hello@gravit.agency"
+              className="inline-flex items-center justify-center border border-border px-10 py-5 text-sm font-bold uppercase tracking-widest hover:border-primary transition-colors w-full md:w-auto text-secondary hover:text-primary"
+            >
+              hello@gravit.agency
+            </a>
+          </div>
         </div>
       </section>
-
-      <style>{`
-        @keyframes marquee {
-          0% { transform: translateX(0%); }
-          100% { transform: translateX(-50%); }
-        }
-      `}</style>
     </div>
   );
 }

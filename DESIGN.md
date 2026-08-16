@@ -1,29 +1,71 @@
-# Design System: GRAVIT | High-Performance Digital Engineering
+# Design System: GRAVIT | Editorial Digital Studio
 **Project ID:** GRAVIT-main
 
-## 1. Visual Theme & Atmosphere
-Cinematic, brutalist, and structurally minimalist. The aesthetic is high-contrast and uncompromising, prioritizing purposeful motion over colorful noise. The atmosphere feels stark, technical, and premium, defined by a vast, dark canvas that is punctuated by architectural markers (corner plus symbols) and a subtle film grain overlay. This creates a utilitarian yet high-end spatial computing experience that feels like a digital blueprint.
+## 1. Design Philosophy
+**Less decoration. More intention.**
+
+GRAVIT operates at the intersection of editorial publishing, Swiss typography, and systems engineering. Every visual decision must be justified. If removing an element doesn't hurt the experience, it should be removed.
+
+**Tone:** Editorial Brutalism. Two tones only — never blend more than two.
+- Primary: Editorial / Structured
+- Secondary: Precision / Utilitarian
+
+**Differentiation Anchor:** "If this were screenshotted with the logo removed, a sophisticated design buyer would recognize it by its typographic scale, structural border language, and refusal to decorate."
 
 ## 2. Color Palette & Roles
-* **Deep Space Black (#000000):** Used for the primary background, establishing the vast, dark cinematic canvas.
-* **Starlight Nova White (#FFFFFF):** Used for primary text, active states, and high-contrast structural borders.
-* **Monolith Field Gray (#CCCCCC):** Used for secondary text, inactive elements, and paragraph bodies requiring slightly lower contrast than pure white.
-* **Ghost Ember Gray (#AAAAAA):** Used for muted text, subtle borders, and background divisions.
-* **Neon Accent Orange (#FF6A00):** Used for primary calls to action, highlights, section numbering, and brutalist hover states (such as the liquid-glass effect).
+
+Light mode (default):
+* **Off-White (#F5F5F2) — `--app-background`:** Primary surface. Warm, not clinical.
+* **Surface White (#FFFFFF) — `--app-surface`:** Card and container backgrounds.
+* **Void Black (#0A0A0A) — `--app-text-primary`:** Primary text and structural elements.
+* **Field Gray (#666666) — `--app-text-secondary`:** Supporting text and metadata.
+* **Structural Gray (#D8D8D3) — `--app-border`:** All borders and dividers.
+* **Violet (#5B4BFF) — `--app-accent`:** One accent, used with restraint. CTAs, active states, hover reveals only.
+
+**DO NOT USE:** Cyan gradients, glowing orbs, blur blobs, grain overlays, or any decorative color effect.
 
 ## 3. Typography Rules
-* **Headings ("Space Grotesk"):** Used for bold, uppercase statements and primary titles. Often tracked tightly (letter-spacing: -0.04em) to create a monolithic, structural presence.
-* **Body ("Inter"):** Used for highly legible paragraphs and long-form descriptive text.
-* **Metadata & Micro-copy ("Space Mono"):** Used for technical metadata, numbering, indices (e.g., "[01. ABSTRACT]"), and buttons. It is heavily tracked (tracking-widest / letter-spacing: 0.1em) for a utilitarian, engineered, and technical feel.
 
-## 4. Component Stylings
-* **Buttons:** Utilitarian and sharp. Standard buttons feature a "liquid-glass" treatment with a transparent background and a subtle 20% opacity white border. On hover, they sharply transition to a solid Neon Accent Orange background with Deep Space Black text.
-* **Cards/Containers:** Feature subtle roundness (rounded-2xl) wrapped in thin, low-opacity white borders (`rgba(255, 255, 255, 0.1)`). Backgrounds are transparent but reveal a faint, ghostly white fill (`hover:bg-white/5`) upon interaction.
-* **Navigation:** A frosted "glass nav" floating pill (rounded-full) with heavy blur (`backdrop-filter: blur(8px)`) and a faint border, creating a distinct, elevated layer above the dense dark background.
-* **Architectural Details:** Pixel cards and structural wrappers use corner pluses (`.corner-plus`) to denote bounds, reinforcing the engineering theme.
+* **Display/Headings:** Large-scale, uppercase, tight tracking (`tracking-tighter`). Scale from `clamp(40px, 10vw, 130px)`. This IS the design.
+* **Body (`--font-sans` → Inter):** Clean, legible, secondary. Only for description text — not headlines.
+* **Metadata (`--font-mono` → Space Mono):** Used for numbers, indices, tags, labels, categories. Never for body paragraphs.
+
+**Scale Contract:**
+- Hero: `text-[14vw]` minimum
+- Section headings: `text-5xl` to `text-8xl`
+- Sub-labels: `text-xs font-mono uppercase tracking-widest`
+
+## 4. Component Rules
+
+* **Buttons:** Sharp-edged rectangles. `bg-primary text-background` for primary; `border border-border` for secondary. Hover = `bg-accent`. No rounded-full buttons except in the Navbar pill.
+* **Cards:** Flat borders only (`border border-border`). No shadows. No glassmorphism. No rounded corners beyond `rounded-xl` inside dropdowns.
+* **Sections:** Full-width, `border-t border-border` as section dividers. No divider graphics, no decorative lines.
+* **Navigation:** Floating pill (`Navbar.tsx`) — this is the exception to the sharp-edge rule, justified because it is a floating element above the page grid.
 
 ## 5. Layout Principles
-* **Whitespace Strategy:** Expansive, deliberate, and structural. Sections utilize deep padding (`py-32`) to create significant breathing room, establishing a cinematic pacing as the user scrolls.
-* **Grid Alignment:** Strict 12-column grid alignment for content layout.
-* **Sectioning:** Content is heavily divided by pronounced horizontal rules (`border-t border-white/20`) that act as chapter markers across the experience.
-* **Scrollbars:** Hidden globally to maintain an unbroken, immersive brutalist presentation.
+
+* **Grid:** 12-column, `max-w-[1800px] mx-auto`, `px-6 md:px-8 lg:px-12`
+* **Section rhythm:** `py-24 md:py-48` for primary sections, `py-24 md:py-32` for dense sections.
+* **Whitespace:** Generous. Space is structure, not emptiness.
+* **Asymmetry:** Use the 12-column grid asymmetrically. A 4/8 split or 3/9 split is preferred over 6/6.
+
+## 6. Motion Philosophy
+
+* One entrance animation per page. Max.
+* `duration: 0.9, ease: [0.16, 1, 0.3, 1]` — cinematic, not bouncy.
+* Hover states: `transition-colors` only. No scale, no translate, no blur.
+* Exception: List items with `→` reveal on hover (`opacity-0 group-hover:opacity-100 -translate-x-2 group-hover:translate-x-0`) — this is purposeful.
+* **Forbidden:** Staggered animation on every element, scroll-triggered reveals on paragraphs, cursor effects, 3D decorations, particles, spinning objects.
+
+## 7. Copy Standards (avoid-ai-writing)
+
+**Banned phrases:**
+- "We build digital experiences"
+- "Transform your brand"
+- "Innovative solutions"
+- "Cutting-edge"
+- "Seamless"
+- "Leverage"
+- Any metric that cannot be verified ($X revenue generated, X% retention)
+
+**Preferred register:** Short, declarative, specific. Write as if every word costs money.

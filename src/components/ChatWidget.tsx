@@ -1,12 +1,9 @@
 import { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { MessageCircle, X, Send, Loader2 } from 'lucide-react';
-import { GoogleGenAI } from '@google/genai';
 import { GRAVIT_SYSTEM_PROMPT } from '../lib/ai-training';
 
-// Initialize Gemini Client
-const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
-
+// Dummy edit to trigger Vite HMR
 interface Message {
   id: string;
   role: 'user' | 'model';
@@ -53,20 +50,35 @@ export default function ChatWidget() {
           parts: [{ text: msg.text }]
         }));
 
-      // Call Gemini API using the new SDK
-      const response = await ai.models.generateContent({
-        model: 'gemini-2.5-flash',
-        contents: [
-          ...history,
-          { role: 'user', parts: [{ text: userMsg }] }
-        ],
-        config: {
-          systemInstruction: GRAVIT_SYSTEM_PROMPT,
-          temperature: 0.3,
-        }
+      // Call Gemini API directly via fetch to avoid SDK browser build issues
+      const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
+      if (!apiKey) throw new Error("Missing API Key");
+
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [
+            ...history,
+            { role: 'user', parts: [{ text: userMsg }] }
+          ],
+          systemInstruction: {
+            parts: [{ text: GRAVIT_SYSTEM_PROMPT }]
+          },
+          generationConfig: {
+            temperature: 0.3
+          }
+        })
       });
 
-      const responseText = response.text || "Connection interrupted. Please try again.";
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
+
+      const data = await response.json();
+      const responseText = data.candidates?.[0]?.content?.parts?.[0]?.text || "Connection interrupted. Please try again.";
       
       setMessages(prev => [...prev, {
         id: (Date.now() + 1).toString(),
