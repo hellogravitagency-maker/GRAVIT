@@ -1,0 +1,24 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+lh-report*.json
+lh-report*.html
+git_log.txt
+
+# Development and AI Agent Files
+.agent/
+.agents/
+.claude/
+skills-lock.json
+metadata.json
+convert.ps1
+ffmpeg.zip
+.lighthouseci/
+
+# Legal Drafts
+docs/legal-drafts/

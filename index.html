@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GRAVIT | High-Performance Digital Engineering</title>
+    <meta name="description" content="We build high-performance digital flagship experiences for global brands. No templates. No compromises." />
+    
+    <!-- Open Graph / Social -->
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://gravit.agency/" />
+    <meta property="og:title" content="GRAVIT | High-Performance Digital Engineering" />
+    <meta property="og:description" content="We build high-performance digital flagship experiences for global brands. No templates. No compromises." />
+    <meta property="og:image" content="/og-image.jpg" />
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://gravit.agency/" />
+    <meta name="twitter:title" content="GRAVIT | High-Performance Digital Engineering" />
+    <meta name="twitter:description" content="We build high-performance digital flagship experiences for global brands. No templates. No compromises." />
+    <meta name="twitter:image" content="/og-image.jpg" />
+    
+    <!-- Theme Color -->
+    <meta name="theme-color" content="#0A0A0F" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="preload" as="style">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <noscript>
+      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+    </noscript>
+  </head>
+  <body>
+    <script>
+      (function() {
+        try {
+          var theme = localStorage.getItem('theme');
+          // Default to dark mode if no theme is saved
+          if (theme === 'dark' || !theme) {
+            document.documentElement.classList.add('dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+          }
+        } catch (e) {}
+      })();
+    </script>
+    <script>
+      window.onerror = function(msg, url, line, col, error) {
+        // Ignore errors from Instagram/Facebook in-app browser injected scripts
+        if (
+          (url && typeof url === 'string' && url.includes('iabjs://')) ||
+          (msg && typeof msg === 'string' && msg.includes('Java exception was raised')) ||
+          (msg && typeof msg === 'string' && msg.includes('navigation_performance_logger')) ||
+          (error && error.stack && error.stack.includes('iabjs://'))
+        ) {
+          console.warn('Ignored in-app browser script error:', msg);
+          return true; // return true prevents the error from bubbling up
+        }
+
+        document.body.innerHTML = '<div style="color:red;font-size:20px;padding:20px;z-index:999999;position:fixed;top:0;left:0;background:white;width:100%;height:100%;overflow:auto;">' + 
+          'Error: ' + msg + '<br>Line: ' + line + '<br>Col: ' + col + '<br><pre>' + (error && error.stack ? error.stack : '') + '</pre>' + 
+          '</div>';
+      };
+    </script>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
+
