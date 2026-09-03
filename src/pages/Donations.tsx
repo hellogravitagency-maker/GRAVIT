@@ -25,7 +25,7 @@ export default function Donations() {
               <Heart className="w-8 h-8 fill-current" />
             </div>
             
-            <h1 className="text-6xl md:text-8xl lg:text-9xl font-medium tracking-tight mb-8 text-[#2c362d] leading-[0.9]" style={{ fontFamily: 'Georgia, serif' }}>
+            <h1 className="text-6xl md:text-8xl lg:text-9xl font-medium tracking-tight mb-8 text-[#2c362d] leading-[0.9]" style={{ fontFamily: "var(--font-heading)" }}>
               Fund The <br className="hidden md:block"/> Future.
             </h1>
             

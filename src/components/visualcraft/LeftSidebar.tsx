@@ -15,7 +15,7 @@ export function LeftSidebar({ state, role }: LeftSidebarProps) {
  return (
  <div className="w-64 bg-[#0a0a0a] border-r border-neutral-800 flex flex-col shrink-0 text-white p-6">
  <h3 className="text-sm font-bold uppercase tracking-widest text-neutral-500 mb-6">Client Review</h3>
- <p className="text-sm text-neutral-400 leading-relaxed mb-6">
+ <p className="text-sm text-neutral-300 leading-relaxed mb-6">
  Welcome to the GRAVIT AI Studio. Review the current design iteration, test interactivity, and drop pins on the canvas to leave feedback for the engineering team.
  </p>
  <button className="w-full bg-accent text-black font-bold py-3 rounded-md hover:opacity-90 transition-opacity">
@@ -82,7 +82,7 @@ export function LeftSidebar({ state, role }: LeftSidebarProps) {
  className="bg-neutral-900 border border-neutral-800 hover:border-accent p-3 rounded-md cursor-grab active:cursor-grabbing flex flex-col items-center justify-center text-center gap-2 transition-colors group"
  >
  <Plus className="w-4 h-4 text-neutral-600 group-hover:text-accent transition-colors" />
- <span className="text-[10px] text-neutral-400 group-hover:text-white">{item}</span>
+ <span className="text-[10px] text-neutral-300 group-hover:text-white">{item}</span>
  </div>
  ))}
  </div>

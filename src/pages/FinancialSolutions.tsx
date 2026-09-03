@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { Building2, Shield, Landmark, ArrowRight, LineChart, Briefcase } from 'lucide-react';
 import SEO from '../components/SEO';
 
@@ -32,11 +33,15 @@ export default function FinancialSolutions() {
       {/* HEADER - NAVY BLUE */}
       <section className="bg-slate-900 text-white pt-40 pb-32 px-6 md:px-12 w-full">
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
-          <div>
+          <motion.div
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          >
             <div className="inline-flex items-center gap-2 mb-8 uppercase tracking-widest text-xs font-semibold text-slate-400">
               <Landmark className="w-4 h-4" /> Institutional Services
             </div>
-            <h1 className="text-4xl md:text-6xl font-serif mb-6 leading-tight" style={{ fontFamily: 'Georgia, serif' }}>
+            <h1 className="text-4xl md:text-6xl font-serif mb-6 leading-tight" style={{ fontFamily: "var(--font-heading)" }}>
               Capital Management, Elevated.
             </h1>
             <p className="text-lg md:text-xl text-slate-300 mb-10 leading-relaxed font-light max-w-lg">
@@ -45,7 +50,7 @@ export default function FinancialSolutions() {
             <button className="bg-white text-slate-900 px-8 py-4 text-sm font-semibold hover:bg-slate-100 transition-colors flex items-center gap-2 shadow-sm">
               Schedule a Consultation <ArrowRight className="w-4 h-4" />
             </button>
-          </div>
+          </motion.div>
           
           <div className="relative h-[400px] w-full hidden md:block">
             <img 
@@ -60,19 +65,26 @@ export default function FinancialSolutions() {
       {/* THREE PILLARS */}
       <section className="py-24 px-6 md:px-12 w-full max-w-6xl mx-auto border-b border-slate-200">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-serif text-slate-900 mb-4" style={{ fontFamily: 'Georgia, serif' }}>Our Expertise</h2>
+          <h2 className="text-3xl md:text-4xl font-serif text-slate-900 mb-4" style={{ fontFamily: "var(--font-heading)" }}>Our Expertise</h2>
           <p className="text-slate-500 max-w-2xl mx-auto">Comprehensive financial structuring and asset management built on decades of institutional experience.</p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
           {SOLUTIONS.map((sol, i) => (
-            <div key={i} className="flex flex-col">
-              <div className="w-12 h-12 bg-slate-100 border border-slate-200 flex items-center justify-center mb-6 text-slate-700">
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.8, delay: i * 0.2 }}
+              className="flex flex-col group cursor-pointer"
+            >
+              <div className="w-12 h-12 bg-slate-100 border border-slate-200 flex items-center justify-center mb-6 text-slate-700 group-hover:bg-slate-900 group-hover:text-white transition-colors duration-300">
                 <sol.icon className="w-6 h-6" />
               </div>
-              <h3 className="text-xl font-semibold text-slate-900 mb-3">{sol.title}</h3>
+              <h3 className="text-xl font-semibold text-slate-900 mb-3 group-hover:text-slate-600 transition-colors">{sol.title}</h3>
               <p className="text-slate-600 leading-relaxed text-sm">{sol.description}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -81,7 +93,7 @@ export default function FinancialSolutions() {
       <section className="py-24 px-6 md:px-12 w-full max-w-6xl mx-auto">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
           <div>
-            <h2 className="text-3xl md:text-4xl font-serif text-slate-900 mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+            <h2 className="text-3xl md:text-4xl font-serif text-slate-900 mb-6" style={{ fontFamily: "var(--font-heading)" }}>
               Scale with Confidence
             </h2>
             <p className="text-slate-600 mb-8 leading-relaxed">
@@ -97,24 +109,30 @@ export default function FinancialSolutions() {
             </ul>
           </div>
 
-          <div className="grid grid-cols-2 gap-px bg-slate-200 border border-slate-200">
-            <div className="bg-white p-8 text-center flex flex-col justify-center h-48">
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 1 }}
+            className="grid grid-cols-2 gap-px bg-slate-200 border border-slate-200"
+          >
+            <motion.div whileHover={{ scale: 1.02 }} className="bg-white p-8 text-center flex flex-col justify-center h-48 cursor-default z-10 hover:shadow-lg transition-all relative">
               <span className="text-4xl font-serif text-slate-900 mb-2">$42B+</span>
               <span className="text-xs uppercase tracking-widest text-slate-500 font-semibold">Assets Under Management</span>
-            </div>
-            <div className="bg-white p-8 text-center flex flex-col justify-center h-48">
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} className="bg-white p-8 text-center flex flex-col justify-center h-48 cursor-default z-10 hover:shadow-lg transition-all relative">
               <span className="text-4xl font-serif text-slate-900 mb-2">99.99%</span>
               <span className="text-xs uppercase tracking-widest text-slate-500 font-semibold">System Uptime</span>
-            </div>
-            <div className="bg-white p-8 text-center flex flex-col justify-center h-48">
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} className="bg-white p-8 text-center flex flex-col justify-center h-48 cursor-default z-10 hover:shadow-lg transition-all relative">
               <span className="text-4xl font-serif text-slate-900 mb-2">135+</span>
               <span className="text-xs uppercase tracking-widest text-slate-500 font-semibold">Currencies Supported</span>
-            </div>
-            <div className="bg-white p-8 text-center flex flex-col justify-center h-48">
+            </motion.div>
+            <motion.div whileHover={{ scale: 1.02 }} className="bg-white p-8 text-center flex flex-col justify-center h-48 cursor-default z-10 hover:shadow-lg transition-all relative">
               <span className="text-4xl font-serif text-slate-900 mb-2">12ms</span>
               <span className="text-xs uppercase tracking-widest text-slate-500 font-semibold">Average Execution</span>
-            </div>
-          </div>
+            </motion.div>
+          </motion.div>
         </div>
       </section>
 

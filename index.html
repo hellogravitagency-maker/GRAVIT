@@ -21,14 +21,14 @@
     <meta name="twitter:description" content="We build high-performance digital flagship experiences for global brands. No templates. No compromises." />
     <meta name="twitter:image" content="/og-image.jpg" />
     
-    <!-- Theme Color -->
     <meta name="theme-color" content="#0A0A0F" />
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="preload" as="style">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Inter:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="preload" as="style">
+    <link rel="preload" href="/assets/work/premium_web_ai_1788031024675.jpg" as="image" fetchpriority="high">
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Inter:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
     <noscript>
-      <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+      <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400..800&family=Inter:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap" rel="stylesheet">
     </noscript>
   </head>
   <body>
@@ -63,7 +63,51 @@
           '</div>';
       };
     </script>
-    <div id="root"></div>
+    <div id="root">
+      <style>
+        .preloader {
+          position: fixed;
+          inset: 0;
+          z-index: 100;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          background-color: #0A0A0F;
+          color: #FAFAFA;
+        }
+        @media (prefers-color-scheme: light) {
+          html:not(.dark) .preloader {
+            background-color: #FAFAFA;
+            color: #0A0A0F;
+          }
+        }
+        .preloader-text {
+          font-family: "Syne", "Inter", sans-serif;
+          font-size: 1.5rem;
+          font-weight: 700;
+          letter-spacing: -0.025em;
+          animation: fade-in-up 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+        }
+        @media (min-width: 768px) {
+          .preloader-text {
+            font-size: 2.25rem;
+          }
+        }
+        @keyframes fade-in-up {
+          from {
+            opacity: 0;
+            transform: translateY(10px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+      </style>
+      <div class="preloader">
+        <div class="preloader-text">INITIALIZING_</div>
+      </div>
+    </div>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>

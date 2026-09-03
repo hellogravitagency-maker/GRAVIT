@@ -54,7 +54,7 @@ export default function Webinars() {
           style={{ y: y1 }}
           className="relative aspect-video bg-black border border-white/10 rounded-2xl md:rounded-[2rem] overflow-hidden shadow-[0_0_100px_rgba(0,0,0,0.8)] flex items-center justify-center group"
         >
-          <div className="absolute inset-0 bg-[url('/images/webinars_hero.jpg')] bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-1000 mix-blend-luminosity" />
+          <div className="absolute inset-0 bg-[url('/assets/work/saas_dashboard_ui_1788030738800.jpg')] bg-cover bg-center opacity-40 group-hover:opacity-60 transition-opacity duration-1000 mix-blend-luminosity" />
           
           {/* Controls UI Overlay */}
           <div className="absolute bottom-0 inset-x-0 p-6 bg-gradient-to-t from-black/80 to-transparent flex flex-col gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">

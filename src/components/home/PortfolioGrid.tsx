@@ -45,7 +45,7 @@ const projects = [
     description: "Full-featured online shopping experience with advanced filtering, secure checkout, and mobile-first design.",
     tags: ["E-commerce", "Retail", "Shopping"],
     category: "App",
-    image: "/images/ecommerce_hero.jpg",
+    image: "/assets/work/cyberpunk_ecommerce_1788030750391.jpg",
     link: "https://dribbble.com/shots/26625180-UTSHA-New-E-commerce-Website-Project"
   },
   {
@@ -78,7 +78,7 @@ export default function PortfolioGrid() {
             <h2 className="text-3xl md:text-5xl lg:text-6xl display-editorial text-primary mb-6">
               Featured <span className="text-primary/40 italic">Work.</span>
             </h2>
-            <p className="text-primary/50 text-sm md:text-base lg:text-lg leading-relaxed font-light">
+            <p className="text-secondary text-sm md:text-base lg:text-lg leading-relaxed font-light">
               Explore our portfolio of successful projects across various industries, showcasing innovative design and powerful digital solutions.
             </p>
           </div>
@@ -90,17 +90,17 @@ export default function PortfolioGrid() {
                 key={category}
                 onClick={() => setActiveCategory(category)}
                 className={`relative px-6 py-2.5 rounded-full text-sm font-medium transition-colors duration-300 ${
-                  activeCategory === category ? 'text-primary-foreground' : 'text-primary/60 hover:text-primary'
+                  activeCategory === category ? 'text-primary-foreground' : 'text-secondary hover:text-primary'
                 }`}
               >
                 {activeCategory === category && (
                   <motion.div 
                     layoutId="activePill"
-                    className="absolute inset-0 bg-primary rounded-full -z-10"
+                    className="absolute inset-0 bg-primary rounded-full z-0"
                     transition={{ type: "spring", bounce: 0.2, duration: 0.6 }}
                   />
                 )}
-                {category}
+                <span className="relative z-10">{category}</span>
               </button>
             ))}
           </div>

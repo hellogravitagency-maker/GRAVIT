@@ -19,7 +19,7 @@ const POSTS = [
     category: "Design",
     date: "Aug 12, 2026",
     readTime: "8 min",
-    image: "/images/ecommerce_hero.jpg"
+    image: "/assets/work/cyberpunk_ecommerce_1788030750391.jpg"
   },
   {
     title: "AI Integration Strategies for B2B",
@@ -35,7 +35,7 @@ const POSTS = [
     category: "Industry",
     date: "Jul 15, 2026",
     readTime: "10 min",
-    image: "/images/webinars_hero.jpg"
+    image: "/assets/work/saas_dashboard_ui_1788030738800.jpg"
   }
 ];
 

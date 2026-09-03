@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { BarChart3, Users, Target, Megaphone, ArrowRight } from 'lucide-react';
 import SEO from '../components/SEO';
 
@@ -36,7 +37,12 @@ export default function MarketingTools() {
 
       {/* HERO SECTION */}
       <section className="bg-white border-b border-[#e2e8f0] pt-40 pb-24 px-6 md:px-12 w-full">
-        <div className="max-w-7xl mx-auto text-center">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+          className="max-w-7xl mx-auto text-center"
+        >
           <h1 className="text-4xl md:text-6xl font-bold text-[#0f172a] mb-6 tracking-tight">
             Data-Driven Marketing. <br className="hidden md:block"/> Simplified.
           </h1>
@@ -44,19 +50,25 @@ export default function MarketingTools() {
             Empower your marketing team with enterprise-grade tools to capture leads, automate workflows, and measure ROI with precision.
           </p>
           <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-            <button className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3 rounded-md font-medium transition-colors shadow-sm w-full sm:w-auto">
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="bg-[#2563eb] hover:bg-[#1d4ed8] text-white px-8 py-3 rounded-md font-medium transition-colors shadow-sm w-full sm:w-auto">
               Start Free Trial
-            </button>
-            <button className="bg-white border border-[#cbd5e1] hover:bg-[#f1f5f9] text-[#334155] px-8 py-3 rounded-md font-medium transition-colors w-full sm:w-auto">
+            </motion.button>
+            <motion.button whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="bg-white border border-[#cbd5e1] hover:bg-[#f1f5f9] text-[#334155] px-8 py-3 rounded-md font-medium transition-colors w-full sm:w-auto">
               Request Demo
-            </button>
+            </motion.button>
           </div>
-        </div>
+        </motion.div>
       </section>
 
       {/* DASHBOARD MOCKUP */}
-      <section className="w-full max-w-6xl mx-auto px-6 md:px-12 -mt-12 relative z-10 mb-24">
-        <div className="bg-white rounded-lg border border-[#e2e8f0] shadow-lg p-2">
+      <motion.section 
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true }}
+        transition={{ duration: 1, delay: 0.2 }}
+        className="w-full max-w-6xl mx-auto px-6 md:px-12 -mt-12 relative z-10 mb-24"
+      >
+        <div className="bg-white rounded-lg border border-[#e2e8f0] shadow-xl p-2 hover:shadow-2xl transition-shadow duration-500">
           <div className="bg-[#f8fafc] rounded border border-[#e2e8f0] h-[400px] md:h-[600px] w-full flex items-center justify-center overflow-hidden relative">
             {/* Abstract representation of a dashboard rather than a real image to keep it clean */}
             <div className="absolute inset-0 p-8 grid grid-cols-3 gap-6 opacity-50">
@@ -86,7 +98,7 @@ export default function MarketingTools() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* FEATURES GRID */}
       <section className="w-full max-w-7xl mx-auto px-6 md:px-12">
@@ -97,7 +109,15 @@ export default function MarketingTools() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {FEATURES.map((feat, i) => (
-            <div key={i} className="bg-white p-8 rounded-lg border border-[#e2e8f0] flex gap-6 hover:border-[#cbd5e1] transition-colors">
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.1 }}
+              whileHover={{ y: -4 }}
+              className="bg-white p-8 rounded-lg border border-[#e2e8f0] flex gap-6 hover:border-[#94a3b8] hover:shadow-md transition-all cursor-default"
+            >
               <div className="w-12 h-12 bg-[#eff6ff] rounded flex items-center justify-center shrink-0">
                 <feat.icon className="w-6 h-6 text-[#2563eb]" />
               </div>
@@ -105,7 +125,7 @@ export default function MarketingTools() {
                 <h3 className="text-lg font-bold text-[#0f172a] mb-2">{feat.title}</h3>
                 <p className="text-[#64748b] leading-relaxed">{feat.description}</p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>

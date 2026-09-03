@@ -116,7 +116,7 @@ export default function ChatWidget() {
  </div>
  <button 
  onClick={() => setIsOpen(false)}
- className="text-white/50 hover:text-white transition-colors"
+ className="text-white/70 hover:text-white transition-colors"
  aria-label="Close Chat"
  >
  <X size={18} />
@@ -134,7 +134,7 @@ export default function ChatWidget() {
  key={msg.id} 
  className={`flex flex-col ${msg.role === 'user' ? 'items-end' : 'items-start'}`}
  >
- <span className="text-[10px] text-white/30 uppercase tracking-widest font-mono mb-2">
+ <span className="text-[10px] text-white/70 uppercase tracking-widest font-mono mb-2">
  {msg.role === 'user' ? 'CLIENT' : 'SYSTEM'}
  </span>
  <div 
@@ -151,10 +151,10 @@ export default function ChatWidget() {
  
  {isTyping && (
  <div className="flex flex-col items-start">
- <span className="text-[10px] text-white/30 uppercase tracking-widest font-mono mb-2">SYSTEM</span>
+ <span className="text-[10px] text-white/70 uppercase tracking-widest font-mono mb-2">SYSTEM</span>
  <div className="bg-white/5 border border-white/10 p-4 rounded-2xl rounded-tl-sm flex items-center gap-2">
  <Loader2 size={16} className="text-[#ffffff] animate-spin" />
- <span className="text-white/50 text-xs font-mono uppercase tracking-widest">Processing</span>
+ <span className="text-white/70 text-xs font-mono uppercase tracking-widest">Processing</span>
  </div>
  </div>
  )}

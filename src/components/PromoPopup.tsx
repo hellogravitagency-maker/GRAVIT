@@ -44,7 +44,7 @@ export default function PromoPopup() {
  
  <button 
  onClick={handleClose}
- className="absolute top-4 right-4 text-white/50 hover:text-white transition-colors z-10"
+ className="absolute top-4 right-4 text-white/70 hover:text-white transition-colors z-10"
  aria-label="Close"
  >
  <X size={16} />

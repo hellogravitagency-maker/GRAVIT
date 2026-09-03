@@ -62,7 +62,7 @@ export function InteractiveDock({ state, onUpdate, onExitFullscreen }: Interacti
  >
  <div className="flex justify-between items-center mb-4">
  <h3 className="font-semibold text-lg capitalize">{activeMenu}</h3>
- <button onClick={() => setActiveMenu(null)} className="text-neutral-400 hover:text-white">
+ <button onClick={() => setActiveMenu(null)} className="text-neutral-300 hover:text-white">
  <X className="w-5 h-5" />
  </button>
  </div>
@@ -125,7 +125,7 @@ export function InteractiveDock({ state, onUpdate, onExitFullscreen }: Interacti
  {activeMenu === 'wardrobe' && (
  <div className="space-y-6">
  <div>
- <span className="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-3 block">Pixel Gradient</span>
+ <span className="text-xs text-neutral-300 uppercase tracking-widest font-bold mb-3 block">Pixel Gradient</span>
  <div className="flex flex-wrap gap-2">
  {WARDROBE_GRADIENTS.map((grad, i) => (
  <button
@@ -138,7 +138,7 @@ export function InteractiveDock({ state, onUpdate, onExitFullscreen }: Interacti
  </div>
  </div>
  <div>
- <span className="text-xs text-neutral-400 uppercase tracking-widest font-bold mb-3 block">Accessory</span>
+ <span className="text-xs text-neutral-300 uppercase tracking-widest font-bold mb-3 block">Accessory</span>
  <div className="grid grid-cols-2 gap-2">
  {WARDROBE_ACCESSORIES.map(acc => (
  <button
@@ -190,7 +190,7 @@ function DockButton({ icon, tooltip, active, onClick }: { icon: React.ReactNode,
  onClick={onClick}
  whileHover={{ scale: 1.1 }}
  whileTap={{ scale: 0.95 }}
- className={`w-12 h-12 flex items-center justify-center rounded-full transition-colors ${active ? 'bg-white text-black' : 'text-neutral-400 hover:bg-white/10 hover:text-white'}`}
+ className={`w-12 h-12 flex items-center justify-center rounded-full transition-colors ${active ? 'bg-white text-black' : 'text-neutral-300 hover:bg-white/10 hover:text-white'}`}
  >
  {icon}
  </motion.button>

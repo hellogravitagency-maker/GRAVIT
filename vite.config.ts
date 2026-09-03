@@ -3,9 +3,22 @@ import react from '@vitejs/plugin-react';
 import path from 'path';
 import {defineConfig} from 'vite';
 
+const deferCssPlugin = () => {
+  return {
+    name: 'defer-css',
+    enforce: 'post' as const,
+    transformIndexHtml(html: string) {
+      return html.replace(
+        /<link rel="stylesheet"(.*?) href="(.*?\.css)">/g,
+        `<link rel="preload" as="style" href="$2">\n    <link rel="stylesheet" href="$2" media="print" onload="this.media='all'">\n    <noscript><link rel="stylesheet" href="$2"></noscript>`
+      );
+    },
+  };
+};
+
 export default defineConfig(() => {
   return {
-    plugins: [react(), tailwindcss()],
+    plugins: [react(), tailwindcss(), deferCssPlugin()],
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
@@ -24,9 +37,15 @@ export default defineConfig(() => {
     },
     build: {
       target: 'esnext',
-      modulePreload: true,
+      modulePreload: false,
       rollupOptions: {
         output: {
+          manualChunks: {
+            'vendor-react': ['react', 'react-dom', 'react-router-dom'],
+            'vendor-gsap': ['gsap', '@gsap/react'],
+            'vendor-framer': ['framer-motion'],
+            'vendor-lucide': ['lucide-react']
+          },
           assetFileNames: (assetInfo) => {
             let extType = assetInfo.name?.split('.').pop() || '';
             if (/png|jpe?g|svg|gif|tiff|bmp|ico/i.test(extType)) {
@@ -35,13 +54,6 @@ export default defineConfig(() => {
               extType = 'fonts';
             }
             return `assets/[name]-[hash][extname]`;
-          },
-          manualChunks: {
-            'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-            'vendor-three': ['three', '@react-three/fiber', '@react-three/drei'],
-            'vendor-motion': ['motion'],
-            'vendor-gsap': ['gsap'],
-            'vendor-zustand': ['zustand']
           }
         }
       },

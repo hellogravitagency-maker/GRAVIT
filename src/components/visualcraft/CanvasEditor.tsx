@@ -71,13 +71,13 @@ export function CanvasEditor({ children, role }: CanvasEditorProps) {
  <div className="flex items-center gap-1 bg-black/50 p-1 rounded-lg">
  <button 
  onClick={() => setTool('select')}
- className={`p-2 rounded-md transition-colors ${tool === 'select' ? 'bg-neutral-700 text-white' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}`}
+ className={`p-2 rounded-md transition-colors ${tool === 'select' ? 'bg-neutral-700 text-white' : 'text-neutral-300 hover:text-white hover:bg-neutral-800'}`}
  >
  <MousePointer2 className="w-4 h-4" />
  </button>
  <button 
  onClick={() => setTool('hand')}
- className={`p-2 rounded-md transition-colors ${tool === 'hand' ? 'bg-neutral-700 text-white' : 'text-neutral-400 hover:text-white hover:bg-neutral-800'}`}
+ className={`p-2 rounded-md transition-colors ${tool === 'hand' ? 'bg-neutral-700 text-white' : 'text-neutral-300 hover:text-white hover:bg-neutral-800'}`}
  >
  <Hand className="w-4 h-4" />
  </button>
@@ -86,20 +86,20 @@ export function CanvasEditor({ children, role }: CanvasEditorProps) {
  <div className="w-px h-6 bg-neutral-800 mx-1" />
 
  <div className="flex items-center gap-1 bg-black/50 p-1 rounded-lg">
- <button onClick={() => setZoom(z => Math.max(0.2, z - 0.1))} className="p-2 rounded-md text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
+ <button onClick={() => setZoom(z => Math.max(0.2, z - 0.1))} className="p-2 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">
  <ZoomOut className="w-4 h-4" />
  </button>
  <div className="w-16 text-center text-xs font-mono font-bold text-neutral-300 select-none">
  {Math.round(zoom * 100)}%
  </div>
- <button onClick={() => setZoom(z => Math.min(3, z + 0.1))} className="p-2 rounded-md text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
+ <button onClick={() => setZoom(z => Math.min(3, z + 0.1))} className="p-2 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">
  <ZoomIn className="w-4 h-4" />
  </button>
  </div>
 
  <div className="w-px h-6 bg-neutral-800 mx-1" />
 
- <button onClick={resetView} className="p-2 rounded-md text-neutral-400 hover:text-white hover:bg-neutral-800 transition-colors">
+ <button onClick={resetView} className="p-2 rounded-md text-neutral-300 hover:text-white hover:bg-neutral-800 transition-colors">
  <Maximize className="w-4 h-4" />
  </button>
  </div>

@@ -1,4 +1,3 @@
-@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Inter:wght@100..900&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 @import "shadcn/tailwind.css";
@@ -15,9 +14,10 @@
   --app-border-subtle: #F0F0EB;
   --app-text-primary: #1A1A1A;
   --app-text-secondary: #5A5A5A;
-  --app-text-muted: #8A8A8A;
-  --app-accent: #2563EB;
-  --app-accent-hover: #1D4ED8;
+  --app-text-muted: #5A5A5A;
+  --app-accent: #f97316;
+  --app-accent-hover: #ea580c;
+  --app-accent-secondary: #f43f5e;
 
   /* Shadcn defaults */
   --background: oklch(1 0 0);
@@ -63,9 +63,10 @@
   --app-border-subtle: #111111;
   --app-text-primary: #FFFFFF;
   --app-text-secondary: #A1A1AA;
-  --app-text-muted: #71717A;
-  --app-accent: #FFFFFF;
-  --app-accent-hover: #E4E4E7;
+  --app-text-muted: #A1A1AA;
+  --app-accent: #f97316;
+  --app-accent-hover: #ffedd5;
+  --app-accent-secondary: #f43f5e;
 
   /* Shadcn defaults (Dark Mode) */
   --background: oklch(0.145 0 0);
@@ -102,7 +103,7 @@
 }
 
 @theme {
-  --font-heading: "Playfair Display", serif;
+  --font-heading: "Syne", sans-serif;
   --font-body: "Inter", sans-serif;
   --font-mono: "Space Mono", monospace;
   --font-sans: "Inter", sans-serif;
@@ -119,6 +120,7 @@
   --color-muted: var(--app-text-muted);
   --color-accent: var(--app-accent);
   --color-accent-hover: var(--app-accent-hover);
+  --color-accent-secondary: var(--app-accent-secondary);
 
   /* Shadcn Variables mapping */
   --color-sidebar-ring: var(--sidebar-ring);
@@ -218,6 +220,15 @@
   to   { transform: translateX(-50%); }
 }
 
+@keyframes fade-in-up {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in-up {
+  animation: fade-in-up 1s ease-out forwards;
+}
+
 /* ── ElevenLabs-Inspired Premium Utilities ──────────────────────── */
 
 /* Atmospheric Gradient Orbs */
@@ -312,6 +323,14 @@
   font-weight: 400;
   letter-spacing: -0.04em;
   line-height: 1.05;
+}
+
+/* Accent Gradient Utility */
+.text-gradient-accent {
+  background-image: linear-gradient(to right, var(--color-accent), var(--color-accent-secondary));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -134,7 +134,7 @@ export default function About() {
  <motion.div 
  animate={{ x: [0, -1000] }}
  transition={{ repeat: Infinity, duration: 30, ease: "linear" }}
- className="text-3xl md:text-5xl font-heading font-medium tracking-tight leading-none flex gap-12 text-primary/30"
+ className="text-3xl md:text-5xl font-heading font-medium tracking-tight leading-none flex gap-12 text-secondary"
  >
  <span>Engineering discipline &bull; Minimalist aesthetics &bull; Scalable architecture &bull;</span>
  <span>Engineering discipline &bull; Minimalist aesthetics &bull; Scalable architecture &bull;</span>
@@ -164,7 +164,7 @@ export default function About() {
  transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
  className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-2/3 h-2/3 border border-white/10 rounded-full flex items-center justify-center"
  >
- <Cpu className="w-12 h-12 text-primary/30" />
+ <Cpu className="w-12 h-12 text-secondary" />
  </motion.div>
  </div>
  </motion.div>

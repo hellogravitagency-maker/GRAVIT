@@ -71,7 +71,7 @@ export default function PipelineDiagram() {
  
  {/* Commit / Action */}
  <div className="absolute left-[25%] top-[41.66%] -translate-x-1/2 -translate-y-1/2 bg-[#111] border border-white/10 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full flex items-center gap-2 whitespace-nowrap">
- <Activity size={14} className="text-white/50" />
+ <Activity size={14} className="text-white/70" />
  <span className="text-white/70 hidden md:inline">Migration Script</span>
  <span className="text-white/70 md:hidden">Migrate</span>
  </div>
@@ -86,10 +86,10 @@ export default function PipelineDiagram() {
  
  {/* Close Branch */}
  <div className="absolute left-[25%] top-[75%] -translate-x-1/2 -translate-y-1/2 flex flex-col items-center gap-1">
- <div className="w-6 h-6 rounded-full bg-[#111] border border-white/10 flex items-center justify-center text-white/50">
+ <div className="w-6 h-6 rounded-full bg-[#111] border border-white/10 flex items-center justify-center text-white/70">
  <XSquare size={14} />
  </div>
- <span className="text-white/50 font-bold mt-1 tracking-widest text-[8px] md:text-[10px] whitespace-nowrap">CLOSE BRANCH</span>
+ <span className="text-white/70 font-bold mt-1 tracking-widest text-[8px] md:text-[10px] whitespace-nowrap">CLOSE BRANCH</span>
  </div>
  
  {/* ======================================================== */}
@@ -105,7 +105,7 @@ export default function PipelineDiagram() {
  
  {/* Commit / Action */}
  <div className="absolute left-[75%] top-[33.33%] -translate-x-1/2 -translate-y-1/2 bg-[#111] border border-white/10 text-white px-3 py-1.5 md:px-4 md:py-2 rounded-full flex items-center gap-2 whitespace-nowrap">
- <Activity size={14} className="text-white/50" />
+ <Activity size={14} className="text-white/70" />
  <span className="text-white/70 hidden md:inline">Update JWT Logic</span>
  <span className="text-white/70 md:hidden">JWT Logic</span>
  </div>
@@ -130,7 +130,7 @@ export default function PipelineDiagram() {
  {/* TOGGLE SWITCH (Bottom Center) */}
  {/* ======================================================== */}
  <div className="absolute left-[50%] top-[88%] -translate-x-1/2 -translate-y-1/2 flex items-center bg-[#050505] border border-white/10 rounded-full p-1 shadow-[0_0_20px_rgba(0,0,0,0.8)] pointer-events-auto cursor-pointer">
- <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-[#111] text-white/50 transition-colors">
+ <div className="flex items-center gap-2 px-3 py-1.5 md:px-4 md:py-2 rounded-full bg-[#111] text-white/70 transition-colors">
  <User size={12} />
  <span className="hidden md:inline">HUMAN</span>
  </div>

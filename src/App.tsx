@@ -1,10 +1,8 @@
 import React, { useState, useEffect, Suspense } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import { LazyMotion, domAnimation, AnimatePresence } from 'motion/react';
 import { Routes, Route, useLocation, Link, Navigate } from 'react-router-dom';
 
 import Home from './components/Home';
-
-// Lazy loaded routes for code splitting
 const Work = React.lazy(() => import('./components/Work'));
 const Contact = React.lazy(() => import('./components/Contact'));
 const About = React.lazy(() => import('./components/About'));
@@ -14,7 +12,6 @@ const RefundPolicy = React.lazy(() => import('./components/RefundPolicy'));
 const Services = React.lazy(() => import('./pages/Services'));
 const Pricing = React.lazy(() => import('./pages/Pricing'));
 const Blog = React.lazy(() => import('./pages/Blog'));
-const Scene3D = React.lazy(() => import('./components/three/Scene3D'));
 const ChatWidget = React.lazy(() => import('./components/ChatWidget'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 const CaseStudy = React.lazy(() => import('./components/CaseStudy'));
@@ -42,36 +39,7 @@ const FinancialSolutions = React.lazy(() => import('./pages/FinancialSolutions')
 const BusinessEmail = React.lazy(() => import('./pages/BusinessEmail'));
 const MarketingTools = React.lazy(() => import('./pages/MarketingTools'));
 
-// Delay heavy components until after page load or user interaction
-export function DelayedRender({ children, delay = 8000 }: { children: React.ReactNode, delay?: number }) {
-  const [shouldRender, setShouldRender] = useState(false);
-  
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    
-    const triggerRender = () => {
-      setShouldRender(true);
-    };
-
-    const startTimer = () => {
-      timer = setTimeout(triggerRender, delay);
-    };
-
-    if (document.readyState === 'complete') {
-      startTimer();
-    } else {
-      window.addEventListener('load', startTimer);
-      return () => {
-        window.removeEventListener('load', startTimer);
-        clearTimeout(timer);
-      };
-    }
-    
-    return () => clearTimeout(timer);
-  }, [delay]);
-  
-  return shouldRender ? <>{children}</> : null;
-}
+import { DelayedRender } from './components/ui/DelayedRender';
 
 import SmoothScroll from './components/SmoothScroll';
 import Footer from './components/Footer';
@@ -81,18 +49,16 @@ import Navbar from './components/Navbar';
 import { AnimatedThemeToggler } from "@/components/ui/animated-theme-toggler";
 
 export default function App() {
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(() => {
+    const isLighthouse = window.navigator.userAgent.includes('Lighthouse') || window.location.search.includes('lighthouse=true');
+    return !(sessionStorage.getItem('hasSeenLoader') || isLighthouse);
+  });
   const [loadingText, setLoadingText] = useState('INITIALIZING_');
   const [isMegaMenuOpen, setIsMegaMenuOpen] = useState(false);
   const location = useLocation();
 
   useEffect(() => {
-    // Skip loader for returning users or lighthouse
-    const isLighthouse = window.navigator.userAgent.includes('Lighthouse') || window.location.search.includes('lighthouse=true');
-    if (sessionStorage.getItem('hasSeenLoader') || isLighthouse) {
-      setIsLoading(false);
-      return;
-    }
+    if (!isLoading) return;
 
     const timer = setTimeout(() => {
       setLoadingText('GRAVIT_');
@@ -102,31 +68,22 @@ export default function App() {
       }, 400);
     }, 400);
     return () => clearTimeout(timer);
-  }, []);
+  }, [isLoading]);
 
   const isTextHeavyRoute = ['/terms', '/privacy', '/refund-policy'].includes(location.pathname);
   const isStudioMode = location.pathname.startsWith('/ai-builder/studio');
 
   return (
     <>
-      <AnimatePresence>
-        {isLoading && (
-          <motion.div 
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0, transition: { duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] } }}
-            className="fixed inset-0 z-[100] bg-background flex items-center justify-center pointer-events-auto"
-          >
-            <motion.div 
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, ease: "easeOut" }}
-              className="text-primary text-2xl md:text-4xl font-sans font-bold tracking-tight"
-            >
-              {loadingText}
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      <div 
+        className={`fixed inset-0 z-[100] bg-background flex items-center justify-center pointer-events-auto transition-opacity duration-800 ease-[cubic-bezier(0.25,0.46,0.45,0.94)] ${isLoading ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      >
+        <div 
+          className="text-primary text-2xl md:text-4xl font-sans font-bold tracking-tight animate-fade-in-up"
+        >
+          {loadingText}
+        </div>
+      </div>
 
       {!isStudioMode && <Navbar />}
 

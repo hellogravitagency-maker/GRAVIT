@@ -1,4 +1,5 @@
 import React from 'react';
+import { motion } from 'motion/react';
 import { Mail, ShieldCheck, Zap, Server, Check } from 'lucide-react';
 import SEO from '../components/SEO';
 
@@ -35,20 +36,34 @@ export default function BusinessEmail() {
       {/* SWISS DESIGN HERO */}
       <section className="pt-40 pb-20 px-6 md:px-12 w-full max-w-7xl mx-auto border-b-2 border-[#111111]">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end">
-          <div className="lg:col-span-8">
+          <motion.div 
+            initial={{ opacity: 0, y: 50 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-8"
+          >
             <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-[0.85] uppercase">
               Business<br />Email.
             </h1>
-          </div>
-          <div className="lg:col-span-4 pb-2">
+          </motion.div>
+          <motion.div 
+            initial={{ opacity: 0, x: 30 }}
+            animate={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            className="lg:col-span-4 pb-2"
+          >
             <p className="text-xl font-medium leading-tight mb-8">
               Professional communication infrastructure.<br />
               Secure, fast, and completely reliable.
             </p>
-            <button className="bg-[#111111] text-white px-8 py-4 font-bold tracking-wide hover:bg-[#333333] transition-colors w-full md:w-auto uppercase text-sm">
+            <motion.button 
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
+              className="bg-[#111111] text-white px-8 py-4 font-bold tracking-wide hover:bg-[#333333] transition-colors w-full md:w-auto uppercase text-sm"
+            >
               Create Account
-            </button>
-          </div>
+            </motion.button>
+          </motion.div>
         </div>
       </section>
 
@@ -56,11 +71,18 @@ export default function BusinessEmail() {
       <section className="w-full max-w-7xl mx-auto border-b-2 border-[#111111]">
         <div className="grid grid-cols-1 md:grid-cols-3 divide-y-2 md:divide-y-0 md:divide-x-2 divide-[#111111]">
           {FEATURES.map((feat, i) => (
-            <div key={i} className="p-8 md:p-12 hover:bg-[#f0f0f0] transition-colors">
-              <feat.icon className="w-10 h-10 mb-8 text-[#111111]" strokeWidth={1.5} />
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: i * 0.1 }}
+              className="p-8 md:p-12 hover:bg-[#f0f0f0] transition-colors group cursor-default"
+            >
+              <feat.icon className="w-10 h-10 mb-8 text-[#111111] group-hover:scale-110 transition-transform duration-300" strokeWidth={1.5} />
               <h3 className="text-2xl font-bold mb-4 uppercase tracking-tight">{feat.title}</h3>
               <p className="text-lg font-medium leading-snug text-[#555555]">{feat.desc}</p>
-            </div>
+            </motion.div>
           ))}
         </div>
       </section>
@@ -71,7 +93,15 @@ export default function BusinessEmail() {
         
         <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
           {PRICING.map((plan, i) => (
-            <div key={i} className="border-2 border-[#111111] p-8 md:p-12 flex flex-col">
+            <motion.div 
+              key={i} 
+              initial={{ opacity: 0, scale: 0.95 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: i * 0.2 }}
+              whileHover={{ y: -8 }}
+              className="border-2 border-[#111111] p-8 md:p-12 flex flex-col bg-white shadow-[8px_8px_0px_0px_rgba(17,17,17,1)] transition-all hover:shadow-[12px_12px_0px_0px_rgba(17,17,17,1)]"
+            >
               <h3 className="text-3xl font-bold uppercase tracking-tight mb-2">{plan.name}</h3>
               <div className="flex items-baseline gap-2 mb-8 pb-8 border-b-2 border-[#111111]">
                 <span className="text-6xl font-bold tracking-tighter">{plan.price}</span>
@@ -91,10 +121,13 @@ export default function BusinessEmail() {
                 ))}
               </ul>
               
-              <button className="w-full border-2 border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-white py-4 font-bold uppercase tracking-wide transition-colors">
+              <motion.button 
+                whileTap={{ scale: 0.95 }}
+                className="w-full border-2 border-[#111111] text-[#111111] hover:bg-[#111111] hover:text-white py-4 font-bold uppercase tracking-wide transition-colors"
+              >
                 Select {plan.name}
-              </button>
-            </div>
+              </motion.button>
+            </motion.div>
           ))}
         </div>
       </section>

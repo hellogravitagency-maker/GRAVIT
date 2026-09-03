@@ -121,7 +121,7 @@ export default function BentoPortfolio() {
  <span className="block text-white">Architecting</span>
  <span className="block">The Future</span>
  </h2>
- <p className="text-white/50 text-xl leading-relaxed max-w-md font-light pb-2">
+ <p className="text-white/70 text-xl leading-relaxed max-w-md font-light pb-2">
  Explore our premium selection of highly engineered digital experiences that dominate their respective markets.
  </p>
  </div>

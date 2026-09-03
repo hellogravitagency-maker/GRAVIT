@@ -47,7 +47,7 @@ export const TechStackReveal = () => {
  tech.invert && "invert"
  )}
  />
- <span className="font-mono text-xs text-white/30 group-hover:text-white/90 tracking-widest uppercase transition-colors duration-700">
+ <span className="font-mono text-xs text-white/70 group-hover:text-white/90 tracking-widest uppercase transition-colors duration-700">
  {tech.name}
  </span>
  </div>

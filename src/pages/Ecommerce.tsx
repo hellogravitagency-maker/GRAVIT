@@ -109,7 +109,7 @@ export default function Ecommerce() {
             </motion.div>
             
             <div className="absolute inset-4 bg-fuchsia-400 border-4 border-black shadow-[16px_16px_0px_0px_rgba(0,0,0,1)] z-10 overflow-hidden group">
-              <div className="absolute inset-0 bg-[url('/images/ecommerce_hero.jpg')] bg-cover bg-center mix-blend-luminosity opacity-50 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500"></div>
+              <div className="absolute inset-0 bg-[url('/assets/work/cyberpunk_ecommerce_1788030750391.jpg')] bg-cover bg-center mix-blend-luminosity opacity-50 group-hover:opacity-100 group-hover:mix-blend-normal transition-all duration-500"></div>
               <div className="absolute bottom-0 w-full bg-black text-white p-4 font-mono text-lg font-bold flex justify-between border-t-4 border-black">
                 <span>NEW ARRIVALS</span>
                 <span>[SHOP NOW]</span>

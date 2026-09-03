@@ -368,9 +368,6 @@ export default function Navbar() {
                 <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" onClick={closeAll} className="flex-1 flex items-center justify-center py-4 bg-primary text-primary-foreground text-[15px] font-bold rounded-2xl hover:bg-primary/90 transition-colors">
                   Initiate Project
                 </a>
-                <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" onClick={closeAll} className="flex-1 flex items-center justify-center py-4 bg-primary text-primary-foreground text-[15px] font-bold rounded-2xl hover:bg-primary/90 transition-colors">
-                  Initiate Project
-                </a>
               </div>
             </motion.div>
           </>

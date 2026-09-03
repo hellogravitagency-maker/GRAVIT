@@ -55,7 +55,7 @@ export default function Contact() {
  04 / Contact
  </div>
  <h1 className="text-[clamp(3.5rem,10vw,12rem)] font-heading font-medium tracking-tight leading-[0.85] text-primary">
- Initiate.
+ <span className="text-gradient-accent pb-4 inline-block">Initiate.</span>
  </h1>
  </motion.div>
 
@@ -100,7 +100,7 @@ export default function Contact() {
  <h3 className="font-mono text-xs tracking-widest uppercase text-secondary mb-4 flex items-center gap-2">
  <MapPin className="w-3 h-3" /> HQ / Bengaluru
  </h3>
- <p className="text-xl font-medium text-primary group-hover:text-primary/70 transition-colors">12.9716° N, 77.5946° E</p>
+ <p className="text-xl font-medium text-primary group-hover:text-secondary transition-colors">12.9716° N, 77.5946° E</p>
  <p className="text-secondary font-light mt-1">Indiranagar, Karnataka, India</p>
  </div>
  
@@ -108,13 +108,13 @@ export default function Contact() {
  <h3 className="font-mono text-xs tracking-widest uppercase text-secondary mb-4 flex items-center gap-2">
  <MapPin className="w-3 h-3" /> Node / London
  </h3>
- <p className="text-xl font-medium text-primary group-hover:text-primary/70 transition-colors">51.5072° N, 0.1276° W</p>
+ <p className="text-xl font-medium text-primary group-hover:text-secondary transition-colors">51.5072° N, 0.1276° W</p>
  <p className="text-secondary font-light mt-1">Remote Engineering Hub</p>
  </div>
 
  <div className="pt-4 glass-panel p-8 rounded-3xl mt-4">
  <h3 className="font-mono text-xs tracking-widest uppercase text-secondary mb-4">Direct Communication</h3>
- <a href="mailto:hello@gravit.agency" className="text-xl md:text-2xl font-medium hover:text-primary/70 transition-colors underline underline-offset-8 decoration-1 decoration-white/20 hover:decoration-white/50 block">
+ <a href="mailto:hello@gravit.agency" className="text-xl md:text-2xl font-medium hover:text-secondary transition-colors underline underline-offset-8 decoration-1 decoration-white/20 hover:decoration-white/50 block">
  hello@gravit.agency
  </a>
  </div>

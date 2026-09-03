@@ -31,7 +31,7 @@ export default function ContactInfo() {
  whileInView="visible"
  viewport={{ once: true }}
  >
- <span className="text-[10px] font-mono tracking-[0.2em] text-white/40 uppercase mb-8 block flex items-center gap-3">
+ <span className="text-[10px] font-mono tracking-[0.2em] text-white/70 uppercase mb-8 block flex items-center gap-3">
  <span className="w-4 h-[1px] bg-white/20"></span>
  DIRECT
  </span>
@@ -67,7 +67,7 @@ export default function ContactInfo() {
  </div>
  
  <motion.div variants={itemVariants} className="mt-12">
- <p className="font-mono text-xs text-white/50">
+ <p className="font-mono text-xs text-white/70">
  We typically respond within 24 hours.
  </p>
  </motion.div>
@@ -80,7 +80,7 @@ export default function ContactInfo() {
  whileInView="visible"
  viewport={{ once: true }}
  >
- <span className="text-[10px] font-mono tracking-[0.2em] text-white/40 uppercase mb-8 block flex items-center gap-3">
+ <span className="text-[10px] font-mono tracking-[0.2em] text-white/70 uppercase mb-8 block flex items-center gap-3">
  <span className="w-4 h-[1px] bg-white/20"></span>
  PROCESS
  </span>
@@ -99,7 +99,7 @@ export default function ContactInfo() {
  >
  <div className="absolute inset-0 bg-white/5 translate-x-[-100%] group-hover:translate-x-0 transition-transform duration-700 ease-out z-0" />
  
- <div className="relative z-10 font-mono text-white/40 text-sm group-hover:text-white transition-colors duration-500">{p.step}</div>
+ <div className="relative z-10 font-mono text-white/70 text-sm group-hover:text-white transition-colors duration-500">{p.step}</div>
  <div className="relative z-10 text-white text-base tracking-tight group-hover:translate-x-2 transition-transform duration-500">{p.title}</div>
  <div className="relative z-10 text-white/60 text-sm leading-relaxed group-hover:text-white/90 transition-colors duration-500">{p.desc}</div>
  </motion.div>

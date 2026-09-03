@@ -158,7 +158,7 @@ export default function ContactForm() {
  : 'border-white/20 hover:border-white/50 focus:border-white focus:bg-white/5'
  }`;
 
- const labelClasses = "font-mono text-xs uppercase tracking-[0.15em] text-white/50 mb-1 block";
+ const labelClasses = "font-mono text-xs uppercase tracking-[0.15em] text-white/70 mb-1 block";
  
  const errorLabel = (message?: string) => 
  message ? <span className="font-mono text-[10px] uppercase tracking-wide text-white/70 mt-1 block" aria-live="polite">{message}</span> : null;
@@ -272,7 +272,7 @@ export default function ContactForm() {
  className={`${inputClasses(false)} flex items-center justify-between px-2`}
  >
  <span>{selectedCountryCode}</span>
- <ChevronDown className="w-4 h-4 text-white/50" />
+ <ChevronDown className="w-4 h-4 text-white/70" />
  </button>
  
  <AnimatePresence>
@@ -284,11 +284,11 @@ export default function ContactForm() {
  className="absolute top-full left-0 mt-2 w-[280px] bg-[#0A0A0F] border border-white/10 shadow-2xl z-50 rounded-lg overflow-hidden flex flex-col"
  >
  <div className="p-2 border-b border-white/10 flex items-center gap-2">
- <Search className="w-4 h-4 text-white/40" />
+ <Search className="w-4 h-4 text-white/70" />
  <input 
  type="text"
  placeholder="Search country..."
- className="bg-transparent border-none outline-none text-sm text-white w-full placeholder:text-white/30"
+ className="bg-transparent border-none outline-none text-sm text-white w-full placeholder:text-white/70"
  value={countrySearch}
  onChange={(e) => setCountrySearch(e.target.value)}
  onClick={(e) => e.stopPropagation()}
@@ -310,11 +310,11 @@ export default function ContactForm() {
  }}
  >
  <span className="truncate pr-2">{country.name}</span>
- <span className="text-white/40 flex-shrink-0">{country.dial_code}</span>
+ <span className="text-white/70 flex-shrink-0">{country.dial_code}</span>
  </button>
  ))}
  {filteredCountries.length === 0 && (
- <div className="px-4 py-3 text-sm text-white/40 text-center">
+ <div className="px-4 py-3 text-sm text-white/70 text-center">
  No countries found
  </div>
  )}
@@ -454,7 +454,7 @@ export default function ContactForm() {
  <polyline points="20 6 9 17 4 12"></polyline>
  </svg>
  </div>
- <span className="font-mono text-xs uppercase tracking-wide text-white/50 group-hover:text-white/80 transition-colors">
+ <span className="font-mono text-xs uppercase tracking-wide text-white/70 group-hover:text-white/80 transition-colors">
  I agree to the <Link to="/privacy" className="underline underline-offset-2 hover:text-white transition-colors">Privacy Policy</Link>
  </span>
  </label>

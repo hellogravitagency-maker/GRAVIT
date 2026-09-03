@@ -54,7 +54,6 @@ export default function ExperienceVisual({ isActive, mouseX, mouseY }: Experienc
       {/* Main Browser Frame */}
       <motion.div
         style={{ x: uiX, y: uiY }}
-        className="relative z-10 w-[80%] max-w-sm aspect-[4/3] bg-[#0a0a0a] rounded-lg border border-white/10 shadow-2xl flex flex-col overflow-hidden"
         className="relative z-10 w-[80%] max-w-sm aspect-[4/3] bg-background rounded-lg border border-border shadow-2xl flex flex-col overflow-hidden"
         variants={containerVariants}
         initial="hidden"
@@ -130,17 +129,17 @@ export default function ExperienceVisual({ isActive, mouseX, mouseY }: Experienc
             <LayoutGrid size={20} />
           </motion.div>
         </div>
-        <div className="absolute top-[30%] right-[15%] text-white/40">
+        <div className="absolute top-[30%] right-[15%] text-white/70">
           <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: isActive ? [0, 1, 1, 0] : 0, scale: isActive ? [0, 1, 1, 0.5] : 0 }} transition={{ duration: 4, times: [0, 0.3, 0.8, 1] }}>
             <Type size={20} />
           </motion.div>
         </div>
-        <div className="absolute bottom-[20%] left-[20%] text-white/40">
+        <div className="absolute bottom-[20%] left-[20%] text-white/70">
           <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: isActive ? [0, 1, 1, 0] : 0, scale: isActive ? [0, 1, 1, 0.5] : 0 }} transition={{ duration: 4, times: [0, 0.5, 0.8, 1] }}>
             <LayoutTemplate size={20} />
           </motion.div>
         </div>
-        <div className="absolute bottom-[25%] right-[10%] text-white/40">
+        <div className="absolute bottom-[25%] right-[10%] text-white/70">
           <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: isActive ? [0, 1, 1, 0] : 0, scale: isActive ? [0, 1, 1, 0.5] : 0 }} transition={{ duration: 4, times: [0, 0.7, 0.8, 1] }}>
             <Smartphone size={20} />
           </motion.div>

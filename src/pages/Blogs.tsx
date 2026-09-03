@@ -29,7 +29,7 @@ const POSTS = [
 
 export default function Blogs() {
   return (
-    <div className="w-full bg-[#f4f1ea] text-[#2c2a26] min-h-screen overflow-x-hidden selection:bg-[#2c2a26] selection:text-[#f4f1ea] pb-32">
+    <div className="w-full bg-background text-primary min-h-screen overflow-x-hidden pb-32">
       <SEO 
         title="Journal — GRAVIT" 
         description="Thoughts on design, engineering, and the future of the web." 
@@ -39,19 +39,19 @@ export default function Blogs() {
       <div className="w-full max-w-7xl mx-auto px-6 md:px-12 pt-32">
         
         {/* EDITORIAL HEADER */}
-        <header className="border-b border-[#2c2a26]/20 pb-12 mb-16 flex flex-col items-center text-center">
+        <header className="border-b border-border pb-12 mb-16 flex flex-col items-center text-center mt-20">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
-            <span className="font-sans text-xs tracking-[0.2em] uppercase text-[#2c2a26]/60 mb-6 block">
+            <span className="font-sans text-xs tracking-[0.2em] uppercase text-muted-foreground mb-6 block">
               The GRAVIT Journal
             </span>
-            <h1 className="text-6xl md:text-8xl font-serif tracking-tight text-[#1a1917] mb-8" style={{ fontFamily: 'Georgia, serif' }}>
+            <h1 className="text-5xl md:text-8xl font-serif tracking-tight text-primary mb-8" style={{ fontFamily: 'var(--font-heading)' }}>
               Essays on <br className="hidden md:block"/> Form & Function
             </h1>
-            <p className="font-sans text-lg text-[#2c2a26]/70 max-w-xl mx-auto">
+            <p className="font-sans text-lg text-secondary-foreground max-w-xl mx-auto px-4 md:px-0">
               Curated perspectives on digital architecture, generative design, and the aesthetics of modern engineering.
             </p>
           </motion.div>
@@ -59,9 +59,9 @@ export default function Blogs() {
 
         {/* FEATURED ARTICLE (ASYMMETRICAL LAYOUT) */}
         <section className="mb-24">
-          <div className="flex justify-between items-center border-b border-[#2c2a26]/20 pb-4 mb-8">
-            <h2 className="font-sans text-xs tracking-widest uppercase text-[#2c2a26]/60">Featured Issue</h2>
-            <span className="font-serif italic text-sm text-[#2c2a26]/60">Vol. IV</span>
+          <div className="flex justify-between items-center border-b border-border pb-4 mb-8">
+            <h2 className="font-sans text-xs tracking-widest uppercase text-muted-foreground">Featured Issue</h2>
+            <span className="font-serif italic text-sm text-muted-foreground">Vol. IV</span>
           </div>
 
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
@@ -86,14 +86,14 @@ export default function Blogs() {
               transition={{ duration: 0.8, delay: 0.3 }}
               className="lg:col-span-5 flex flex-col justify-center"
             >
-              <div className="flex items-center gap-4 mb-6">
-                <span className="font-sans text-xs tracking-widest uppercase text-[#2c2a26]/60 bg-[#2c2a26]/5 px-3 py-1">Theory</span>
-                <span className="font-serif italic text-sm text-[#2c2a26]/60">Oct 28</span>
+              <div className="flex items-center gap-4 mb-6 mt-8 lg:mt-0">
+                <span className="font-sans text-xs tracking-widest uppercase text-muted-foreground bg-secondary px-3 py-1">Theory</span>
+                <span className="font-serif italic text-sm text-muted-foreground">Oct 28</span>
               </div>
-              <h3 className="text-4xl md:text-5xl font-serif text-[#1a1917] leading-tight mb-6" style={{ fontFamily: 'Georgia, serif' }}>
+              <h3 className="text-3xl md:text-5xl font-serif text-primary leading-tight mb-6" style={{ fontFamily: 'var(--font-heading)' }}>
                 Beyond the Pixel: Spatial Interfaces
               </h3>
-              <p className="font-sans text-lg text-[#2c2a26]/70 leading-relaxed mb-8">
+              <p className="font-sans text-lg text-secondary-foreground leading-relaxed mb-8">
                 As screens multiply and boundaries dissolve, our reliance on flat rectangular constraints is increasingly archaic. A look into how spatial design is rewriting the rules of interaction.
               </p>
               <a href="#" className="font-sans text-sm tracking-widest uppercase font-bold flex items-center gap-2 group w-fit">
@@ -106,8 +106,8 @@ export default function Blogs() {
 
         {/* RECENT ARTICLES (MASONRY-ISH GRID) */}
         <section>
-          <div className="flex justify-between items-center border-b border-[#2c2a26]/20 pb-4 mb-12">
-            <h2 className="font-sans text-xs tracking-widest uppercase text-[#2c2a26]/60">Recent Entries</h2>
+          <div className="flex justify-between items-center border-b border-border pb-4 mb-12">
+            <h2 className="font-sans text-xs tracking-widest uppercase text-muted-foreground">Recent Entries</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-x-8 gap-y-16">
@@ -120,26 +120,26 @@ export default function Blogs() {
                 key={i} 
                 className="group cursor-pointer flex flex-col"
               >
-                <div className="relative h-64 w-full mb-6 overflow-hidden">
-                  <div className="absolute inset-0 bg-[#2c2a26]/10 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
+                <div className="relative h-64 w-full mb-6 overflow-hidden rounded-xl">
+                  <div className="absolute inset-0 bg-primary/10 mix-blend-overlay z-10 group-hover:opacity-0 transition-opacity duration-500"></div>
                   <img 
                     src={post.image} 
                     alt={post.title}
-                    className="w-full h-full object-cover grayscale-[50%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                    className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
                   />
                 </div>
                 <div className="flex items-center gap-4 mb-4">
-                  <span className="font-sans text-xs tracking-widest uppercase text-[#2c2a26]/60">{post.category}</span>
-                  <span className="w-1 h-1 rounded-full bg-[#2c2a26]/30"></span>
-                  <span className="font-serif italic text-sm text-[#2c2a26]/60">{post.date}</span>
+                  <span className="font-sans text-xs tracking-widest uppercase text-muted-foreground">{post.category}</span>
+                  <span className="w-1 h-1 rounded-full bg-border"></span>
+                  <span className="font-serif italic text-sm text-muted-foreground">{post.date}</span>
                 </div>
-                <h4 className="text-2xl font-serif text-[#1a1917] mb-3 leading-snug group-hover:text-blue-700 transition-colors" style={{ fontFamily: 'Georgia, serif' }}>
+                <h4 className="text-2xl font-serif text-primary mb-3 leading-snug group-hover:text-blue-500 transition-colors" style={{ fontFamily: 'var(--font-heading)' }}>
                   {post.title}
                 </h4>
-                <p className="font-sans text-[#2c2a26]/70 leading-relaxed mb-6 flex-1">
+                <p className="font-sans text-secondary-foreground leading-relaxed mb-6 flex-1">
                   {post.excerpt}
                 </p>
-                <span className="font-sans text-xs tracking-widest uppercase font-bold flex items-center gap-2 group-hover:gap-3 transition-all">
+                <span className="font-sans text-xs tracking-widest uppercase font-bold flex items-center gap-2 group-hover:gap-3 transition-all text-primary">
                   Read <ArrowRight className="w-3 h-3" />
                 </span>
               </motion.article>

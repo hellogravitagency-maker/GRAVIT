@@ -152,9 +152,14 @@ export default function LogoDesign() {
           
           <div className="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
             {PACKAGES.map((pkg, i) => (
-              <div 
+              <motion.div 
                 key={pkg.name}
-                className={`p-10 md:p-12 rounded-[2rem] border ${pkg.highlight ? 'bg-black text-white border-black' : 'bg-transparent border-black/10'} flex flex-col`}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-100px" }}
+                transition={{ duration: 0.6, delay: i * 0.2 }}
+                whileHover={{ y: -8 }}
+                className={`p-10 md:p-12 rounded-[2rem] border ${pkg.highlight ? 'bg-black text-white border-black shadow-[0_20px_60px_rgba(0,0,0,0.15)]' : 'bg-transparent border-black/10 hover:border-black/30 transition-colors'} flex flex-col cursor-default`}
               >
                 <div className="mb-8">
                   <h3 className="text-2xl font-medium mb-2">{pkg.name}</h3>
@@ -179,7 +184,7 @@ export default function LogoDesign() {
                 >
                   Initiate Project
                 </a>
-              </div>
+              </motion.div>
             ))}
           </div>
         </div>

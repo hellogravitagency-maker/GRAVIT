@@ -89,7 +89,7 @@ export default function MotionFeatureCards() {
         {/* Editorial Introduction */}
         <div className="mb-16 md:mb-24 flex flex-col lg:flex-row lg:items-end justify-between gap-8">
           <div className="max-w-2xl">
-            <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-primary/50 mb-6 flex items-center gap-4">
+            <p className="text-[11px] font-mono uppercase tracking-[0.25em] text-secondary mb-6 flex items-center gap-4">
               <span className="w-8 h-[1px] bg-primary/20 block"></span>
               What We Build
             </p>
@@ -98,7 +98,7 @@ export default function MotionFeatureCards() {
             </h2>
           </div>
           <div className="max-w-sm">
-            <p className="text-primary/60 text-base md:text-lg font-light leading-relaxed">
+            <p className="text-secondary text-base md:text-lg font-light leading-relaxed">
               From high-performance websites to intelligent products and digital platforms, GRAVIT combines design, engineering, and emerging technology into experiences built for impact.
             </p>
           </div>
@@ -137,7 +137,7 @@ export default function MotionFeatureCards() {
                 <div className="px-8 pb-8 pt-6 flex flex-col justify-end shrink-0 relative z-30">
                   <div className="flex flex-col gap-2">
                     <div className="flex items-center justify-between w-full">
-                       <span className={`text-[10px] font-mono tracking-widest uppercase transition-colors duration-300 ${isActive ? 'text-primary/60' : 'text-primary/30'}`}>
+                       <span className={`text-[10px] font-mono tracking-widest uppercase transition-colors duration-300 ${isActive ? 'text-secondary' : 'text-secondary'}`}>
                          {feature.number}
                        </span>
                     </div>
@@ -157,7 +157,7 @@ export default function MotionFeatureCards() {
                       )}
                     </div>
 
-                    <h3 className={`text-xl md:text-2xl font-medium tracking-tight whitespace-nowrap transition-colors duration-300 ${isActive ? 'text-primary' : 'text-primary/50'}`}>
+                    <h3 className={`text-xl md:text-2xl font-medium tracking-tight whitespace-nowrap transition-colors duration-300 ${isActive ? 'text-primary' : 'text-secondary'}`}>
                       {feature.title}
                     </h3>
                   </div>
@@ -172,7 +172,7 @@ export default function MotionFeatureCards() {
                         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
                         className="overflow-hidden"
                       >
-                        <p className="text-primary/60 text-sm mt-4 leading-relaxed pr-4">
+                        <p className="text-secondary text-sm mt-4 leading-relaxed pr-4">
                           {feature.description}
                         </p>
                       </motion.div>
@@ -236,10 +236,10 @@ export default function MotionFeatureCards() {
                     </div>
 
                     <div className="flex items-center justify-between">
-                      <h3 className={`text-lg md:text-xl font-medium tracking-tight ${isActive ? 'text-primary' : 'text-primary/50'}`}>
+                      <h3 className={`text-lg md:text-xl font-medium tracking-tight ${isActive ? 'text-primary' : 'text-secondary'}`}>
                         {feature.title}
                       </h3>
-                      <span className="text-[10px] md:text-xs font-mono tracking-widest text-primary/30 uppercase">
+                      <span className="text-[10px] md:text-xs font-mono tracking-widest text-secondary uppercase">
                         {feature.number}
                       </span>
                     </div>
@@ -254,7 +254,7 @@ export default function MotionFeatureCards() {
                         transition={{ duration: 0.4 }}
                         className="overflow-hidden"
                       >
-                        <p className="text-primary/60 text-sm md:text-base mt-2 leading-relaxed pr-4">
+                        <p className="text-secondary text-sm md:text-base mt-2 leading-relaxed pr-4">
                           {feature.description}
                         </p>
                       </motion.div>

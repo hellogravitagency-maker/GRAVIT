@@ -12,7 +12,7 @@ interface Project {
 }
 
 const projects: Project[] = [
-  { id: '01', title: 'APEX', category: 'E-Commerce', image: '/images/ecommerce_hero.jpg', link: '/work' },
+  { id: '01', title: 'APEX', category: 'E-Commerce', image: '/assets/work/cyberpunk_ecommerce_1788030750391.jpg', link: '/work' },
   { id: '02', title: 'SENTINEL', category: 'FinTech', image: '/images/financial_hero.jpg', link: '/work' },
   { id: '03', title: 'CHROMA', category: 'WebGL', image: '/images/hrg_webgl.jpg', link: '/work' },
   { id: '04', title: 'ORBIT', category: 'Web3', image: '/images/editorial_post_1.jpg', link: '/work' },
@@ -113,7 +113,7 @@ export default function HoverRevealGallery() {
  <div className="flex items-center gap-8 md:gap-16 flex-1">
  <span className={cn(
  "font-mono text-sm md:text-base tracking-[0.2em] transition-all duration-500",
- isActive ? "text-[#00F0FF] -translate-y-2" : "text-white/30"
+ isActive ? "text-[#00F0FF] -translate-y-2" : "text-white/70"
  )}>
  {project.id}
  </span>
@@ -142,7 +142,7 @@ export default function HoverRevealGallery() {
  <div className="hidden md:flex items-center justify-end gap-12 overflow-hidden flex-1">
  <span className={cn(
  "block text-sm tracking-[0.2em] uppercase transition-all duration-500 transform font-medium whitespace-nowrap",
- isActive ? "text-white translate-x-0 opacity-100" : "text-white/40 translate-x-12 opacity-0"
+ isActive ? "text-white translate-x-0 opacity-100" : "text-white/70 translate-x-12 opacity-0"
  )}>
  {project.category}
  </span>

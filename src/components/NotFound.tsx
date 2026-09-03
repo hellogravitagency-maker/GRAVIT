@@ -30,7 +30,7 @@ export default function NotFound() {
  [ ERROR 404 ]
  </span>
  <h1 className="text-6xl md:text-8xl lg:text-9xl font-bold tracking-tighter mb-6 drop-shadow-2xl">
- Lost in <span className="text-white/40">Space.</span>
+ Lost in <span className="text-white/70">Space.</span>
  </h1>
  <p className="text-white/60 max-w-md mx-auto text-lg mb-12 font-body">
  The page you're looking for has been pulled into a singularity or never existed in this dimension.

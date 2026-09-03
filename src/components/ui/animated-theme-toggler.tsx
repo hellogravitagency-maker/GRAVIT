@@ -321,7 +321,7 @@ export const AnimatedThemeToggler = ({
  aria-label="Toggle theme"
  className={cn(
  "relative flex items-center justify-center w-8 h-8 rounded-full",
- "text-primary/60 hover:text-primary",
+ "text-secondary hover:text-primary",
  "hover:bg-primary/8 transition-colors duration-200",
  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30",
  className

@@ -52,7 +52,7 @@ export default function ProcessSection() {
             <div>
               <div className="inline-flex items-center gap-3 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-6">
                 <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Process</span>
+                <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary">Process</span>
               </div>
               <h2 className="text-3xl md:text-5xl lg:text-6xl display-editorial text-primary tracking-tight leading-tight">
                 How We <span className="text-primary/40 italic">Work.</span>
@@ -63,7 +63,7 @@ export default function ProcessSection() {
               <span className="text-5xl md:text-6xl font-light text-primary tracking-tighter">
                 {activeStep}
               </span>
-              <span className="text-2xl md:text-3xl text-primary/20 font-light tracking-tighter">
+              <span className="text-2xl md:text-3xl text-primary/50 font-light tracking-tighter">
                 / 04
               </span>
             </div>
@@ -109,7 +109,7 @@ export default function ProcessSection() {
                   <h3 className="text-2xl md:text-3xl lg:text-4xl text-primary font-medium mb-6 tracking-tight">
                     {step.title}
                   </h3>
-                  <p className="text-base md:text-lg text-primary/60 leading-relaxed font-light">
+                  <p className="text-base md:text-lg text-secondary leading-relaxed font-light">
                     {step.desc}
                   </p>
                 </motion.div>

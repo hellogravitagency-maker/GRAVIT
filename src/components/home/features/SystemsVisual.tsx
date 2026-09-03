@@ -117,7 +117,7 @@ export default function SystemsVisual({ isActive, mouseX, mouseY }: SystemsVisua
             variants={floatVariants}
             initial="hidden"
             animate={isActive ? sequenceState : 'hidden'}
-            className="absolute w-12 h-12 bg-background border border-black/20 dark:border-white/20 rounded-lg flex items-center justify-center text-primary/60 cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors z-20"
+            className="absolute w-12 h-12 bg-background border border-black/20 dark:border-white/20 rounded-lg flex items-center justify-center text-secondary cursor-pointer hover:bg-primary hover:text-primary-foreground transition-colors z-20"
             onMouseEnter={() => setHoveredToken(item.id)}
             onMouseLeave={() => setHoveredToken(null)}
           >
@@ -147,7 +147,7 @@ export default function SystemsVisual({ isActive, mouseX, mouseY }: SystemsVisua
           transition={{ type: 'spring', stiffness: 100 }}
         >
           <div className="relative w-[120px] h-[80px] border border-white/20 rounded-lg bg-white/5 flex flex-wrap gap-1 p-2 items-center justify-center">
-             <div className="absolute -top-6 text-[8px] font-mono text-white/50 tracking-widest flex items-center gap-1"><AppWindow size={10}/> DASHBOARD</div>
+             <div className="absolute -top-6 text-[8px] font-mono text-white/70 tracking-widest flex items-center gap-1"><AppWindow size={10}/> DASHBOARD</div>
              {[...Array(6)].map((_, i) => <div key={i} className="w-6 h-6 border border-white/10 rounded flex items-center justify-center text-white/20"><Square size={10}/></div>)}
           </div>
         </motion.div>
@@ -160,7 +160,7 @@ export default function SystemsVisual({ isActive, mouseX, mouseY }: SystemsVisua
           transition={{ type: 'spring', stiffness: 100 }}
         >
           <div className="relative w-[70px] h-[120px] border border-white/20 rounded-lg bg-white/5 flex flex-col gap-1 p-2 items-center justify-center">
-             <div className="absolute -top-6 text-[8px] font-mono text-white/50 tracking-widest flex items-center gap-1"><Smartphone size={10}/> MOBILE</div>
+             <div className="absolute -top-6 text-[8px] font-mono text-white/70 tracking-widest flex items-center gap-1"><Smartphone size={10}/> MOBILE</div>
              {[...Array(4)].map((_, i) => <div key={i} className="w-8 h-8 border border-white/10 rounded flex items-center justify-center text-white/20"><Type size={10}/></div>)}
           </div>
         </motion.div>

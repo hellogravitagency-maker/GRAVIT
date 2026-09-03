@@ -48,9 +48,9 @@ export default function Scheduling() {
             transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
           >
             <span className="text-sm font-medium tracking-widest uppercase text-[#9e8f7e] mb-6 block">Time Management</span>
-            <h1 className="text-5xl md:text-7xl font-light tracking-tight text-[#2c2721] leading-tight mb-8">
+            <h1 className="text-5xl md:text-7xl font-light tracking-tight text-[#2c2721] leading-tight mb-8" style={{ fontFamily: 'var(--font-heading)' }}>
               Protect your <br/>
-              <span className="italic font-serif text-[#b68d6c]">most valuable</span> <br/>
+              <span className="italic text-[#b68d6c]">most valuable</span> <br/>
               resource.
             </h1>
             <p className="text-xl text-[#7a6e62] font-light leading-relaxed mb-10 max-w-lg">
@@ -64,12 +64,15 @@ export default function Scheduling() {
           </motion.div>
 
           {/* MOCK UI CALENDAR (FLOATING) */}
-          <div className="relative h-[500px] flex items-center justify-center">
+          <motion.div 
+            whileHover={{ y: -10 }}
+            className="relative h-[500px] flex items-center justify-center"
+          >
             <motion.div 
               initial={{ opacity: 0, y: 50 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-              className="absolute z-20 bg-white/80 backdrop-blur-xl border border-white/50 p-6 rounded-[2rem] shadow-[0_20px_60px_rgba(74,66,56,0.08)] w-full max-w-sm"
+              className="absolute z-20 bg-white/80 backdrop-blur-xl border border-white/50 p-6 rounded-[2rem] shadow-[0_20px_60px_rgba(74,66,56,0.08)] w-full max-w-sm transition-all hover:shadow-[0_30px_70px_rgba(74,66,56,0.12)]"
             >
               <div className="flex justify-between items-center mb-6">
                 <div className="flex items-center gap-3">
@@ -104,7 +107,7 @@ export default function Scheduling() {
                transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
                className="absolute top-10 right-0 w-32 h-32 bg-[#e8f0ec] rounded-full blur-xl z-10"
             />
-          </div>
+          </motion.div>
         </div>
 
         {/* FEATURES */}

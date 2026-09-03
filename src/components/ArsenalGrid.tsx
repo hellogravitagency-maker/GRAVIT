@@ -65,7 +65,7 @@ export default function ArsenalGrid() {
  style={{ background: 'radial-gradient(circle at top right, rgba(255,106,0,0.05), transparent 70%)' }} 
  />
  
- <div className="text-white/40 group-hover:text-[#ff6a00] transition-colors duration-500 mb-6">
+ <div className="text-white/70 group-hover:text-[#ff6a00] transition-colors duration-500 mb-6">
  <Icon size={32} strokeWidth={1.5} />
  </div>
  
@@ -73,7 +73,7 @@ export default function ArsenalGrid() {
  {tech.name}
  </h4>
  
- <p className="text-white/40 text-xs font-sans z-10 group-hover:text-white/60 transition-colors">
+ <p className="text-white/70 text-xs font-sans z-10 group-hover:text-white/60 transition-colors">
  {tech.desc}
  </p>
  

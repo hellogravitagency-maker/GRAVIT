@@ -53,13 +53,13 @@ export default function AIVisual({ isActive, mouseX, mouseY }: AIVisualProps) {
             transition={{ duration: 3, repeat: Infinity, ease: "linear" }}
           />
         )}
-        <div className={`w-10 h-10 rounded-lg flex items-center justify-center border transition-colors ${hoveredNode === id ? 'bg-primary/10 border-primary/30 text-primary' : 'bg-background border-black/10 dark:border-white/10 text-primary/50'} ${isCore ? 'w-14 h-14 rounded-full border-black/30 dark:border-white/30 text-primary' : ''}`}>
+        <div className={`w-10 h-10 rounded-lg flex items-center justify-center border transition-colors ${hoveredNode === id ? 'bg-primary/10 border-primary/30 text-primary' : 'bg-background border-black/10 dark:border-white/10 text-secondary'} ${isCore ? 'w-14 h-14 rounded-full border-black/30 dark:border-white/30 text-primary' : ''}`}>
           <Icon size={isCore ? 24 : 18} />
         </div>
       </div>
       
       {/* Node Label */}
-      <div className={`text-[8px] font-mono tracking-widest ${isCore ? 'text-white' : 'text-white/40'}`}>
+      <div className={`text-[8px] font-mono tracking-widest ${isCore ? 'text-white' : 'text-white/70'}`}>
         {label}
       </div>
       
@@ -111,7 +111,7 @@ export default function AIVisual({ isActive, mouseX, mouseY }: AIVisualProps) {
             QUALIFIED
           </motion.div>
 
-          <motion.div className="absolute left-[50%] top-[60%] -translate-x-1/2 -translate-y-1/2 bg-white/20 text-white/50 border border-white/10 text-[8px] font-mono font-bold px-2 py-0.5 rounded"
+          <motion.div className="absolute left-[50%] top-[60%] -translate-x-1/2 -translate-y-1/2 bg-white/20 text-white/70 border border-white/10 text-[8px] font-mono font-bold px-2 py-0.5 rounded"
             initial={{ x: 0, y: 0, opacity: 0 }}
             animate={{ x: [0, 80], y: [0, 80], opacity: [0, 1, 1, 0] }}
             transition={{ delay: 3.5, duration: 1.5, repeat: Infinity, repeatDelay: 3 }}

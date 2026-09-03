@@ -29,7 +29,7 @@ export default function Capabilities() {
             viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.1 }}
             className="text-[clamp(2.5rem,5vw,3.5rem)] font-medium tracking-tight mb-6 leading-[1.1]"
-            style={{ fontFamily: '"Geist", sans-serif' }}
+            style={{ fontFamily: 'var(--font-heading)' }}
           >
             Digital Excellence <br className="hidden md:block"/> That Scales
           </motion.h2>

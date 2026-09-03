@@ -61,14 +61,14 @@ export default function ServiceDevelopment() {
           >
             <div className="inline-flex items-center gap-3 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-8">
               <span className="w-2 h-2 rounded-full bg-orange-500 animate-pulse" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Service 03</span>
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary">Service 03</span>
             </div>
             
             <h2 className="text-3xl md:text-5xl lg:text-7xl display-editorial mb-6 text-primary tracking-tight">
               Product <span className="text-primary/40 italic">Development.</span>
             </h2>
             
-            <p className="text-primary/60 text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
+            <p className="text-secondary text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
               We build scalable, high-performance web and mobile applications using modern technologies. Our development approach ensures your product is secure, fast, and ready to scale with your business.
             </p>
 
@@ -83,7 +83,7 @@ export default function ServiceDevelopment() {
                   className="flex flex-col gap-1 border-l border-black/10 dark:border-white/10 pl-4 relative before:absolute before:left-[-1px] before:top-0 before:h-0 before:w-[1px] before:bg-primary hover:before:h-full before:transition-all before:duration-300"
                 >
                   <span className="text-sm font-medium text-primary/90">{feature.title}</span>
-                  <span className="text-xs text-primary/50 font-light">{feature.desc}</span>
+                  <span className="text-xs text-secondary font-light">{feature.desc}</span>
                 </motion.div>
               ))}
             </div>
@@ -132,7 +132,7 @@ export default function ServiceDevelopment() {
                   <div className="w-2.5 h-2.5 rounded-full bg-red-500/80" />
                   <div className="w-2.5 h-2.5 rounded-full bg-yellow-500/80" />
                   <div className="w-2.5 h-2.5 rounded-full bg-green-500/80" />
-                  <div className="ml-2 text-[10px] font-mono text-primary/50 flex items-center gap-1">
+                  <div className="ml-2 text-[10px] font-mono text-secondary flex items-center gap-1">
                     <Terminal size={10} /> server.ts
                   </div>
                 </div>
@@ -152,7 +152,6 @@ export default function ServiceDevelopment() {
                 initial={{ opacity: 0, scale: 0.8 }}
                 whileInView={{ opacity: 1, scale: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.4, duration: 0.6, type: "spring" }}
                 animate={{ y: [-10, 10, -10] }}
                 //@ts-ignore
                 transition={{ repeat: Infinity, duration: 5, ease: "easeInOut", delay: 0.4 }}
@@ -173,8 +172,6 @@ export default function ServiceDevelopment() {
                 viewport={{ once: true }}
                 transition={{ delay: 0.6, duration: 0.6, type: "spring" }}
                 animate={{ y: [10, -10, 10] }}
-                //@ts-ignore
-                transition={{ repeat: Infinity, duration: 6, ease: "easeInOut", delay: 0.6 }}
               >
                 <Cloud className="text-primary/40 w-5 h-5" />
                 <div className="h-1.5 w-12 bg-primary/10 rounded-full mt-1 overflow-hidden">

@@ -1,31 +1,29 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useScrollStore } from '../store/useScrollStore';
-
+import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
- const lenisRef = useRef<any>(null);
- const location = useLocation();
+  const lenisRef = useRef<any>(null);
+  const location = useLocation();
 
- useEffect(() => {
- // Disable smooth scroll & heavy GSAP on mobile devices for better performance
- if (typeof window !== 'undefined' && window.innerWidth < 768) return;
+  useEffect(() => {
+    // Disable smooth scroll & heavy GSAP on mobile devices for better performance
+    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
 
- let cleanup = () => {};
+    let cleanup = () => {};
 
- Promise.all([
- import('gsap'),
- import('gsap/ScrollTrigger'),
- import('lenis')
- ]).then(([{ gsap }, { ScrollTrigger }, { default: Lenis }]) => {
- gsap.registerPlugin(ScrollTrigger);
+    import('lenis').then(({ default: Lenis }) => {
+      gsap.registerPlugin(ScrollTrigger);
 
- const lenis = new Lenis({
- duration: 1.2,
- easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      const lenis = new Lenis({
+        duration: 1.5,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
  orientation: 'vertical',
  gestureOrientation: 'vertical',
  smoothWheel: true,
+ wheelMultiplier: 1.2,
  touchMultiplier: 2,
  });
 

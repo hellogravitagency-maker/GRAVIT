@@ -1,23 +1,25 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState, useEffect, Suspense } from 'react';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import { Link } from 'react-router-dom';
 import SEO from './SEO';
 import { ArrowRight, ArrowUpRight, Code, Cpu, Palette, BarChart3, Layout, Sparkles, Megaphone, Search } from 'lucide-react';
-import TrustedBy from './home/TrustedBy';
-import SelectedWork from './home/SelectedWork';
-import Results from './home/Results';
-import Testimonials from './home/Testimonials';
-import Faq from './home/Faq';
-import CrescentQuotePro from './framer/CrescentQuotePro';
-import MotionFeatureCards from './home/MotionFeatureCards';
-import ServiceBranding from './home/ServiceBranding';
-import ServiceUIUX from './home/ServiceUIUX';
-import ServiceDevelopment from './home/ServiceDevelopment';
-import ProcessSection from './home/ProcessSection';
-import PortfolioGrid from './home/PortfolioGrid';
 import SmartTypewriter from './ui/SmartTypewriter';
+import LazySection from './ui/LazySection';
+
+const CrescentQuotePro = React.lazy(() => import('./framer/CrescentQuotePro'));
+const TrustedBy = React.lazy(() => import('./home/TrustedBy'));
+const SelectedWork = React.lazy(() => import('./home/SelectedWork'));
+const Results = React.lazy(() => import('./home/Results'));
+const Testimonials = React.lazy(() => import('./home/Testimonials'));
+const Faq = React.lazy(() => import('./home/Faq'));
+const MotionFeatureCards = React.lazy(() => import('./home/MotionFeatureCards'));
+const ServiceBranding = React.lazy(() => import('./home/ServiceBranding'));
+const ServiceUIUX = React.lazy(() => import('./home/ServiceUIUX'));
+const ServiceDevelopment = React.lazy(() => import('./home/ServiceDevelopment'));
+const ProcessSection = React.lazy(() => import('./home/ProcessSection'));
+const PortfolioGrid = React.lazy(() => import('./home/PortfolioGrid'));
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -83,7 +85,7 @@ export default function Home() {
       { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
     )
     .fromTo(".hero-headline",
-      { y: 60, opacity: 0 },
+      { y: 60, opacity: 0.1 },
       { y: 0, opacity: 1, duration: 1.2, ease: "power4.out" },
       "-=0.5"
     )
@@ -108,7 +110,7 @@ export default function Home() {
     // ── Manifesto word reveal ──────────────────────────────────
     const manifestoWords = gsap.utils.toArray('.manifesto-word');
     gsap.fromTo(manifestoWords,
-      { color: "var(--app-border)" },
+      { color: "var(--app-text-secondary)" },
       {
         color: "var(--app-text-primary)",
         stagger: 0.1,
@@ -152,7 +154,9 @@ export default function Home() {
             <h1 className="hero-headline display-editorial text-[clamp(1.75rem,4vw,3.5rem)] text-primary leading-[1.05] h-[2.1em] md:h-auto">
               Engineering the
               <br />
-              <SmartTypewriter words={["Extraordinary", "Future", "Impossible", "Unimaginable"]} />
+              <span className="text-gradient-accent pb-2">
+                <SmartTypewriter words={["Extraordinary", "Future", "Impossible", "Unimaginable"]} />
+              </span>
             </h1>
 
             {/* Subtitle */}
@@ -162,65 +166,75 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Center: Cards (CrescentQuotePro) */}
           <div className="relative w-full flex justify-center items-center h-[300px] md:h-[400px] lg:h-[480px] mb-4 lg:mb-8">
-            <CrescentQuotePro 
-              style={{ width: '100%', height: '100%' }} 
-              plateW={isDesktop ? 260 : 180} 
-              plateH={isDesktop ? 340 : 240}
-              roster={[
-                {
-                  name: "Aetheris AI",
-                  role: "Technology Platform",
-                  location: "Dark Mode",
-                  rating: 5,
-                  accent: "#3F6B7D",
-                  title: "Intelligence beautifully engineered.",
-                  quote: "Sleek glassmorphism and glowing gradients create an interface that feels as advanced as the AI powering it.",
-                  photoUrl: "/assets/work/premium_web_ai_1788031024675.jpg"
-                },
-                {
-                  name: "Aethelred & Co.",
-                  role: "Architecture Firm",
-                  location: "Minimalist",
-                  rating: 5,
-                  accent: "#9C5468",
-                  title: "Crafting digital spaces.",
-                  quote: "Elegant serif typography and high-res photography blend into a sophisticated, award-winning luxury experience.",
-                  photoUrl: "/assets/work/premium_web_architecture_1788031038602.jpg"
-                },
-                {
-                  name: "Aura AI",
-                  role: "SaaS Application",
-                  location: "Bento Layout",
-                  rating: 5,
-                  accent: "#B0654A",
-                  title: "Clarity through design.",
-                  quote: "Clean layouts, perfect spacing, and beautiful 3D abstract icons that elevate the standard SaaS landing page.",
-                  photoUrl: "/assets/work/premium_web_saas_1788031048052.jpg"
-                },
-                {
-                  name: "Avant Garde",
-                  role: "Creative Studio",
-                  location: "Immersive Web",
-                  rating: 5,
-                  accent: "#5A7D62",
-                  title: "Breaking digital boundaries.",
-                  quote: "Dynamic bold typography and elegant dark mode UI combine for an unapologetically professional portfolio.",
-                  photoUrl: "/assets/work/premium_web_portfolio_1788031060883.jpg"
-                },
-                {
-                  name: "Nexus DeFi",
-                  role: "Web3 Platform",
-                  location: "Holographic UI",
-                  rating: 5,
-                  accent: "#6F63A0",
-                  title: "The future of finance.",
-                  quote: "Subtle holographic and neon accents paired with exceptional data visualization for the modern crypto user.",
-                  photoUrl: "/assets/work/premium_web_web3_1788031072809.jpg"
-                }
-              ]}
-            />
+            <Suspense fallback={
+              <div className="w-full h-full flex items-center justify-center relative">
+                <div className="hidden lg:block absolute bg-[#e6eaf0]" style={{ width: 240, height: 320, borderRadius: 10, transform: 'translateZ(0)', overflow: 'hidden' }}>
+                  <img src="/assets/work/premium_web_ai_1788031024675.jpg" className="w-full h-full object-cover" alt="Aetheris AI" fetchPriority="high" loading="eager" decoding="sync" />
+                </div>
+                <div className="block lg:hidden absolute bg-[#e6eaf0]" style={{ width: 160, height: 220, borderRadius: 10, transform: 'translateZ(0)', overflow: 'hidden' }}>
+                  <img src="/assets/work/premium_web_ai_1788031024675.jpg" className="w-full h-full object-cover" alt="Aetheris AI" fetchPriority="high" loading="eager" decoding="sync" />
+                </div>
+              </div>
+            }>
+              <CrescentQuotePro 
+                style={{ width: '100%', height: '100%' }} 
+                plateW={isDesktop ? 260 : 180} 
+                plateH={isDesktop ? 340 : 240}
+                roster={[
+                  {
+                    name: "Aetheris AI",
+                    role: "Technology Platform",
+                    location: "Dark Mode",
+                    rating: 5,
+                    accent: "#3F6B7D",
+                    title: "Intelligence beautifully engineered.",
+                    quote: "Sleek glassmorphism and glowing gradients create an interface that feels as advanced as the AI powering it.",
+                    photoUrl: "/assets/work/premium_web_ai_1788031024675.jpg"
+                  },
+                  {
+                    name: "Aethelred & Co.",
+                    role: "Architecture Firm",
+                    location: "Minimalist",
+                    rating: 5,
+                    accent: "#9C5468",
+                    title: "Crafting digital spaces.",
+                    quote: "Elegant serif typography and high-res photography blend into a sophisticated, award-winning luxury experience.",
+                    photoUrl: "/assets/work/premium_web_architecture_1788031038602.jpg"
+                  },
+                  {
+                    name: "Aura AI",
+                    role: "SaaS Application",
+                    location: "Bento Layout",
+                    rating: 5,
+                    accent: "#B0654A",
+                    title: "Clarity through design.",
+                    quote: "Clean layouts, perfect spacing, and beautiful 3D abstract icons that elevate the standard SaaS landing page.",
+                    photoUrl: "/assets/work/premium_web_saas_1788031048052.jpg"
+                  },
+                  {
+                    name: "Avant Garde",
+                    role: "Creative Studio",
+                    location: "Immersive Web",
+                    rating: 5,
+                    accent: "#5A7D62",
+                    title: "Breaking digital boundaries.",
+                    quote: "Dynamic bold typography and elegant dark mode UI combine for an unapologetically professional portfolio.",
+                    photoUrl: "/assets/work/premium_web_portfolio_1788031060883.jpg"
+                  },
+                  {
+                    name: "Nexus DeFi",
+                    role: "Web3 Platform",
+                    location: "Holographic UI",
+                    rating: 5,
+                    accent: "#6F63A0",
+                    title: "The future of finance.",
+                    quote: "Subtle holographic and neon accents paired with exceptional data visualization for the modern crypto user.",
+                    photoUrl: "/assets/work/premium_web_web3_1788031072809.jpg"
+                  }
+                ]}
+              />
+            </Suspense>
           </div>
 
           {/* Bottom: Content & CTAs */}
@@ -250,24 +264,40 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════════
           02: TRUSTED BY — Auto-scroll Marquee
       ══════════════════════════════════════════════════════════════ */}
-      <TrustedBy />
+      <LazySection minHeight="128px">
+        <Suspense fallback={<div className="h-32" />}>
+          <TrustedBy />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           03: CAPABILITIES (Replaces Services Bento)
       ══════════════════════════════════════════════════════════════ */}
-      <MotionFeatureCards />
+      <LazySection>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <MotionFeatureCards />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           03b: SERVICE PIPELINE
       ══════════════════════════════════════════════════════════════ */}
-      <ServiceBranding />
-      <ServiceUIUX />
-      <ServiceDevelopment />
+      <LazySection>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <ServiceBranding />
+          <ServiceUIUX />
+          <ServiceDevelopment />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           03c: PROCESS
       ══════════════════════════════════════════════════════════════ */}
-      <ProcessSection />
+      <LazySection>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <ProcessSection />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           04: MANIFESTO — Scroll Scrub Reveal
@@ -275,38 +305,59 @@ export default function Home() {
       <section className="py-16 md:py-24 border-t border-border">
         <div className="section-editorial">
           <p className="text-xs font-mono uppercase tracking-[0.2em] text-secondary mb-12">Our Philosophy</p>
-          <div ref={manifestoRef} className="text-3xl md:text-5xl lg:text-6xl display-editorial leading-[1.15] max-w-5xl">
+          <div ref={manifestoRef} className="text-3xl md:text-5xl lg:text-6xl display-editorial leading-[1.15] max-w-5xl" aria-hidden="true">
             {("We reject the generic. Every pixel, every line of code, every interaction is engineered with precision to create digital experiences that refuse to be ignored.").split(" ").map((word, i) => (
               <span key={i} className="manifesto-word inline-block mr-[0.25em]">{word}</span>
             ))}
           </div>
+          <p className="sr-only">We reject the generic. Every pixel, every line of code, every interaction is engineered with precision to create digital experiences that refuse to be ignored.</p>
         </div>
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
           05: SELECTED WORK
       ══════════════════════════════════════════════════════════════ */}
-      <SelectedWork />
+      <LazySection>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <SelectedWork />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           05b: PORTFOLIO GRID
       ══════════════════════════════════════════════════════════════ */}
-      <PortfolioGrid />
+      <LazySection>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <PortfolioGrid />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           06: RESULTS / METRICS
       ══════════════════════════════════════════════════════════════ */}
-      <Results />
+      <LazySection>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Results />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           07: TESTIMONIALS
       ══════════════════════════════════════════════════════════════ */}
-      <Testimonials />
+      <LazySection>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Testimonials />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           08: FAQ
       ══════════════════════════════════════════════════════════════ */}
-      <Faq />
+      <LazySection>
+        <Suspense fallback={<div className="min-h-screen" />}>
+          <Faq />
+        </Suspense>
+      </LazySection>
 
       {/* ══════════════════════════════════════════════════════════════
           09: CTA BANNER — Full-width dark
@@ -317,7 +368,7 @@ export default function Home() {
         <div className="elevenlabs-orb elevenlabs-orb--mint w-[300px] h-[300px] bottom-[-10%] left-[10%] !opacity-10" />
 
         <div className="section-editorial relative z-10 flex flex-col items-center text-center">
-          <p className="text-xs font-mono uppercase tracking-[0.2em] text-primary-foreground/50 mb-6">Ready to build?</p>
+          <p className="text-xs font-mono uppercase tracking-[0.2em] text-primary-foreground/70 mb-6">Ready to build?</p>
           <h2 className="display-editorial text-4xl md:text-6xl lg:text-7xl text-primary-foreground max-w-3xl mb-8">
             Let's create something
             <br />

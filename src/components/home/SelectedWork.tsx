@@ -100,7 +100,7 @@ export default function SelectedWork() {
                     <span className="text-xs font-mono text-muted uppercase tracking-widest">
                       W.{p.index}
                     </span>
-                    <span className="text-[10px] font-mono text-muted border border-border rounded-full px-3 py-1 uppercase tracking-wider">
+                    <span className="text-[10px] font-mono text-gradient-accent border border-border rounded-full px-3 py-1 uppercase tracking-wider">
                       {p.tag}
                     </span>
                   </div>

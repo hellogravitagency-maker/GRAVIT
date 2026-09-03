@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { motion, useScroll, useTransform, useMotionValue, useSpring } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight, CheckCircle2 } from 'lucide-react';
 
 export default function ServiceBranding() {
@@ -13,41 +13,6 @@ export default function ServiceBranding() {
 
   const scrollY = useTransform(scrollYProgress, [0, 1], [50, -50]);
   const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
-
-  // Interactive Parallax
-  const mouseX = useMotionValue(0);
-  const mouseY = useMotionValue(0);
-  
-  const springConfig = { damping: 20, stiffness: 100, mass: 0.5 };
-  const smoothX = useSpring(mouseX, springConfig);
-  const smoothY = useSpring(mouseY, springConfig);
-  
-  const handleMouseMove = (e: React.MouseEvent) => {
-    if (!cardRef.current) return;
-    const rect = cardRef.current.getBoundingClientRect();
-    const centerX = rect.left + rect.width / 2;
-    const centerY = rect.top + rect.height / 2;
-    // Values from -1 to 1
-    mouseX.set((e.clientX - centerX) / (rect.width / 2));
-    mouseY.set((e.clientY - centerY) / (rect.height / 2));
-  };
-  
-  const handleMouseLeave = () => {
-    mouseX.set(0);
-    mouseY.set(0);
-  };
-
-  const bgX = useTransform(smoothX, [-1, 1], [-10, 10]);
-  const bgY = useTransform(smoothY, [-1, 1], [-10, 10]);
-  
-  const logoX = useTransform(smoothX, [-1, 1], [-20, 20]);
-  const logoY = useTransform(smoothY, [-1, 1], [-20, 20]);
-  
-  const floatingX1 = useTransform(smoothX, [-1, 1], [30, -30]);
-  const floatingY1 = useTransform(smoothY, [-1, 1], [30, -30]);
-  
-  const floatingX2 = useTransform(smoothX, [-1, 1], [-25, 25]);
-  const floatingY2 = useTransform(smoothY, [-1, 1], [-25, 25]);
 
   // Interactive States
   const colors = [
@@ -87,14 +52,14 @@ export default function ServiceBranding() {
           >
             <div className="inline-flex items-center gap-3 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-8">
               <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Service 01</span>
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary">Service 01</span>
             </div>
             
             <h2 className="text-3xl md:text-5xl lg:text-7xl display-editorial mb-6 text-primary tracking-tight">
               Brand <span className="text-primary/40 italic">Identity.</span>
             </h2>
             
-            <p className="text-primary/60 text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
+            <p className="text-secondary text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
               We forge iconic brand identities designed for the modern digital landscape. From foundational logo marks to comprehensive visual systems, we craft cohesive narratives that command attention.
             </p>
 
@@ -109,7 +74,7 @@ export default function ServiceBranding() {
                   className="flex flex-col gap-1 border-l border-black/10 dark:border-white/10 pl-4 relative before:absolute before:left-[-1px] before:top-0 before:h-0 before:w-[1px] before:bg-primary hover:before:h-full before:transition-all before:duration-300"
                 >
                   <span className="text-sm font-medium text-primary/90">{feature.title}</span>
-                  <span className="text-xs text-primary/60 font-light">{feature.desc}</span>
+                  <span className="text-xs text-secondary font-light">{feature.desc}</span>
                 </motion.div>
               ))}
             </div>
@@ -126,7 +91,6 @@ export default function ServiceBranding() {
           </motion.div>
         </div>
 
-        {/* Right: Motion Card */}
         <div className="flex-1 w-full flex justify-center lg:justify-end relative">
           <motion.div 
             style={{ y: scrollY, opacity }}
@@ -134,7 +98,7 @@ export default function ServiceBranding() {
             ref={cardRef}
           >
             {/* Top Section: Specs */}
-            <div className="flex justify-between items-start w-full z-20">
+            <motion.div className="flex justify-between items-start w-full z-20">
               
               {/* Typography Spec */}
               <motion.div 
@@ -147,11 +111,11 @@ export default function ServiceBranding() {
               >
                 <div className="text-[9px] font-mono tracking-widest text-primary/40 uppercase flex items-center gap-2">
                   Primary Type
-                  <span className="opacity-0 group-hover/type:opacity-100 transition-opacity text-[8px] text-primary/30">Click to cycle</span>
+                  <span className="opacity-0 group-hover/type:opacity-100 transition-opacity text-[8px] text-secondary">Click to cycle</span>
                 </div>
                 <div className="flex items-baseline gap-3">
                   <span className={`text-4xl text-primary ${activeType.family} tracking-tighter`}>{activeType.chars}</span>
-                  <span className={`text-sm text-primary/60 ${activeType.family}`}>{activeType.label}</span>
+                  <span className={`text-sm text-secondary ${activeType.family}`}>{activeType.label}</span>
                 </div>
               </motion.div>
 
@@ -177,13 +141,13 @@ export default function ServiceBranding() {
                 </div>
               </motion.div>
 
-            </div>
+            </motion.div>
 
             {/* Center: Minimal Gravit Logo Showcase */}
-            <div className="flex-1 flex flex-col items-center justify-center w-full z-10 py-8">
+            <motion.div className="flex-1 flex flex-col items-center justify-center w-full z-10 py-8 text-primary">
                <motion.svg 
                  viewBox="0 0 200 200" 
-                 className="w-32 h-32 overflow-visible"
+                 className="w-32 h-32 overflow-visible text-primary"
                  initial={{ opacity: 0, scale: 0.95 }}
                  whileInView={{ opacity: 1, scale: 1 }}
                  viewport={{ once: true }}
@@ -192,8 +156,7 @@ export default function ServiceBranding() {
                   <motion.path 
                     d="M138 55 A55 55 0 1 0 138 145" 
                     fill="none" 
-                    animate={{ stroke: activeColor.hex }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    stroke="currentColor"
                     strokeWidth="16" 
                     strokeLinecap="round"
                     initial={{ pathLength: 0 }}
@@ -202,8 +165,7 @@ export default function ServiceBranding() {
                   />
                   <motion.line 
                     x1="138" y1="100" x2="102" y2="100" 
-                    animate={{ stroke: activeColor.hex }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    stroke="currentColor"
                     strokeWidth="16" 
                     strokeLinecap="round"
                     initial={{ pathLength: 0 }}
@@ -212,8 +174,7 @@ export default function ServiceBranding() {
                   />
                </motion.svg>
                <motion.div 
-                 className={`text-2xl mt-4 tracking-[0.2em] transition-all duration-300 ${activeType.family}`}
-                 animate={{ color: activeColor.hex }}
+                 className={`text-2xl mt-4 tracking-[0.2em] text-primary transition-all duration-300 ${activeType.family}`}
                  initial={{ opacity: 0 }}
                  whileInView={{ opacity: 1 }}
                  viewport={{ once: true }}
@@ -221,7 +182,7 @@ export default function ServiceBranding() {
                >
                  GRAVIT
                </motion.div>
-            </div>
+            </motion.div>
 
             {/* Bottom: Color Swatches */}
             <div className="flex justify-center w-full z-20 mt-auto">
@@ -253,7 +214,7 @@ export default function ServiceBranding() {
                         />
                       )}
                     </motion.div>
-                    <div className="text-[10px] font-mono tracking-widest text-white/50">{c.hex}</div>
+                    <div className="text-[10px] font-mono tracking-widest text-white/70">{c.hex}</div>
                   </button>
                 ))}
               </motion.div>

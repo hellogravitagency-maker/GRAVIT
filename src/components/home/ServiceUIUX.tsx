@@ -36,14 +36,14 @@ export default function ServiceUIUX() {
           >
             <div className="inline-flex items-center gap-3 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-8">
               <span className="w-2 h-2 rounded-full bg-blue-500 animate-pulse" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-primary/70">Service 02</span>
+              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary">Service 02</span>
             </div>
             
             <h2 className="text-3xl md:text-5xl lg:text-7xl display-editorial mb-6 text-primary tracking-tight">
               UI/UX <span className="text-primary/40 italic">Design.</span>
             </h2>
             
-            <p className="text-primary/50 text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
+            <p className="text-secondary text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
               Our design process focuses on creating intuitive, beautiful interfaces that users love. We combine user research, modern design principles, and cutting-edge tools to deliver exceptional experiences.
             </p>
 
@@ -98,7 +98,7 @@ export default function ServiceUIUX() {
                 <div className="w-1/3 h-4 bg-black/5 dark:bg-white/5 rounded-md" />
                 <div className="flex-1 bg-black/5 dark:bg-white/5 rounded-xl border border-black/5 dark:border-white/5 flex items-center justify-center overflow-hidden relative">
                    <div className="absolute inset-0 bg-gradient-to-br from-blue-500/10 to-purple-500/10 opacity-50" />
-                   <Layout className="text-primary/20 w-12 h-12" />
+                   <Layout className="text-primary/50 w-12 h-12" />
                 </div>
                 <div className="flex justify-between items-center">
                   <div className="w-1/2 h-8 bg-black/5 dark:bg-white/5 rounded-md" />
@@ -140,7 +140,6 @@ export default function ServiceUIUX() {
                 initial={{ x: 200, y: 200, opacity: 0 }}
                 whileInView={{ x: 60, y: 200, opacity: 1 }}
                 viewport={{ once: true }}
-                transition={{ delay: 0.8, duration: 1, ease: "easeOut" }}
                 animate={{
                   x: [60, -10, 40, 60],
                   y: [200, 160, 240, 200],
