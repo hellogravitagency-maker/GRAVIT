@@ -33,7 +33,7 @@ export default function LazySection({
   }, [rootMargin]);
 
   return (
-    <div ref={ref} style={{ minHeight: isVisible ? 'auto' : minHeight }} className="contents">
+    <div ref={ref} style={{ minHeight: isVisible ? 'auto' : minHeight }} className="w-full relative">
       {isVisible ? children : null}
     </div>
   );

@@ -6,20 +6,19 @@ import { Link } from 'react-router-dom';
 import SEO from './SEO';
 import { ArrowRight, ArrowUpRight, Code, Cpu, Palette, BarChart3, Layout, Sparkles, Megaphone, Search } from 'lucide-react';
 import SmartTypewriter from './ui/SmartTypewriter';
-import LazySection from './ui/LazySection';
-
-const CrescentQuotePro = React.lazy(() => import('./framer/CrescentQuotePro'));
-const TrustedBy = React.lazy(() => import('./home/TrustedBy'));
-const SelectedWork = React.lazy(() => import('./home/SelectedWork'));
-const Results = React.lazy(() => import('./home/Results'));
-const Testimonials = React.lazy(() => import('./home/Testimonials'));
-const Faq = React.lazy(() => import('./home/Faq'));
-const MotionFeatureCards = React.lazy(() => import('./home/MotionFeatureCards'));
-const ServiceBranding = React.lazy(() => import('./home/ServiceBranding'));
-const ServiceUIUX = React.lazy(() => import('./home/ServiceUIUX'));
-const ServiceDevelopment = React.lazy(() => import('./home/ServiceDevelopment'));
-const ProcessSection = React.lazy(() => import('./home/ProcessSection'));
-const PortfolioGrid = React.lazy(() => import('./home/PortfolioGrid'));
+import CrescentQuotePro from './framer/CrescentQuotePro';
+import TrustedBy from './home/TrustedBy';
+import MotionFeatureCards from './home/MotionFeatureCards';
+import Capabilities from './home/Capabilities';
+import ServiceBranding from './home/ServiceBranding';
+import ServiceUIUX from './home/ServiceUIUX';
+import ServiceDevelopment from './home/ServiceDevelopment';
+import ProcessSection from './home/ProcessSection';
+import SelectedWork from './home/SelectedWork';
+import PortfolioGrid from './home/PortfolioGrid';
+import Results from './home/Results';
+import Testimonials from './home/Testimonials';
+import Faq from './home/Faq';
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -264,40 +263,29 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════════
           02: TRUSTED BY — Auto-scroll Marquee
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection minHeight="128px">
-        <Suspense fallback={<div className="h-32" />}>
-          <TrustedBy />
-        </Suspense>
-      </LazySection>
+      <TrustedBy />
 
       {/* ══════════════════════════════════════════════════════════════
-          03: CAPABILITIES (Replaces Services Bento)
+          03: WHAT WE BUILD (Motion Feature Cards)
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <MotionFeatureCards />
-        </Suspense>
-      </LazySection>
+      <MotionFeatureCards />
+
+      {/* ══════════════════════════════════════════════════════════════
+          03a: CAPABILITIES ARCHITECTURE
+      ══════════════════════════════════════════════════════════════ */}
+      <Capabilities />
 
       {/* ══════════════════════════════════════════════════════════════
           03b: SERVICE PIPELINE
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <ServiceBranding />
-          <ServiceUIUX />
-          <ServiceDevelopment />
-        </Suspense>
-      </LazySection>
+      <ServiceBranding />
+      <ServiceUIUX />
+      <ServiceDevelopment />
 
       {/* ══════════════════════════════════════════════════════════════
           03c: PROCESS
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <ProcessSection />
-        </Suspense>
-      </LazySection>
+      <ProcessSection />
 
       {/* ══════════════════════════════════════════════════════════════
           04: MANIFESTO — Scroll Scrub Reveal
@@ -317,47 +305,27 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════════
           05: SELECTED WORK
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <SelectedWork />
-        </Suspense>
-      </LazySection>
+      <SelectedWork />
 
       {/* ══════════════════════════════════════════════════════════════
           05b: PORTFOLIO GRID
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <PortfolioGrid />
-        </Suspense>
-      </LazySection>
+      <PortfolioGrid />
 
       {/* ══════════════════════════════════════════════════════════════
           06: RESULTS / METRICS
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <Results />
-        </Suspense>
-      </LazySection>
+      <Results />
 
       {/* ══════════════════════════════════════════════════════════════
           07: TESTIMONIALS
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <Testimonials />
-        </Suspense>
-      </LazySection>
+      <Testimonials />
 
       {/* ══════════════════════════════════════════════════════════════
           08: FAQ
       ══════════════════════════════════════════════════════════════ */}
-      <LazySection>
-        <Suspense fallback={<div className="min-h-screen" />}>
-          <Faq />
-        </Suspense>
-      </LazySection>
+      <Faq />
 
       {/* ══════════════════════════════════════════════════════════════
           09: CTA BANNER — Full-width dark

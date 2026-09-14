@@ -5,25 +5,29 @@ const testimonials = [
     quote: "Gravit built an amazing platform that makes it easy for our users to explore data in 3D.",
     name: "Priya Sharma",
     role: "CTO, Bharat FinTech",
-    avatar: "/images/headshot_1.jpg"
+    initials: "PS",
+    avatar: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80"
   },
   {
     quote: "The website looks and runs so smoothly, it feels like a high-end mobile app. Outstanding work.",
     name: "Rohan Desai",
     role: "Head of Product, Mumbai Tech",
-    avatar: "/images/headshot_2.jpg"
+    initials: "RD",
+    avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80"
   },
   {
     quote: "Working with Gravit changed everything for us. They push the limits of what a website can do.",
     name: "Ananya Patel",
     role: "Founder, Spatial Labs India",
-    avatar: "/images/headshot_3.jpg"
+    initials: "AP",
+    avatar: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80"
   },
   {
     quote: "From the first idea to the final design, their attention to detail is unmatched.",
     name: "Vikram Singh",
     role: "Creative Director, Studio X Delhi",
-    avatar: "/images/headshot_4.jpg"
+    initials: "VS",
+    avatar: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80"
   }
 ];
 
@@ -68,12 +72,18 @@ export default function Testimonials() {
               </div>
 
               <div className="flex items-center gap-3 mt-8 pt-5 border-t border-border">
-                <img
-                  src={testimonial.avatar}
-                  alt={testimonial.name}
-                  className="w-10 h-10 rounded-full object-cover border border-border"
-                  loading="lazy"
-                />
+                <div className="w-10 h-10 rounded-full overflow-hidden border border-border bg-secondary/10 flex items-center justify-center font-mono text-xs font-semibold text-primary shrink-0 relative">
+                  <img
+                    src={testimonial.avatar}
+                    alt={testimonial.name}
+                    className="w-full h-full object-cover absolute inset-0 z-10"
+                    loading="lazy"
+                    onError={(e) => {
+                      (e.currentTarget as HTMLElement).style.display = 'none';
+                    }}
+                  />
+                  <span className="select-none z-0">{testimonial.initials}</span>
+                </div>
                 <div className="flex flex-col">
                   <span className="text-primary font-semibold text-sm tracking-tight">{testimonial.name}</span>
                   <span className="text-muted text-xs font-mono tracking-wide">{testimonial.role}</span>
