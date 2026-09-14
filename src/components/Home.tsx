@@ -72,29 +72,19 @@ export default function Home() {
     // ── Hero entrance ──────────────────────────────────────────
     const tl = gsap.timeline();
 
-    tl.fromTo(".hero-label",
-      { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" }
-    )
-    .fromTo(".hero-headline",
-      { y: 60, opacity: 0.1 },
-      { y: 0, opacity: 1, duration: 1.2, ease: "power4.out" },
-      "-=0.5"
+    tl.fromTo(".hero-headline",
+      { y: 40, opacity: 0 },
+      { y: 0, opacity: 1, duration: 1.0, ease: "power4.out" }
     )
     .fromTo(".hero-subtitle",
       { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" },
-      "-=0.8"
+      { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
+      "-=0.6"
     )
     .fromTo(".hero-cta",
       { y: 20, opacity: 0 },
-      { y: 0, opacity: 1, duration: 0.9, ease: "power3.out" },
-      "-=0.6"
-    )
-    .fromTo(".hero-quick-links",
-      { y: 15, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8, ease: "power3.out" },
-      "-=0.7"
+      "-=0.5"
     );
 
     // Removed Hero parallax to keep content visible while scrolling
@@ -129,7 +119,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════════
           01: HERO — Build Your Identity / Connect Your World
       ══════════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-12 pb-12 bg-[#090A0D]">
+      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-12 pb-4 sm:pb-6 bg-[#090A0D]">
         {/* Deep starry background with ambient center glow */}
         <div className="absolute inset-0 bg-radial from-[#151821]/50 via-[#090A0D]/90 to-[#07080A] pointer-events-none" />
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[550px] bg-gradient-to-b from-teal-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
@@ -162,7 +152,7 @@ export default function Home() {
         </div>
 
         {/* Floating 3D Prop: Megaphone (Left) */}
-        <div className="hidden lg:block absolute bottom-[22%] left-[3%] xl:left-[6%] z-20 animate-float-prop-left pointer-events-none select-none">
+        <div className="hidden lg:block absolute bottom-[24%] left-[3%] xl:left-[6%] z-20 animate-float-prop-left pointer-events-none select-none">
           <img
             src="/assets/hero-avatars/prop_megaphone.jpg"
             alt="3D Megaphone"
@@ -171,7 +161,7 @@ export default function Home() {
         </div>
 
         {/* Floating 3D Prop: Retro Computer (Right) */}
-        <div className="hidden lg:block absolute bottom-[20%] right-[3%] xl:right-[6%] z-20 animate-float-prop-right pointer-events-none select-none">
+        <div className="hidden lg:block absolute bottom-[22%] right-[3%] xl:right-[6%] z-20 animate-float-prop-right pointer-events-none select-none">
           <img
             src="/assets/hero-avatars/prop_computer.jpg"
             alt="3D Retro Computer"
@@ -179,33 +169,25 @@ export default function Home() {
           />
         </div>
 
-        <div className="hero-content relative z-10 flex flex-col items-center text-center w-full px-4 sm:px-6 pt-16 pb-4 max-w-7xl mx-auto">
+        <div className="hero-content relative z-10 flex flex-col items-center text-center w-full px-4 sm:px-6 pt-16 pb-2 max-w-7xl mx-auto">
           
-          {/* Top Pill Badge */}
-          <div className="hero-label inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#16181D]/90 border border-white/15 text-xs font-medium text-white/90 shadow-lg mb-4 backdrop-blur-md">
-            <span className="w-4 h-4 rounded bg-[#FAEB57] text-black flex items-center justify-center text-[10px] font-black">
-              ✦
-            </span>
-            <span>Early Access — Build Your Identity</span>
-          </div>
-
           {/* Headline */}
           <h1 className="hero-headline flex flex-col items-center justify-center text-center font-sans tracking-tight">
             <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08]">
               Build Your Identity
             </span>
-            <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-script-italic text-white/95 leading-[1.15] mt-1">
+            <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-script-italic text-white/90 leading-[1.15] mt-1">
               Connect Your World
             </span>
           </h1>
 
           {/* Subtitle */}
-          <p className="hero-subtitle mt-4 text-sm sm:text-base md:text-lg text-zinc-400 font-normal leading-relaxed max-w-xl text-center">
-            Join a vibrant community space where conversations come alive — express yourself through unique avatars and stand out in every interaction.
+          <p className="hero-subtitle mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-zinc-400 font-normal leading-relaxed max-w-lg text-center">
+            Crafting iconic digital experiences and modern web products for ambitious brands.
           </p>
 
-          {/* 3D Cards Carousel */}
-          <div className="relative w-full flex justify-center items-center h-[380px] sm:h-[440px] md:h-[500px] lg:h-[560px] my-6">
+          {/* 3D Cards Carousel — tight bottom margin */}
+          <div className="relative w-full flex justify-center items-center h-[335px] sm:h-[395px] lg:h-[445px] mt-4 mb-2">
             <Suspense fallback={
               <div className="w-full h-full flex items-center justify-center relative">
                 <div className="absolute bg-[#0096A8] rounded-[26px] shadow-2xl border border-white/20" style={{ width: 330, height: 440, transform: 'translateZ(0)', overflow: 'hidden' }}>
@@ -226,10 +208,26 @@ export default function Home() {
             </Suspense>
           </div>
 
+          {/* Start Project CTA with text */}
+          <div className="hero-cta flex flex-col items-center text-center mt-2 z-20 max-w-md px-4">
+            <p className="text-xs sm:text-sm text-zinc-400 mb-2.5 leading-relaxed">
+              Ready to bring your digital vision to life? Let’s create something extraordinary.
+            </p>
+            <Link 
+              to="/contact" 
+              className="group inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-white text-black font-semibold text-xs sm:text-sm shadow-[0_10px_25px_rgba(255,255,255,0.15)] hover:scale-105 hover:bg-zinc-100 transition-all duration-300 pointer-events-auto"
+            >
+              <span>Start a Project</span>
+              <span className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-[11px] font-bold group-hover:translate-x-0.5 transition-transform">
+                →
+              </span>
+            </Link>
+          </div>
+
         </div>
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
