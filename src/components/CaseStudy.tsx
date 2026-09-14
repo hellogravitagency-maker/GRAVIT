@@ -93,7 +93,15 @@ export default function CaseStudy() {
  </div>
  
  {/* Massive Visual / Abstract Placeholder */}
- <div className="w-full aspect-video bg-white/5 border border-white/10 relative overflow-hidden rounded-[3rem]">
+ <div className="w-full aspect-video relative overflow-hidden rounded-[3rem] group">
+ {project.image ? (
+ <img 
+ src={project.image} 
+ alt={`${project.title} Interface`} 
+ className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+ />
+ ) : (
+ <div className="w-full h-full bg-white/5 border border-white/10 relative overflow-hidden">
  <div className="absolute inset-x-12 inset-y-12 md:inset-x-32 md:inset-y-16 glass-panel border border-white/10 shadow-2xl flex flex-col rounded-[2rem] overflow-hidden">
  <div className="h-16 border-b border-white/10 flex items-center px-8 gap-4 bg-white/5">
  <div className="flex gap-2">
@@ -108,6 +116,8 @@ export default function CaseStudy() {
  </div>
  </div>
  </div>
+ </div>
+ )}
  </div>
  </section>
 
@@ -141,10 +151,20 @@ export default function CaseStudy() {
  03 / The System
  </h2>
  {/* Mid-content image break */}
- <div className="w-full aspect-[21/9] bg-white/5 border border-white/10 my-12 relative overflow-hidden rounded-[2rem]">
+ <div className="w-full aspect-[21/9] relative overflow-hidden rounded-[2rem] my-12 group">
+ {project.image ? (
+ <img 
+ src={project.image} 
+ alt={`${project.title} Detail`} 
+ className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
+ />
+ ) : (
+ <div className="w-full h-full bg-white/5 border border-white/10 relative overflow-hidden">
  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-white/10 flex items-center justify-center rounded-full">
  <div className="w-32 h-32 bg-white/5 rounded-full"></div>
  </div>
+ </div>
+ )}
  </div>
  <p className="text-xl md:text-2xl text-secondary leading-relaxed max-w-4xl">
  By stripping away unnecessary visual decoration and focusing entirely on component performance and database architecture, we delivered a product that scales effortlessly. The resulting system acts as the foundation for the next decade of the company's growth.
