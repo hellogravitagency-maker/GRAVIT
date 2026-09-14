@@ -176,14 +176,12 @@ export default function LogoDesign() {
                   ))}
                 </div>
                 
-                <a 
-                  href="https://cal.com/gravitstudio/project-call"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                <Link 
+                  to="/contact"
                   className={`block w-full py-4 rounded-full text-center font-medium transition-transform hover:scale-[1.02] active:scale-95 ${pkg.highlight ? 'bg-white text-black' : 'bg-black text-white'}`}
                 >
                   Initiate Project
-                </a>
+                </Link>
               </motion.div>
             ))}
           </div>

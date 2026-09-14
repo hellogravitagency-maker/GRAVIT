@@ -74,15 +74,15 @@ export default function Ecommerce() {
               Launch brutal, blazing-fast storefronts that convert browsers into buyers. No generic templates allowed.
             </p>
             <div className="flex flex-wrap gap-6">
-              <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer">
+              <Link to="/contact">
                 <motion.button 
                   whileHover={{ translateX: -4, translateY: -4, boxShadow: "12px 12px 0px 0px rgba(0,0,0,1)" }}
                   whileTap={{ translateX: 0, translateY: 0, boxShadow: "0px 0px 0px 0px rgba(0,0,0,1)" }}
-                  className="bg-lime-400 border-4 border-black px-10 py-5 text-xl font-black uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all"
+                  className="bg-lime-400 border-4 border-black px-10 py-5 text-xl font-black uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] transition-all cursor-pointer"
                 >
                   Start Selling
                 </motion.button>
-              </a>
+              </Link>
               <Link to="/pricing">
                 <motion.button 
                   whileHover={{ translateX: -4, translateY: -4, boxShadow: "12px 12px 0px 0px rgba(0,0,0,1)" }}
@@ -183,15 +183,15 @@ export default function Ecommerce() {
             <h2 className="text-6xl md:text-8xl font-black text-white uppercase tracking-tighter mb-8" style={{ WebkitTextStroke: '2px black' }}>
               Ready To Disrupt?
             </h2>
-            <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer">
+            <Link to="/contact">
               <motion.button 
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="bg-yellow-400 border-4 border-black px-12 py-6 text-2xl font-black uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-shadow"
+                className="bg-yellow-400 border-4 border-black px-12 py-6 text-2xl font-black uppercase shadow-[8px_8px_0px_0px_rgba(0,0,0,1)] hover:shadow-[12px_12px_0px_0px_rgba(0,0,0,1)] transition-shadow cursor-pointer"
               >
                 Let's Build It
               </motion.button>
-            </a>
+            </Link>
           </div>
         </motion.div>
       </section>

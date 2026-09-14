@@ -88,12 +88,12 @@ export default function Websites() {
  </p>
  </div>
  <div className="md:w-1/2 flex items-start md:justify-end gap-4 flex-wrap">
- <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" className="group relative inline-flex items-center justify-center px-8 py-4 bg-primary text-background font-medium rounded-full overflow-hidden transition-all hover:bg-white/90">
+ <Link to="/contact" className="group relative inline-flex items-center justify-center px-8 py-4 bg-primary text-background font-medium rounded-full overflow-hidden transition-all hover:bg-white/90">
  <span className="relative z-10 flex items-center gap-2">
  Start a Build
  <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
  </span>
- </a>
+ </Link>
  <Link to="/work" className="group relative inline-flex items-center justify-center px-8 py-4 bg-transparent border border-white/10 text-primary font-medium rounded-full overflow-hidden transition-colors hover:border-white/30">
  <span className="flex items-center gap-2">
  See the Work
@@ -178,10 +178,10 @@ export default function Websites() {
  </div>
  
  <div className="relative z-10 md:w-1/3 flex justify-start md:justify-end">
- <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" className="group/btn inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-500">
+ <Link to="/contact" className="group/btn inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-500">
  Brief Us
  <ArrowRight className="w-4 h-4 ml-3 group-hover/btn:translate-x-1 transition-transform" />
- </a>
+ </Link>
  </div>
  </div>
  </section>

@@ -294,10 +294,10 @@ export default function Work() {
  <p className="relative z-10 text-secondary max-w-2xl mb-12 text-lg leading-relaxed">
  We treat our infrastructure as seriously as our interfaces. Contact us to discuss architecture patterns, database structures, or specific technical challenges.
  </p>
- <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" className="relative z-10 group/btn inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-500">
+ <Link to="/contact" className="relative z-10 group/btn inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-500">
  Discuss architecture
  <ArrowRight className="w-4 h-4 ml-3 group-hover/btn:translate-x-1 transition-transform" />
- </a>
+ </Link>
  </div>
  </section>
 

@@ -124,8 +124,8 @@ export default function Pricing() {
                 ))}
               </div>
 
-              <a 
-                href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer"
+              <Link 
+                to="/contact"
                 className={`w-full py-5 rounded-full text-center text-xs font-bold uppercase tracking-widest transition-all duration-500 ${
                   plan.popular
                     ? 'bg-primary text-background hover:bg-white/90'
@@ -133,7 +133,7 @@ export default function Pricing() {
                 }`}
               >
                 {plan.buttonText}
-              </a>
+              </Link>
             </motion.div>
           ))}
         </div>
@@ -152,12 +152,12 @@ export default function Pricing() {
             </h2>
           </div>
           <div className="relative z-10">
-            <a
-              href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer"
+            <Link
+              to="/contact"
               className="inline-flex items-center justify-center bg-transparent border border-white/20 text-primary px-10 py-5 text-sm font-medium rounded-full hover:bg-white/5 transition-all duration-500"
             >
               Initiate Project →
-            </a>
+            </Link>
           </div>
         </div>
       </section>

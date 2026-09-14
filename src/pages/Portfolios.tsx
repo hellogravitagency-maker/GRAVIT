@@ -63,11 +63,11 @@ export default function Portfolios() {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: i * 0.05 }}
             >
-              <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" className="group flex justify-between items-center py-8 border-b border-white/10 hover:border-white transition-colors cursor-pointer">
+              <Link to="/contact" className="group flex justify-between items-center py-8 border-b border-white/10 hover:border-white transition-colors cursor-pointer">
                 <span className="w-1/2 md:w-1/3 text-2xl md:text-4xl font-heading group-hover:pl-4 transition-all duration-300">{item.name}</span>
                 <span className="hidden md:block w-1/3 text-center text-secondary font-light">{item.role}</span>
                 <span className="w-1/2 md:w-1/3 text-right font-mono text-sm text-secondary group-hover:text-primary transition-colors">{item.year}</span>
-              </a>
+              </Link>
             </motion.div>
           ))}
         </div>

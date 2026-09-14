@@ -40,14 +40,12 @@ export default function Hero() {
  </p>
  </div>
  <div className="md:col-span-5 lg:col-span-6 flex items-start md:justify-end gap-4 flex-wrap">
- <a
- href="https://cal.com/gravitstudio/project-call"
- target="_blank"
- rel="noopener noreferrer"
+ <Link
+ to="/contact"
  className="inline-flex items-center justify-center bg-primary text-background px-8 py-4 text-sm font-bold uppercase tracking-widest hover:bg-accent transition-colors"
  >
  Initiate Project →
- </a>
+ </Link>
  <Link
  to="/work"
  className="inline-flex items-center justify-center border border-border px-8 py-4 text-sm font-bold uppercase tracking-widest hover:border-primary transition-colors"

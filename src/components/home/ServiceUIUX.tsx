@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowUpRight, MousePointer2, Layout, Layers } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 export default function ServiceUIUX() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -63,15 +64,13 @@ export default function ServiceUIUX() {
               ))}
             </div>
 
-            <a 
-              href="https://cal.com/gravitstudio/project-call"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link 
+              to="/contact"
               className="group inline-flex items-center gap-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-primary px-8 py-4 rounded-full font-medium text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300"
             >
               Initiate Project
               <ArrowUpRight size={16} className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
-            </a>
+            </Link>
           </motion.div>
         </div>
 

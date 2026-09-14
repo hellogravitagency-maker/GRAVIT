@@ -94,12 +94,12 @@ export default function Analytics() {
             <h2 className="text-5xl md:text-7xl font-heading font-medium tracking-tight leading-[0.9] mb-8">
               Stop guessing.
             </h2>
-            <a 
-              href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" 
+            <Link 
+              to="/contact" 
               className="inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-500"
             >
               Implement Analytics →
-            </a>
+            </Link>
           </div>
         </div>
       </section>

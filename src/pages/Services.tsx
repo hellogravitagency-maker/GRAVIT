@@ -138,12 +138,12 @@ export default function Services() {
             </h2>
           </div>
           <div className="relative z-10">
-            <a
-              href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer"
+            <Link
+              to="/contact"
               className="inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-500"
             >
               Initiate Project Engineering →
-            </a>
+            </Link>
           </div>
         </div>
       </section>

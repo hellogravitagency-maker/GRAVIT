@@ -194,8 +194,8 @@ export default function Navbar() {
                   <AnimatedThemeToggler />
                 </div>
                 
-                <a 
-                  href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" 
+                <Link 
+                  to="/contact"
                   onClick={closeAll} 
                   className="hidden md:flex items-center justify-center relative p-[1px] rounded-full overflow-hidden group transition-transform hover:scale-105 active:scale-95 shadow-sm"
                 >
@@ -203,7 +203,7 @@ export default function Navbar() {
                   <div className="relative bg-background/40 backdrop-blur-md px-5 py-2 rounded-full border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] flex items-center">
                     <span className="text-[13px] font-bold tracking-wide text-primary">Initiate Project</span>
                   </div>
-                </a>
+                </Link>
 
                 <div className="flex lg:hidden items-center">
                   <button 
@@ -365,9 +365,9 @@ export default function Navbar() {
 
               {/* Bottom Buttons - Side by Side */}
               <div className="p-6 pt-2 pb-8 flex items-center gap-4 shrink-0 bg-background">
-                <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" onClick={closeAll} className="flex-1 flex items-center justify-center py-4 bg-primary text-primary-foreground text-[15px] font-bold rounded-2xl hover:bg-primary/90 transition-colors">
+                <Link to="/contact" onClick={closeAll} className="flex-1 flex items-center justify-center py-4 bg-primary text-primary-foreground text-[15px] font-bold rounded-2xl hover:bg-primary/90 transition-colors">
                   Initiate Project
-                </a>
+                </Link>
               </div>
             </motion.div>
           </>

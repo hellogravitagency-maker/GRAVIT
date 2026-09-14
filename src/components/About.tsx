@@ -272,17 +272,15 @@ export default function About() {
  </div>
  
  <div className="md:col-span-4 flex justify-start md:justify-end">
- <a
- href="https://cal.com/gravitstudio/project-call"
- target="_blank"
- rel="noopener noreferrer"
+ <Link
+ to="/contact"
  className="group/btn relative inline-flex items-center justify-center px-10 py-6 bg-primary text-background font-medium rounded-full overflow-hidden shadow-2xl hover:bg-white/90 transition-all duration-500"
  >
  <span className="relative z-10 flex items-center gap-3">
  Initiate Project
  <ArrowRight className="w-4 h-4 group-hover/btn:translate-x-2 transition-transform duration-300" />
  </span>
- </a>
+ </Link>
  </div>
  </div>
  </div>

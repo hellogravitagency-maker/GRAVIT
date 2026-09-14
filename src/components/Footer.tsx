@@ -69,7 +69,7 @@ export default function Footer() {
                 <Link to="/work" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Work</Link>
                 <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Services</Link>
                 <Link to="/about" className="text-secondary hover:text-primary text-sm transition-colors duration-300">About</Link>
-                <a href="https://cal.com/gravitstudio/project-call" target="_blank" rel="noopener noreferrer" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Initiate Project</a>
+                <Link to="/contact" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Initiate Project</Link>
               </div>
 
               {/* Col 2 */}
