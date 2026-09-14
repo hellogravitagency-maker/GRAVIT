@@ -16,30 +16,32 @@ export interface CarouselItem {
 const DEFAULT_ITEMS: CarouselItem[] = [
   {
     id: 1,
-    title: "Cloudy",
-    category: "Louty Avatars",
-    image: "/assets/hero-avatars/avatar_cloudy.jpg",
-    alt: "Cloudy Avatar",
+    title: "Project 1",
+    category: "Portfolio",
+    image: "/images/Yellow Porsche GT3 RS Editorial Landing Page.png",
+    alt: "Yellow Porsche GT3 RS",
     link: "/contact",
     accent: "#6355D8",
-    bg: "#6355D8"
+    bg: "#6355D8",
+    hasButton: true
   },
   {
     id: 2,
-    title: "Dummies",
-    category: "Rowez Avatars",
-    image: "/assets/hero-avatars/avatar_dummies.jpg",
-    alt: "Dummies Avatar",
+    title: "Project 2",
+    category: "Portfolio",
+    image: "/images/Aurelia Academy Brighter Tomorrow.png",
+    alt: "Aurelia Academy",
     link: "/contact",
     accent: "#FA5D5D",
-    bg: "#FA5D5D"
+    bg: "#FA5D5D",
+    hasButton: true
   },
   {
     id: 3,
-    title: "Glue",
-    category: "Booble Avatars",
-    image: "/assets/hero-avatars/avatar_glue.jpg",
-    alt: "Glue Avatar",
+    title: "Project 3",
+    category: "Portfolio",
+    image: "/images/KŌZU Ramen Bowls That Bring Good Mood.png",
+    alt: "KOZU Ramen Bowls",
     link: "/contact",
     accent: "#0096A8",
     bg: "#0096A8",
@@ -47,23 +49,25 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   },
   {
     id: 4,
-    title: "Love mumies",
-    category: "Avatars",
-    image: "/assets/hero-avatars/avatar_mumies.jpg",
-    alt: "Love mumies Avatar",
+    title: "Project 4",
+    category: "Portfolio",
+    image: "/images/Shadow Garden Portfolio Interface.png",
+    alt: "Shadow Garden Portfolio",
     link: "/contact",
     accent: "#79D862",
-    bg: "#79D862"
+    bg: "#79D862",
+    hasButton: true
   },
   {
     id: 5,
-    title: "Ellenor",
-    category: "Avatars",
-    image: "/assets/hero-avatars/avatar_ellenor.jpg",
-    alt: "Ellenor Avatar",
+    title: "Project 5",
+    category: "Portfolio",
+    image: "/images/VÉLORA Style Moves With You.png",
+    alt: "VELORA Style",
     link: "/contact",
     accent: "#4348C9",
-    bg: "#4348C9"
+    bg: "#4348C9",
+    hasButton: true
   }
 ];
 
@@ -585,45 +589,8 @@ export default function Infinite3DCarousel({
                   cursor: "grab"
                 }}
               >
-                {/* Card Top Header: Title, Category & Pill Button */}
-                <div className="relative z-20 flex items-start justify-between p-5 pb-2 pointer-events-none">
-                  <div className="flex flex-col text-left">
-                    <h3
-                      ref={(el) => {
-                        titleRefs.current[slot] = el;
-                      }}
-                      className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight"
-                    >
-                      {initialItem.title}
-                    </h3>
-                    <span
-                      ref={(el) => {
-                        categoryRefs.current[slot] = el;
-                      }}
-                      className="text-xs font-normal text-white/80 mt-0.5"
-                    >
-                      {initialItem.category || "Avatars"}
-                    </span>
-                  </div>
-
-                  {/* Get Started Pill Button (like in reference screenshot) */}
-                  <div
-                    ref={(el) => {
-                      buttonRefs.current[slot] = el;
-                    }}
-                    style={{ display: initialItem.hasButton ? "flex" : "none" }}
-                    onClick={handleButtonClick}
-                    className="pointer-events-auto inline-flex items-center gap-2 pl-3.5 pr-1.5 py-1 rounded-full bg-white text-black text-xs font-bold shadow-lg hover:scale-105 transition-transform cursor-pointer"
-                  >
-                    <span>Get Started</span>
-                    <span className="w-5 h-5 rounded-full bg-[#FAEB57] text-black flex items-center justify-center text-[12px] font-extrabold">
-                      ↗
-                    </span>
-                  </div>
-                </div>
-
-                {/* 3D Character Illustration Area */}
-                <div className="relative flex-1 w-full overflow-hidden flex items-end justify-center">
+                {/* Card Image Area */}
+                <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center">
                   <img
                     ref={(el) => {
                       imageRefs.current[slot] = el;
@@ -636,6 +603,25 @@ export default function Infinite3DCarousel({
                     onDragStart={(e) => e.preventDefault()}
                     className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
                   />
+                  
+                  {/* Start Project Overlay Button */}
+                  <div className="absolute inset-0 z-20 flex flex-col justify-between p-5 pointer-events-none">
+                    <div className="flex justify-end w-full">
+                      <div
+                        ref={(el) => {
+                          buttonRefs.current[slot] = el;
+                        }}
+                        style={{ display: initialItem.hasButton ? "flex" : "none" }}
+                        onClick={handleButtonClick}
+                        className="pointer-events-auto inline-flex items-center gap-2 pl-3.5 pr-1.5 py-1 rounded-full bg-white text-black text-xs font-bold shadow-lg hover:scale-105 transition-transform cursor-pointer"
+                      >
+                        <span>Start Project</span>
+                        <span className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-[12px] font-extrabold">
+                          ↗
+                        </span>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
             );

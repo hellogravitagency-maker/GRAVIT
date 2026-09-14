@@ -157,26 +157,26 @@ export default function Home() {
         <div className="hero-content relative z-10 flex flex-col items-center text-center w-full px-4 sm:px-6 pt-16 pb-2 max-w-7xl mx-auto">
           
           {/* Headline — GRAVIT Signature Font (Syne) */}
-          <h1 className="hero-headline flex flex-col items-center justify-center text-center font-heading tracking-tight">
-            <span className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold text-white tracking-tight leading-[0.98]">
-              Build Your Identity
-            </span>
-            <span className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold text-white/90 tracking-tight leading-[0.98] mt-2 sm:mt-3">
-              Connect Your World
+          <h1 className="hero-headline text-[clamp(2rem,5.5vw,4.5rem)] font-heading font-bold text-white tracking-tight leading-[1.05] min-h-[2.5em]">
+            Engineering the
+            <br />
+            <span className="text-gradient-accent pb-2 inline-block">
+              <SmartTypewriter words={["Extraordinary", "Future", "Impossible", "Unimaginable"]} />
             </span>
           </h1>
 
           {/* Subtitle — GRAVIT Body Font (Inter) */}
-          <p className="hero-subtitle mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-zinc-400 font-normal leading-relaxed max-w-xl text-center">
-            Crafting iconic digital experiences and modern web products for ambitious brands.
+          <p className="hero-subtitle mt-4 sm:mt-5 text-xs sm:text-sm md:text-base text-zinc-400 font-normal leading-relaxed max-w-2xl text-center">
+            We craft high-performance digital products for ambitious teams.
+            Strategy, design, and engineering — unified under one roof.
           </p>
 
           {/* 3D Cards Carousel — tight bottom margin */}
-          <div className="relative w-full flex justify-center items-center h-[335px] sm:h-[395px] lg:h-[445px] mt-4 mb-2">
+          <div className="relative w-full flex justify-center items-center h-[335px] sm:h-[395px] lg:h-[445px] mt-10 sm:mt-12 lg:mt-14 mb-2">
             <Suspense fallback={
               <div className="w-full h-full flex items-center justify-center relative">
                 <div className="absolute bg-[#0096A8] rounded-[26px] shadow-2xl border border-white/20" style={{ width: 330, height: 440, transform: 'translateZ(0)', overflow: 'hidden' }}>
-                  <img src="/assets/hero-avatars/avatar_glue.jpg" className="w-full h-full object-cover" alt="Glue Avatar" fetchPriority="high" loading="eager" decoding="sync" />
+                  <img src="/images/Yellow Porsche GT3 RS Editorial Landing Page.png" className="w-full h-full object-cover" alt="Yellow Porsche GT3 RS" fetchPriority="high" loading="eager" decoding="sync" />
                 </div>
               </div>
             }>
