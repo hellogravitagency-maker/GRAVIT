@@ -119,21 +119,10 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════════
           01: HERO — Build Your Identity / Connect Your World
       ══════════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-12 pb-4 sm:pb-6 bg-[#090A0D]">
-        {/* Deep starry background with ambient center glow */}
-        <div className="absolute inset-0 bg-radial from-[#151821]/50 via-[#090A0D]/90 to-[#07080A] pointer-events-none" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[550px] bg-gradient-to-b from-teal-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
-
-        {/* Delicate starry glitter points scattered in background */}
-        <div className="absolute inset-0 opacity-40 pointer-events-none overflow-hidden">
-          <span className="absolute top-[18%] left-[12%] w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDuration: '3s' }} />
-          <span className="absolute top-[28%] right-[18%] w-1.5 h-1.5 bg-white/80 rounded-full animate-pulse" style={{ animationDuration: '4.5s' }} />
-          <span className="absolute top-[42%] left-[22%] w-1 h-1 bg-white/60 rounded-full animate-pulse" style={{ animationDuration: '2.5s' }} />
-          <span className="absolute top-[15%] right-[32%] w-1 h-1 bg-white/70 rounded-full animate-pulse" style={{ animationDuration: '5s' }} />
-          <span className="absolute top-[52%] right-[12%] w-1 h-1 bg-white/50 rounded-full animate-pulse" style={{ animationDuration: '3.5s' }} />
-          <span className="absolute top-[68%] left-[16%] w-1.5 h-1.5 bg-white/60 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
-          <span className="absolute top-[75%] right-[24%] w-1 h-1 bg-white/70 rounded-full animate-pulse" style={{ animationDuration: '3.2s' }} />
-        </div>
+      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-12 pb-4 sm:pb-6 bg-black">
+        {/* Pure monochrome ambient center glow for GRAVIT theme */}
+        <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_50%_at_50%_25%,rgba(255,255,255,0.06),rgba(0,0,0,0))] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[400px] bg-white/[0.03] rounded-full blur-[130px] pointer-events-none" />
 
         {/* Floating Collaborator Pin: Robert (Left) */}
         <div className="hidden sm:flex absolute top-[28%] left-[5%] md:left-[10%] lg:left-[15%] z-30 animate-float-tag-left items-center gap-1.5 px-3 py-1 rounded-full bg-[#2DD4BF] text-black text-xs font-bold shadow-[0_8px_24px_rgba(45,212,191,0.35)] select-none pointer-events-auto">
@@ -171,18 +160,18 @@ export default function Home() {
 
         <div className="hero-content relative z-10 flex flex-col items-center text-center w-full px-4 sm:px-6 pt-16 pb-2 max-w-7xl mx-auto">
           
-          {/* Headline */}
-          <h1 className="hero-headline flex flex-col items-center justify-center text-center font-sans tracking-tight">
-            <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08]">
+          {/* Headline — GRAVIT Signature Font (Syne) */}
+          <h1 className="hero-headline flex flex-col items-center justify-center text-center font-heading tracking-tight">
+            <span className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold text-white tracking-tight leading-[0.98]">
               Build Your Identity
             </span>
-            <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-script-italic text-white/90 leading-[1.15] mt-1">
+            <span className="text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-heading font-bold text-white/90 tracking-tight leading-[0.98] mt-2 sm:mt-3">
               Connect Your World
             </span>
           </h1>
 
-          {/* Subtitle */}
-          <p className="hero-subtitle mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-zinc-400 font-normal leading-relaxed max-w-lg text-center">
+          {/* Subtitle — GRAVIT Body Font (Inter) */}
+          <p className="hero-subtitle mt-4 sm:mt-5 text-sm sm:text-base md:text-lg text-zinc-400 font-normal leading-relaxed max-w-xl text-center">
             Crafting iconic digital experiences and modern web products for ambitious brands.
           </p>
 
@@ -227,7 +216,7 @@ export default function Home() {
         </div>
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent pointer-events-none z-10" />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
