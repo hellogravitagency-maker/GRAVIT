@@ -333,10 +333,57 @@
   color: transparent;
 }
 
+/* Editorial Cursive Italic Script */
+.font-script-italic {
+  font-family: "Instrument Serif", "Playfair Display", Georgia, serif;
+  font-style: italic;
+  font-weight: 400;
+}
+
+@keyframes float-gentle-1 {
+  0%, 100% { transform: translateY(0px) rotate(-6deg); }
+  50% { transform: translateY(-8px) rotate(-3deg); }
+}
+
+@keyframes float-gentle-2 {
+  0%, 100% { transform: translateY(0px) rotate(8deg); }
+  50% { transform: translateY(-10px) rotate(5deg); }
+}
+
+@keyframes float-prop-left {
+  0%, 100% { transform: translateY(0px) rotate(-10deg); }
+  50% { transform: translateY(-14px) rotate(-6deg); }
+}
+
+@keyframes float-prop-right {
+  0%, 100% { transform: translateY(0px) rotate(12deg); }
+  50% { transform: translateY(-12px) rotate(8deg); }
+}
+
+.animate-float-tag-left {
+  animation: float-gentle-1 5s ease-in-out infinite;
+}
+
+.animate-float-tag-right {
+  animation: float-gentle-2 6s ease-in-out infinite 0.5s;
+}
+
+.animate-float-prop-left {
+  animation: float-prop-left 7s ease-in-out infinite 0.2s;
+}
+
+.animate-float-prop-right {
+  animation: float-prop-right 6.5s ease-in-out infinite 0.8s;
+}
+
 @media (prefers-reduced-motion: reduce) {
   [style*="marquee-scroll"],
   .marquee-track,
-  .elevenlabs-orb {
+  .elevenlabs-orb,
+  .animate-float-tag-left,
+  .animate-float-tag-right,
+  .animate-float-prop-left,
+  .animate-float-prop-right {
     animation: none !important;
   }
 }

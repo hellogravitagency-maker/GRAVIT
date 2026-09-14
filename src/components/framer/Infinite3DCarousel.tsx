@@ -1,6 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ArrowUpRight } from 'lucide-react';
 
 export interface CarouselItem {
   id?: string | number;
@@ -10,80 +9,61 @@ export interface CarouselItem {
   alt?: string;
   link?: string;
   accent?: string;
+  bg?: string;
+  hasButton?: boolean;
 }
 
 const DEFAULT_ITEMS: CarouselItem[] = [
   {
     id: 1,
-    title: "Aetheris AI",
-    category: "Next-Gen Intelligence",
-    image: "/assets/work/premium_web_ai_1788031024675.jpg",
-    alt: "Aetheris AI Platform",
-    link: "/work",
-    accent: "#3F6B7D"
+    title: "Cloudy",
+    category: "Louty Avatars",
+    image: "/assets/hero-avatars/avatar_cloudy.jpg",
+    alt: "Cloudy Avatar",
+    link: "/contact",
+    accent: "#6355D8",
+    bg: "#6355D8"
   },
   {
     id: 2,
-    title: "Aethelred & Co.",
-    category: "Architecture & Space",
-    image: "/assets/work/premium_web_architecture_1788031038602.jpg",
-    alt: "Aethelred Architectural Studio",
-    link: "/work",
-    accent: "#9C5468"
+    title: "Dummies",
+    category: "Rowez Avatars",
+    image: "/assets/hero-avatars/avatar_dummies.jpg",
+    alt: "Dummies Avatar",
+    link: "/contact",
+    accent: "#FA5D5D",
+    bg: "#FA5D5D"
   },
   {
     id: 3,
-    title: "Aura Cloud",
-    category: "SaaS Ecosystem",
-    image: "/assets/work/premium_web_saas_1788031048052.jpg",
-    alt: "Aura Cloud SaaS Platform",
-    link: "/work",
-    accent: "#B0654A"
+    title: "Glue",
+    category: "Booble Avatars",
+    image: "/assets/hero-avatars/avatar_glue.jpg",
+    alt: "Glue Avatar",
+    link: "/contact",
+    accent: "#0096A8",
+    bg: "#0096A8",
+    hasButton: true
   },
   {
     id: 4,
-    title: "Avant Garde",
-    category: "Creative Direction",
-    image: "/assets/work/premium_web_portfolio_1788031060883.jpg",
-    alt: "Avant Garde Design Portfolio",
-    link: "/work",
-    accent: "#5A7D62"
+    title: "Love mumies",
+    category: "Avatars",
+    image: "/assets/hero-avatars/avatar_mumies.jpg",
+    alt: "Love mumies Avatar",
+    link: "/contact",
+    accent: "#79D862",
+    bg: "#79D862"
   },
   {
     id: 5,
-    title: "Nexus DeFi",
-    category: "Holographic Web3",
-    image: "/assets/work/premium_web_web3_1788031072809.jpg",
-    alt: "Nexus DeFi Protocol",
-    link: "/work",
-    accent: "#6F63A0"
-  },
-  {
-    id: 6,
-    title: "Nova Capital",
-    category: "Fintech & Banking",
-    image: "/assets/work/fintech_landing_page_1788030771863.jpg",
-    alt: "Nova Capital Fintech Platform",
-    link: "/work",
-    accent: "#2563EB"
-  },
-  {
-    id: 7,
-    title: "Maison Élan",
-    category: "Luxury Fashion",
-    image: "/assets/work/luxury_fashion_web_1788030762128.jpg",
-    alt: "Maison Élan Luxury E-Commerce",
-    link: "/work",
-    accent: "#D97706"
-  },
-  {
-    id: 8,
-    title: "Veloce Gear",
-    category: "Cyberpunk Commerce",
-    image: "/assets/work/cyberpunk_ecommerce_1788030750391.jpg",
-    alt: "Veloce Gear Cyberpunk Store",
-    link: "/work",
-    accent: "#EC4899"
+    title: "Ellenor",
+    category: "Avatars",
+    image: "/assets/hero-avatars/avatar_ellenor.jpg",
+    alt: "Ellenor Avatar",
+    link: "/contact",
+    accent: "#4348C9",
+    bg: "#4348C9"
   }
 ];
 
@@ -115,24 +95,26 @@ export interface Infinite3DCarouselProps {
   overlap?: number;
   className?: string;
   style?: React.CSSProperties;
+  onSelectCard?: (item: CarouselItem) => void;
 }
 
 export default function Infinite3DCarousel({
   items = DEFAULT_ITEMS,
   cardWidth: propCardWidth,
   cardHeight: propCardHeight,
-  radius = 20,
-  blurAmount = 8,
-  dragSensitivity = 1,
+  radius = 26,
+  blurAmount = 6,
+  dragSensitivity = 1.1,
   autoPlay = true,
-  autoPlaySpeed = 26,
+  autoPlaySpeed = 22,
   autoPlayDirection = "Forward",
   perspective = 1800,
   sideRotation = 14,
   sideTilt = 6,
   overlap: propOverlap,
   className = "",
-  style
+  style,
+  onSelectCard
 }: Infinite3DCarouselProps) {
   const navigate = useNavigate();
   const trackRef = useRef<HTMLElement>(null);
@@ -141,36 +123,33 @@ export default function Infinite3DCarousel({
     typeof window !== "undefined" ? window.innerWidth : 1200
   );
 
-  // Track responsive screen width
   useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  // Compute responsive card sizing
   const cardWidth = useMemo(() => {
     if (propCardWidth) return propCardWidth;
-    if (windowWidth < 640) return 270;
-    if (windowWidth < 1024) return 330;
-    return 390;
+    if (windowWidth < 640) return 250;
+    if (windowWidth < 1024) return 290;
+    return 330;
   }, [propCardWidth, windowWidth]);
 
   const cardHeight = useMemo(() => {
     if (propCardHeight) return propCardHeight;
-    if (windowWidth < 640) return 340;
+    if (windowWidth < 640) return 330;
     if (windowWidth < 1024) return 390;
     return 440;
   }, [propCardHeight, windowWidth]);
 
   const overlap = useMemo(() => {
     if (propOverlap !== undefined) return propOverlap;
-    if (windowWidth < 640) return 180;
-    if (windowWidth < 1024) return 230;
-    return 270;
+    if (windowWidth < 640) return 150;
+    if (windowWidth < 1024) return 180;
+    return 200;
   }, [propOverlap, windowWidth]);
 
-  // Safe In View observer
   useEffect(() => {
     if (typeof window === "undefined" || !("IntersectionObserver" in window)) return;
     const el = trackRef.current;
@@ -200,6 +179,7 @@ export default function Infinite3DCarousel({
   const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
   const titleRefs = useRef<(HTMLHeadingElement | null)[]>([]);
   const categoryRefs = useRef<(HTMLSpanElement | null)[]>([]);
+  const buttonRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const imageAssignmentCacheRef = useRef<(any)[]>([null, null, null, null, null]);
 
@@ -237,6 +217,7 @@ export default function Infinite3DCarousel({
         const imageEl = imageRefs.current[slot];
         const titleEl = titleRefs.current[slot];
         const catEl = categoryRefs.current[slot];
+        const btnEl = buttonRefs.current[slot];
         if (!cardEl || !imageEl) continue;
 
         const virtualIndex = nearestCenter + (slot - 2);
@@ -254,12 +235,12 @@ export default function Infinite3DCarousel({
         const translateX = rawDistance * cardStep;
         const rotateY = -direction * depthEase * sideRotation;
         const rotateZ = direction * depthEase * sideTilt;
-        const scale = 1 - depthEase * 0.24;
-        const translateZ = 110 - depthEase * 160;
+        const scale = 1 - depthEase * 0.22;
+        const translateZ = 120 - depthEase * 170;
         const zIndex = 1000 - Math.round(clampedDistance * 100);
 
-        const fadeStartDistance = 1.4;
-        const fadeEndDistance = 2.85;
+        const fadeStartDistance = 1.45;
+        const fadeEndDistance = 2.9;
         const edgeOpacity = Math.max(
           0,
           Math.min(1, 1 - smoothstep(fadeStartDistance, fadeEndDistance, absDistance))
@@ -269,50 +250,58 @@ export default function Infinite3DCarousel({
         const blurPx = blurAmount <= 0 ? 0 : blurAmount * blurDepth;
 
         const shadowEase = smoothstep(0, 1.5, absDistance);
-        const shadowYOffset = 22 - shadowEase * 10;
-        const shadowBlur = 44 - shadowEase * 14;
-        const shadowAlpha = 0.28 - shadowEase * 0.1;
+        const shadowYOffset = 26 - shadowEase * 12;
+        const shadowBlur = 48 - shadowEase * 16;
+        const shadowAlpha = 0.32 - shadowEase * 0.12;
 
         cardEl.style.zIndex = String(zIndex);
         cardEl.style.opacity = String(edgeOpacity);
         cardEl.style.transform = `translate3d(calc(-50% + ${translateX}px), -50%, ${translateZ}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
         cardEl.style.filter = blurPx > 0 ? `blur(${blurPx}px)` : "none";
         cardEl.style.boxShadow = `0 ${shadowYOffset}px ${shadowBlur}px rgba(0, 0, 0, ${Math.max(
-          0.12,
+          0.14,
           shadowAlpha
-        )}), 0 2px 10px rgba(0,0,0,0.1)`;
+        )}), 0 2px 12px rgba(0,0,0,0.12)`;
 
-        // Update active center prominence
+        // Highlight center button if active
         const isCenter = absDistance < 0.5;
         cardEl.setAttribute("data-center", isCenter ? "true" : "false");
 
-        // Content updates with cache check to eliminate layout thrashing
+        // Dynamic content updates
         const nextSrc = item.image;
         const nextAlt = item.alt || item.title;
         const nextTitle = item.title;
-        const nextCat = item.category || "Case Study";
-        const nextLink = item.link || "/work";
+        const nextCat = item.category || "Avatars";
+        const nextLink = item.link || "/contact";
+        const nextBg = item.bg || "#0096A8";
+        const showBtn = item.hasButton || isCenter;
 
         const cached = imageAssignmentCacheRef.current[slot];
         const changed =
           !cached ||
           cached.itemIndex !== wrappedItemIndex ||
           cached.src !== nextSrc ||
-          cached.title !== nextTitle;
+          cached.title !== nextTitle ||
+          cached.showBtn !== showBtn;
 
         if (changed) {
           imageEl.src = nextSrc;
           imageEl.alt = nextAlt;
           if (titleEl) titleEl.textContent = nextTitle;
           if (catEl) catEl.textContent = nextCat;
+          if (btnEl) {
+            btnEl.style.display = showBtn ? "flex" : "none";
+          }
           cardEl.dataset.link = nextLink;
+          cardEl.style.backgroundColor = nextBg;
 
           imageAssignmentCacheRef.current[slot] = {
             itemIndex: wrappedItemIndex,
             src: nextSrc,
             title: nextTitle,
             category: nextCat,
-            link: nextLink
+            link: nextLink,
+            showBtn
           };
         }
       }
@@ -517,20 +506,30 @@ export default function Infinite3DCarousel({
   );
 
   const handleCardClick = useCallback(
-    (e: React.MouseEvent<HTMLDivElement>) => {
+    (e: React.MouseEvent<HTMLDivElement>, item: CarouselItem) => {
       if (dragMovedRef.current) {
         e.preventDefault();
         e.stopPropagation();
         return;
       }
-      const link = e.currentTarget.dataset.link;
-      if (link) {
-        if (link.startsWith("http")) {
-          window.open(link, "_blank", "noopener,noreferrer");
-        } else {
-          navigate(link);
-        }
+      if (onSelectCard) {
+        onSelectCard(item);
+        return;
       }
+      const link = item.link || "/contact";
+      if (link.startsWith("http")) {
+        window.open(link, "_blank", "noopener,noreferrer");
+      } else {
+        navigate(link);
+      }
+    },
+    [navigate, onSelectCard]
+  );
+
+  const handleButtonClick = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      navigate("/contact");
     },
     [navigate]
   );
@@ -571,22 +570,60 @@ export default function Infinite3DCarousel({
                 ref={(el) => {
                   cardRefs.current[slot] = el;
                 }}
-                onClick={handleCardClick}
-                data-link={initialItem.link || "/work"}
-                className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden bg-[#0e1015] border border-white/10 dark:border-white/15 shadow-2xl transition-shadow duration-300 pointer-events-auto"
+                onClick={(e) => handleCardClick(e, initialItem)}
+                data-link={initialItem.link || "/contact"}
+                className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border border-white/20 shadow-2xl transition-all duration-300 pointer-events-auto"
                 style={{
                   width: `${cardWidth}px`,
                   minWidth: `${cardWidth}px`,
                   height: `${cardHeight}px`,
                   borderRadius: `${radius}px`,
+                  backgroundColor: initialItem.bg || "#0096A8",
                   transformStyle: "preserve-3d",
                   transform: "translate3d(-50%, -50%, 0)",
                   willChange: "transform, filter",
                   cursor: "grab"
                 }}
               >
-                {/* Visual Image */}
-                <div className="relative w-full h-full overflow-hidden">
+                {/* Card Top Header: Title, Category & Pill Button */}
+                <div className="relative z-20 flex items-start justify-between p-5 pb-2 pointer-events-none">
+                  <div className="flex flex-col text-left">
+                    <h3
+                      ref={(el) => {
+                        titleRefs.current[slot] = el;
+                      }}
+                      className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight"
+                    >
+                      {initialItem.title}
+                    </h3>
+                    <span
+                      ref={(el) => {
+                        categoryRefs.current[slot] = el;
+                      }}
+                      className="text-xs font-normal text-white/80 mt-0.5"
+                    >
+                      {initialItem.category || "Avatars"}
+                    </span>
+                  </div>
+
+                  {/* Get Started Pill Button (like in reference screenshot) */}
+                  <div
+                    ref={(el) => {
+                      buttonRefs.current[slot] = el;
+                    }}
+                    style={{ display: initialItem.hasButton ? "flex" : "none" }}
+                    onClick={handleButtonClick}
+                    className="pointer-events-auto inline-flex items-center gap-2 pl-3.5 pr-1.5 py-1 rounded-full bg-white text-black text-xs font-bold shadow-lg hover:scale-105 transition-transform cursor-pointer"
+                  >
+                    <span>Get Started</span>
+                    <span className="w-5 h-5 rounded-full bg-[#FAEB57] text-black flex items-center justify-center text-[12px] font-extrabold">
+                      ↗
+                    </span>
+                  </div>
+                </div>
+
+                {/* 3D Character Illustration Area */}
+                <div className="relative flex-1 w-full overflow-hidden flex items-end justify-center">
                   <img
                     ref={(el) => {
                       imageRefs.current[slot] = el;
@@ -599,47 +636,6 @@ export default function Infinite3DCarousel({
                     onDragStart={(e) => e.preventDefault()}
                     className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
                   />
-
-                  {/* Gradient Scrim */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/5 pointer-events-none" />
-
-                  {/* Subtle Top Glare Border */}
-                  <div className="absolute inset-x-0 top-0 h-[1px] bg-gradient-to-r from-transparent via-white/30 to-transparent pointer-events-none" />
-
-                  {/* Top Badge: Featured Work Indicator */}
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between pointer-events-none z-10">
-                    <div className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-black/50 backdrop-blur-md border border-white/15 text-[11px] font-mono font-medium text-white/90 uppercase tracking-wider">
-                      <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
-                      <span
-                        ref={(el) => {
-                          categoryRefs.current[slot] = el;
-                        }}
-                      >
-                        {initialItem.category || "Case Study"}
-                      </span>
-                    </div>
-
-                    <div className="w-8 h-8 rounded-full bg-black/40 backdrop-blur-md border border-white/15 flex items-center justify-center text-white/80 group-hover:bg-white group-hover:text-black transition-colors duration-300">
-                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                    </div>
-                  </div>
-
-                  {/* Bottom Info: Title & Action */}
-                  <div className="absolute bottom-0 inset-x-0 p-5 flex flex-col pointer-events-none z-10">
-                    <h3
-                      ref={(el) => {
-                        titleRefs.current[slot] = el;
-                      }}
-                      className="text-xl md:text-2xl font-bold text-white tracking-tight leading-tight mb-1 drop-shadow-md"
-                    >
-                      {initialItem.title}
-                    </h3>
-                    <div className="flex items-center gap-2 text-xs text-white/70 font-mono">
-                      <span>Explore Case Study</span>
-                      <span>—</span>
-                      <span className="text-accent group-hover:underline">View Project</span>
-                    </div>
-                  </div>
                 </div>
               </div>
             );

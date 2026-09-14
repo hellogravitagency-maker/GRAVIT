@@ -127,54 +127,98 @@ export default function Home() {
       />
 
       {/* ══════════════════════════════════════════════════════════════
-          01: HERO — Cinematic Editorial
+          01: HERO — Build Your Identity / Connect Your World
       ══════════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-8 pb-4">
-        {/* Atmospheric orbs */}
-        <div className="elevenlabs-orb elevenlabs-orb--mint w-[500px] h-[500px] top-[-10%] left-[-5%]" style={{ animationDelay: '0s' }} />
-        <div className="elevenlabs-orb elevenlabs-orb--peach w-[400px] h-[400px] bottom-[5%] right-[-5%]" style={{ animationDelay: '7s' }} />
-        <div className="elevenlabs-orb elevenlabs-orb--lavender w-[350px] h-[350px] top-[30%] right-[20%]" style={{ animationDelay: '14s' }} />
+      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-12 pb-12 bg-[#090A0D]">
+        {/* Deep starry background with ambient center glow */}
+        <div className="absolute inset-0 bg-radial from-[#151821]/50 via-[#090A0D]/90 to-[#07080A] pointer-events-none" />
+        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[550px] bg-gradient-to-b from-teal-500/10 via-purple-500/5 to-transparent rounded-full blur-3xl pointer-events-none" />
 
-        {/* Subtle noise texture */}
-        <div className="absolute inset-0 opacity-[0.02] pointer-events-none" style={{ backgroundImage: "url('data:image/svg+xml,%3Csvg viewBox=%220 0 200 200%22 xmlns=%22http://www.w3.org/2000/svg%22%3E%3Cfilter id=%22noiseFilter%22%3E%3CfeTurbulence type=%22fractalNoise%22 baseFrequency=%220.65%22 numOctaves=%223%22 stitchTiles=%22stitch%22/%3E%3C/filter%3E%3Crect width=%22100%25%22 height=%22100%25%22 filter=%22url(%23noiseFilter)%22/%3E%3C/svg%3E')" }} />
+        {/* Delicate starry glitter points scattered in background */}
+        <div className="absolute inset-0 opacity-40 pointer-events-none overflow-hidden">
+          <span className="absolute top-[18%] left-[12%] w-1 h-1 bg-white rounded-full animate-pulse" style={{ animationDuration: '3s' }} />
+          <span className="absolute top-[28%] right-[18%] w-1.5 h-1.5 bg-white/80 rounded-full animate-pulse" style={{ animationDuration: '4.5s' }} />
+          <span className="absolute top-[42%] left-[22%] w-1 h-1 bg-white/60 rounded-full animate-pulse" style={{ animationDuration: '2.5s' }} />
+          <span className="absolute top-[15%] right-[32%] w-1 h-1 bg-white/70 rounded-full animate-pulse" style={{ animationDuration: '5s' }} />
+          <span className="absolute top-[52%] right-[12%] w-1 h-1 bg-white/50 rounded-full animate-pulse" style={{ animationDuration: '3.5s' }} />
+          <span className="absolute top-[68%] left-[16%] w-1.5 h-1.5 bg-white/60 rounded-full animate-pulse" style={{ animationDuration: '4s' }} />
+          <span className="absolute top-[75%] right-[24%] w-1 h-1 bg-white/70 rounded-full animate-pulse" style={{ animationDuration: '3.2s' }} />
+        </div>
 
-        <div className="hero-content relative z-10 flex flex-col items-center text-center w-full px-6 pt-24 pb-4 max-w-7xl mx-auto">
+        {/* Floating Collaborator Pin: Robert (Left) */}
+        <div className="hidden sm:flex absolute top-[28%] left-[5%] md:left-[10%] lg:left-[15%] z-30 animate-float-tag-left items-center gap-1.5 px-3 py-1 rounded-full bg-[#2DD4BF] text-black text-xs font-bold shadow-[0_8px_24px_rgba(45,212,191,0.35)] select-none pointer-events-auto">
+          <span>Robert</span>
+          <svg className="w-3.5 h-3.5 -rotate-45" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+          </svg>
+        </div>
+
+        {/* Floating Collaborator Pin: Clarissa (Right) */}
+        <div className="hidden sm:flex absolute top-[34%] right-[5%] md:right-[10%] lg:right-[14%] z-30 animate-float-tag-right items-center gap-1.5 px-3 py-1 rounded-full bg-[#FB7185] text-black text-xs font-bold shadow-[0_8px_24px_rgba(251,113,133,0.35)] select-none pointer-events-auto">
+          <span>Clarissa</span>
+          <svg className="w-3.5 h-3.5 rotate-45" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z" />
+          </svg>
+        </div>
+
+        {/* Floating 3D Prop: Megaphone (Left) */}
+        <div className="hidden lg:block absolute bottom-[22%] left-[3%] xl:left-[6%] z-20 animate-float-prop-left pointer-events-none select-none">
+          <img
+            src="/assets/hero-avatars/prop_megaphone.jpg"
+            alt="3D Megaphone"
+            className="w-28 h-28 xl:w-36 xl:h-36 object-cover rounded-3xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] border border-white/10 mix-blend-screen"
+          />
+        </div>
+
+        {/* Floating 3D Prop: Retro Computer (Right) */}
+        <div className="hidden lg:block absolute bottom-[20%] right-[3%] xl:right-[6%] z-20 animate-float-prop-right pointer-events-none select-none">
+          <img
+            src="/assets/hero-avatars/prop_computer.jpg"
+            alt="3D Retro Computer"
+            className="w-28 h-28 xl:w-36 xl:h-36 object-cover rounded-3xl shadow-[0_24px_48px_rgba(0,0,0,0.6)] border border-white/10 mix-blend-screen"
+          />
+        </div>
+
+        <div className="hero-content relative z-10 flex flex-col items-center text-center w-full px-4 sm:px-6 pt-16 pb-4 max-w-7xl mx-auto">
           
-          {/* Top: Text */}
-          <div className="flex flex-col items-center max-w-3xl mb-4 mt-2">
-            {/* Headline */}
-            <h1 className="hero-headline display-editorial text-[clamp(1.75rem,4vw,3.5rem)] text-primary leading-[1.05] h-[2.1em] md:h-auto">
-              Engineering the
-              <br />
-              <span className="text-gradient-accent pb-2">
-                <SmartTypewriter words={["Extraordinary", "Future", "Impossible", "Unimaginable"]} />
-              </span>
-            </h1>
-
-            {/* Subtitle */}
-            <p className="hero-subtitle mt-3 text-sm md:text-base text-secondary font-normal leading-relaxed max-w-2xl">
-              We craft high-performance digital products for ambitious teams.
-              Strategy, design, and engineering — unified under one roof.
-            </p>
+          {/* Top Pill Badge */}
+          <div className="hero-label inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-[#16181D]/90 border border-white/15 text-xs font-medium text-white/90 shadow-lg mb-4 backdrop-blur-md">
+            <span className="w-4 h-4 rounded bg-[#FAEB57] text-black flex items-center justify-center text-[10px] font-black">
+              ✦
+            </span>
+            <span>Early Access — Build Your Identity</span>
           </div>
 
-          <div className="relative w-full flex justify-center items-center h-[360px] sm:h-[420px] md:h-[480px] lg:h-[540px] mb-6 lg:mb-10">
+          {/* Headline */}
+          <h1 className="hero-headline flex flex-col items-center justify-center text-center font-sans tracking-tight">
+            <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08]">
+              Build Your Identity
+            </span>
+            <span className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-script-italic text-white/95 leading-[1.15] mt-1">
+              Connect Your World
+            </span>
+          </h1>
+
+          {/* Subtitle */}
+          <p className="hero-subtitle mt-4 text-sm sm:text-base md:text-lg text-zinc-400 font-normal leading-relaxed max-w-xl text-center">
+            Join a vibrant community space where conversations come alive — express yourself through unique avatars and stand out in every interaction.
+          </p>
+
+          {/* 3D Cards Carousel */}
+          <div className="relative w-full flex justify-center items-center h-[380px] sm:h-[440px] md:h-[500px] lg:h-[560px] my-6">
             <Suspense fallback={
               <div className="w-full h-full flex items-center justify-center relative">
-                <div className="hidden lg:block absolute bg-[#0e1015] rounded-[20px] shadow-2xl border border-white/10" style={{ width: 390, height: 440, transform: 'translateZ(0)', overflow: 'hidden' }}>
-                  <img src="/assets/work/premium_web_ai_1788031024675.jpg" className="w-full h-full object-cover" alt="Aetheris AI" fetchPriority="high" loading="eager" decoding="sync" />
-                </div>
-                <div className="block lg:hidden absolute bg-[#0e1015] rounded-[20px] shadow-2xl border border-white/10" style={{ width: 280, height: 340, transform: 'translateZ(0)', overflow: 'hidden' }}>
-                  <img src="/assets/work/premium_web_ai_1788031024675.jpg" className="w-full h-full object-cover" alt="Aetheris AI" fetchPriority="high" loading="eager" decoding="sync" />
+                <div className="absolute bg-[#0096A8] rounded-[26px] shadow-2xl border border-white/20" style={{ width: 330, height: 440, transform: 'translateZ(0)', overflow: 'hidden' }}>
+                  <img src="/assets/hero-avatars/avatar_glue.jpg" className="w-full h-full object-cover" alt="Glue Avatar" fetchPriority="high" loading="eager" decoding="sync" />
                 </div>
               </div>
             }>
               <Infinite3DCarousel 
                 style={{ width: '100%', height: '100%' }}
                 autoPlay={true}
-                autoPlaySpeed={24}
+                autoPlaySpeed={20}
                 dragSensitivity={1.1}
-                blurAmount={7}
+                blurAmount={6}
                 sideRotation={14}
                 sideTilt={6}
                 perspective={1800}
@@ -182,28 +226,10 @@ export default function Home() {
             </Suspense>
           </div>
 
-          {/* Bottom: Content & CTAs */}
-          <div className="flex flex-col items-center max-w-md text-center">
-            <p className="text-secondary text-sm md:text-sm mb-6 leading-relaxed">
-              Experience the perfect blend of aesthetic brilliance and technical superiority. We bring your vision to life with modern digital solutions.
-            </p>
-            {/* Dual CTAs */}
-            <div className="hero-cta flex flex-wrap items-center justify-center gap-3">
-              <Link to="/contact" className="inline-flex items-center gap-2 bg-primary text-primary-foreground px-5 py-2.5 rounded-full font-medium text-xs tracking-wide hover:scale-105 transition-transform">
-                Start a Project
-                <ArrowRight size={14} />
-              </Link>
-              <Link to="/work" className="inline-flex items-center gap-2 border border-border text-primary px-5 py-2.5 rounded-full font-medium text-xs tracking-wide hover:border-primary/60 hover:scale-105 transition-all">
-                View Our Work
-                <ArrowUpRight size={14} />
-              </Link>
-            </div>
-          </div>
-
         </div>
 
         {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
+        <div className="absolute bottom-0 left-0 right-0 h-28 bg-gradient-to-t from-background to-transparent pointer-events-none z-10" />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
