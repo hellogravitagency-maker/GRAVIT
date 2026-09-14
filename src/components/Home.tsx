@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 import SEO from './SEO';
 import { ArrowRight, ArrowUpRight, Code, Cpu, Palette, BarChart3, Layout, Sparkles, Megaphone, Search } from 'lucide-react';
 import SmartTypewriter from './ui/SmartTypewriter';
-import CrescentQuotePro from './framer/CrescentQuotePro';
+import Infinite3DCarousel from './framer/Infinite3DCarousel';
 import TrustedBy from './home/TrustedBy';
 import MotionFeatureCards from './home/MotionFeatureCards';
 import Capabilities from './home/Capabilities';
@@ -67,13 +67,6 @@ export default function Home() {
   const heroRef = useRef<HTMLDivElement>(null);
   const manifestoRef = useRef<HTMLDivElement>(null);
 
-  const [isDesktop, setIsDesktop] = useState(false);
-  useEffect(() => {
-    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
-    handleResize();
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
 
   useGSAP(() => {
     // ── Hero entrance ──────────────────────────────────────────
@@ -165,73 +158,26 @@ export default function Home() {
             </p>
           </div>
 
-          <div className="relative w-full flex justify-center items-center h-[300px] md:h-[400px] lg:h-[480px] mb-4 lg:mb-8">
+          <div className="relative w-full flex justify-center items-center h-[360px] sm:h-[420px] md:h-[480px] lg:h-[540px] mb-6 lg:mb-10">
             <Suspense fallback={
               <div className="w-full h-full flex items-center justify-center relative">
-                <div className="hidden lg:block absolute bg-[#e6eaf0]" style={{ width: 240, height: 320, borderRadius: 10, transform: 'translateZ(0)', overflow: 'hidden' }}>
+                <div className="hidden lg:block absolute bg-[#0e1015] rounded-[20px] shadow-2xl border border-white/10" style={{ width: 390, height: 440, transform: 'translateZ(0)', overflow: 'hidden' }}>
                   <img src="/assets/work/premium_web_ai_1788031024675.jpg" className="w-full h-full object-cover" alt="Aetheris AI" fetchPriority="high" loading="eager" decoding="sync" />
                 </div>
-                <div className="block lg:hidden absolute bg-[#e6eaf0]" style={{ width: 160, height: 220, borderRadius: 10, transform: 'translateZ(0)', overflow: 'hidden' }}>
+                <div className="block lg:hidden absolute bg-[#0e1015] rounded-[20px] shadow-2xl border border-white/10" style={{ width: 280, height: 340, transform: 'translateZ(0)', overflow: 'hidden' }}>
                   <img src="/assets/work/premium_web_ai_1788031024675.jpg" className="w-full h-full object-cover" alt="Aetheris AI" fetchPriority="high" loading="eager" decoding="sync" />
                 </div>
               </div>
             }>
-              <CrescentQuotePro 
-                style={{ width: '100%', height: '100%' }} 
-                plateW={isDesktop ? 260 : 180} 
-                plateH={isDesktop ? 340 : 240}
-                roster={[
-                  {
-                    name: "Aetheris AI",
-                    role: "Technology Platform",
-                    location: "Dark Mode",
-                    rating: 5,
-                    accent: "#3F6B7D",
-                    title: "Intelligence beautifully engineered.",
-                    quote: "Sleek glassmorphism and glowing gradients create an interface that feels as advanced as the AI powering it.",
-                    photoUrl: "/assets/work/premium_web_ai_1788031024675.jpg"
-                  },
-                  {
-                    name: "Aethelred & Co.",
-                    role: "Architecture Firm",
-                    location: "Minimalist",
-                    rating: 5,
-                    accent: "#9C5468",
-                    title: "Crafting digital spaces.",
-                    quote: "Elegant serif typography and high-res photography blend into a sophisticated, award-winning luxury experience.",
-                    photoUrl: "/assets/work/premium_web_architecture_1788031038602.jpg"
-                  },
-                  {
-                    name: "Aura AI",
-                    role: "SaaS Application",
-                    location: "Bento Layout",
-                    rating: 5,
-                    accent: "#B0654A",
-                    title: "Clarity through design.",
-                    quote: "Clean layouts, perfect spacing, and beautiful 3D abstract icons that elevate the standard SaaS landing page.",
-                    photoUrl: "/assets/work/premium_web_saas_1788031048052.jpg"
-                  },
-                  {
-                    name: "Avant Garde",
-                    role: "Creative Studio",
-                    location: "Immersive Web",
-                    rating: 5,
-                    accent: "#5A7D62",
-                    title: "Breaking digital boundaries.",
-                    quote: "Dynamic bold typography and elegant dark mode UI combine for an unapologetically professional portfolio.",
-                    photoUrl: "/assets/work/premium_web_portfolio_1788031060883.jpg"
-                  },
-                  {
-                    name: "Nexus DeFi",
-                    role: "Web3 Platform",
-                    location: "Holographic UI",
-                    rating: 5,
-                    accent: "#6F63A0",
-                    title: "The future of finance.",
-                    quote: "Subtle holographic and neon accents paired with exceptional data visualization for the modern crypto user.",
-                    photoUrl: "/assets/work/premium_web_web3_1788031072809.jpg"
-                  }
-                ]}
+              <Infinite3DCarousel 
+                style={{ width: '100%', height: '100%' }}
+                autoPlay={true}
+                autoPlaySpeed={24}
+                dragSensitivity={1.1}
+                blurAmount={7}
+                sideRotation={14}
+                sideTilt={6}
+                perspective={1800}
               />
             </Suspense>
           </div>
