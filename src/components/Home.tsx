@@ -120,10 +120,6 @@ export default function Home() {
           01: HERO — Build Your Identity / Connect Your World
       ══════════════════════════════════════════════════════════════ */}
       <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-12 pb-4 sm:pb-6 bg-black">
-        {/* Pure monochrome ambient center glow for GRAVIT theme */}
-        <div className="absolute inset-0 bg-[radial-gradient(ellipse_75%_50%_at_50%_25%,rgba(255,255,255,0.06),rgba(0,0,0,0))] pointer-events-none" />
-        <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[650px] h-[400px] bg-white/[0.03] rounded-full blur-[130px] pointer-events-none" />
-
         {/* Floating Collaborator Pin: Robert (Left) */}
         <div className="hidden sm:flex absolute top-[28%] left-[5%] md:left-[10%] lg:left-[15%] z-30 animate-float-tag-left items-center gap-1.5 px-3 py-1 rounded-full bg-[#2DD4BF] text-black text-xs font-bold shadow-[0_8px_24px_rgba(45,212,191,0.35)] select-none pointer-events-auto">
           <span>Robert</span>
@@ -214,9 +210,6 @@ export default function Home() {
           </div>
 
         </div>
-
-        {/* Bottom fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-black to-transparent pointer-events-none z-10" />
       </section>
 
       {/* ══════════════════════════════════════════════════════════════
