@@ -71,12 +71,6 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   }
 ];
 
-function toSignedWrap(value: number, cycle: number): number {
-  if (cycle <= 0) return 0;
-  const wrapped = (((value + cycle / 2) % cycle) + cycle) % cycle - cycle / 2;
-  return wrapped;
-}
-
 function smoothstep(edge0: number, edge1: number, x: number): number {
   if (edge0 === edge1) return x < edge0 ? 0 : 1;
   const t = Math.max(0, Math.min(1, (x - edge0) / (edge1 - edge0)));
@@ -135,22 +129,22 @@ export default function Infinite3DCarousel({
 
   const cardWidth = useMemo(() => {
     if (propCardWidth) return propCardWidth;
-    if (windowWidth < 640) return 250;
-    if (windowWidth < 1024) return 290;
-    return 330;
+    if (windowWidth < 640) return 260;
+    if (windowWidth < 1024) return 300;
+    return 340;
   }, [propCardWidth, windowWidth]);
 
   const cardHeight = useMemo(() => {
     if (propCardHeight) return propCardHeight;
-    if (windowWidth < 640) return 330;
-    if (windowWidth < 1024) return 390;
-    return 440;
+    if (windowWidth < 640) return 350;
+    if (windowWidth < 1024) return 400;
+    return 460;
   }, [propCardHeight, windowWidth]);
 
   const overlap = useMemo(() => {
     if (propOverlap !== undefined) return propOverlap;
-    if (windowWidth < 640) return 150;
-    if (windowWidth < 1024) return 180;
+    if (windowWidth < 640) return 140;
+    if (windowWidth < 1024) return 170;
     return 200;
   }, [propOverlap, windowWidth]);
 
@@ -179,17 +173,27 @@ export default function Infinite3DCarousel({
   const rafRef = useRef<number | null>(null);
   const stepRef = useRef<(time: number) => void>(() => {});
 
-  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const imageRefs = useRef<(HTMLImageElement | null)[]>([]);
-  const titleRefs = useRef<(HTMLHeadingElement | null)[]>([]);
-  const categoryRefs = useRef<(HTMLSpanElement | null)[]>([]);
-  const buttonRefs = useRef<(HTMLDivElement | null)[]>([]);
-
-  const imageAssignmentCacheRef = useRef<(any)[]>([null, null, null, null, null]);
-
   const safeItems = useMemo(() => {
-    return items.length > 0 ? items : DEFAULT_ITEMS;
+    const list = items.length > 0 ? items : DEFAULT_ITEMS;
+    
+    // Duplicate list until it has at least 12 items to prevent wrapping glitch
+    // This ensures cards wrap while they are completely out of view.
+    if (list.length < 12) {
+      const multiplied = [];
+      const times = Math.ceil(12 / list.length);
+      for (let i = 0; i < times; i++) {
+        multiplied.push(...list.map((item, index) => ({ 
+          ...item, 
+          // Unique ID to avoid React key warnings
+          id: `${item.id || index}-${i}` 
+        })));
+      }
+      return multiplied;
+    }
+    return list;
   }, [items]);
+  
+  const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const cardStep = useMemo(() => {
     return Math.max(70, cardWidth - overlap);
@@ -208,35 +212,29 @@ export default function Infinite3DCarousel({
     return autoPlayDirection === "Backward" ? 1 : -1;
   }, [autoPlayDirection]);
 
-  // Apply 3D math & styling to the 5 virtual card slots
+  // Apply 3D math directly to each DOM node based on wrapped relative distance
   const applyFrameStyles = useCallback(
     (rendered: number) => {
       if (safeItems.length === 0) return;
-      const signed = toSignedWrap(rendered, cycle);
-      const activeFloatIndex = -signed / cardStep;
-      const nearestCenter = Math.round(activeFloatIndex);
 
-      for (let slot = 0; slot < 5; slot++) {
-        const cardEl = cardRefs.current[slot];
-        const imageEl = imageRefs.current[slot];
-        const titleEl = titleRefs.current[slot];
-        const catEl = categoryRefs.current[slot];
-        const btnEl = buttonRefs.current[slot];
-        if (!cardEl || !imageEl) continue;
+      for (let i = 0; i < safeItems.length; i++) {
+        const cardEl = cardRefs.current[i];
+        if (!cardEl) continue;
 
-        const virtualIndex = nearestCenter + (slot - 2);
-        const wrappedItemIndex =
-          ((virtualIndex % safeItems.length) + safeItems.length) % safeItems.length;
-        const item = safeItems[wrappedItemIndex];
-
-        const rawDistance = virtualIndex - activeFloatIndex;
-        const absDistance = Math.abs(rawDistance);
+        const basePosition = i * cardStep;
+        let relativePosition = (basePosition - rendered) % cycle;
+        
+        // Wrap position to [-cycle/2, cycle/2)
+        if (relativePosition > cycle / 2) relativePosition -= cycle;
+        if (relativePosition < -cycle / 2) relativePosition += cycle;
+        
+        const absDistance = Math.abs(relativePosition) / cardStep;
         const clampedDistance = Math.min(absDistance, 2.25);
-        const direction = rawDistance === 0 ? 0 : rawDistance > 0 ? 1 : -1;
+        const direction = relativePosition === 0 ? 0 : relativePosition > 0 ? 1 : -1;
         const eased = Math.min(1, clampedDistance / 2);
         const depthEase = Math.pow(eased, 0.9);
 
-        const translateX = rawDistance * cardStep;
+        const translateX = relativePosition;
         const rotateY = -direction * depthEase * sideRotation;
         const rotateZ = direction * depthEase * sideTilt;
         const scale = 1 - depthEase * 0.22;
@@ -244,7 +242,7 @@ export default function Infinite3DCarousel({
         const zIndex = 1000 - Math.round(clampedDistance * 100);
 
         const fadeStartDistance = 1.45;
-        const fadeEndDistance = 2.9;
+        const fadeEndDistance = Math.max(2.5, safeItems.length / 2);
         const edgeOpacity = Math.max(
           0,
           Math.min(1, 1 - smoothstep(fadeStartDistance, fadeEndDistance, absDistance))
@@ -260,6 +258,7 @@ export default function Infinite3DCarousel({
 
         cardEl.style.zIndex = String(zIndex);
         cardEl.style.opacity = String(edgeOpacity);
+        cardEl.style.visibility = edgeOpacity > 0.01 ? "visible" : "hidden";
         cardEl.style.transform = `translate3d(calc(-50% + ${translateX}px), -50%, ${translateZ}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`;
         cardEl.style.filter = blurPx > 0 ? `blur(${blurPx}px)` : "none";
         cardEl.style.boxShadow = `0 ${shadowYOffset}px ${shadowBlur}px rgba(0, 0, 0, ${Math.max(
@@ -270,43 +269,12 @@ export default function Infinite3DCarousel({
         // Highlight center button if active
         const isCenter = absDistance < 0.5;
         cardEl.setAttribute("data-center", isCenter ? "true" : "false");
-
-        // Dynamic content updates
-        const nextSrc = item.image;
-        const nextAlt = item.alt || item.title;
-        const nextTitle = item.title;
-        const nextCat = item.category || "Avatars";
-        const nextLink = item.link || "/contact";
-        const nextBg = item.bg || "#0096A8";
-        const showBtn = item.hasButton || isCenter;
-
-        const cached = imageAssignmentCacheRef.current[slot];
-        const changed =
-          !cached ||
-          cached.itemIndex !== wrappedItemIndex ||
-          cached.src !== nextSrc ||
-          cached.title !== nextTitle ||
-          cached.showBtn !== showBtn;
-
-        if (changed) {
-          imageEl.src = nextSrc;
-          imageEl.alt = nextAlt;
-          if (titleEl) titleEl.textContent = nextTitle;
-          if (catEl) catEl.textContent = nextCat;
-          if (btnEl) {
-            btnEl.style.display = showBtn ? "flex" : "none";
-          }
-          cardEl.dataset.link = nextLink;
-          cardEl.style.backgroundColor = nextBg;
-
-          imageAssignmentCacheRef.current[slot] = {
-            itemIndex: wrappedItemIndex,
-            src: nextSrc,
-            title: nextTitle,
-            category: nextCat,
-            link: nextLink,
-            showBtn
-          };
+        
+        // Show/hide button based on center focus
+        const btnEl = cardEl.querySelector('.carousel-btn') as HTMLElement;
+        if (btnEl) {
+          btnEl.style.opacity = (safeItems[i].hasButton || isCenter) ? "1" : "0";
+          btnEl.style.pointerEvents = (safeItems[i].hasButton || isCenter) ? "auto" : "none";
         }
       }
     },
@@ -566,66 +534,56 @@ export default function Infinite3DCarousel({
             transformStyle: "preserve-3d"
           }}
         >
-          {[...Array(5)].map((_, slot) => {
-            const initialItem = safeItems[slot % safeItems.length];
-            return (
-              <div
-                key={`slot-${slot}`}
-                ref={(el) => {
-                  cardRefs.current[slot] = el;
-                }}
-                onClick={(e) => handleCardClick(e, initialItem)}
-                data-link={initialItem.link || "/contact"}
-                className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border border-white/20 shadow-2xl transition-all duration-300 pointer-events-auto"
-                style={{
-                  width: `${cardWidth}px`,
-                  minWidth: `${cardWidth}px`,
-                  height: `${cardHeight}px`,
-                  borderRadius: `${radius}px`,
-                  backgroundColor: initialItem.bg || "#0096A8",
-                  transformStyle: "preserve-3d",
-                  transform: "translate3d(-50%, -50%, 0)",
-                  willChange: "transform, filter",
-                  cursor: "grab"
-                }}
-              >
-                {/* Card Image Area */}
-                <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center">
-                  <img
-                    ref={(el) => {
-                      imageRefs.current[slot] = el;
-                    }}
-                    src={initialItem.image}
-                    alt={initialItem.alt || initialItem.title}
-                    loading="eager"
-                    decoding="async"
-                    draggable={false}
-                    onDragStart={(e) => e.preventDefault()}
-                    className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
-                  />
-                  
-                  {/* Start Project Overlay Button */}
-                  <div className="absolute inset-0 z-20 flex flex-col justify-between p-5 pointer-events-none">
-                    <div className="flex justify-end w-full">
-                      <div
-                        ref={(el) => {
-                          buttonRefs.current[slot] = el;
-                        }}
-                        style={{ display: initialItem.hasButton ? "flex" : "none" }}
-                        onClick={handleButtonClick}
-                        className="pointer-events-auto inline-flex items-center gap-2 pl-3.5 pr-1.5 py-1 rounded-full bg-white text-black text-xs font-bold shadow-lg hover:scale-105 transition-transform cursor-pointer"
-                      >
-                        <span>Start Project</span>
-                        <span className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-[12px] font-extrabold">
-                          ↗
-                        </span>
-                      </div>
+          {safeItems.map((item, index) => (
+            <div
+              key={item.id || index}
+              ref={(el) => {
+                cardRefs.current[index] = el;
+              }}
+              onClick={(e) => handleCardClick(e, item)}
+              data-link={item.link || "/contact"}
+              className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border border-white/20 shadow-2xl transition-all duration-300 pointer-events-auto"
+              style={{
+                width: `${cardWidth}px`,
+                minWidth: `${cardWidth}px`,
+                height: `${cardHeight}px`,
+                borderRadius: `${radius}px`,
+                backgroundColor: item.bg || "#0096A8",
+                transformStyle: "preserve-3d",
+                transform: "translate3d(-50%, -50%, 0)",
+                willChange: "transform, filter, opacity",
+                cursor: "grab"
+              }}
+            >
+              {/* Card Image Area */}
+              <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center">
+                <img
+                  src={item.image}
+                  alt={item.alt || item.title}
+                  loading="eager"
+                  decoding="async"
+                  draggable={false}
+                  onDragStart={(e) => e.preventDefault()}
+                  className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
+                />
+                
+                {/* Start Project Overlay Button */}
+                <div className="absolute inset-0 z-20 flex flex-col justify-between p-5 pointer-events-none">
+                  <div className="flex justify-end w-full">
+                    <div
+                      onClick={handleButtonClick}
+                      className="carousel-btn pointer-events-auto inline-flex items-center gap-2 pl-3.5 pr-1.5 py-1 rounded-full bg-white text-black text-xs font-bold shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+                    >
+                      <span>Start Project</span>
+                      <span className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-[12px] font-extrabold">
+                        ↗
+                      </span>
                     </div>
                   </div>
                 </div>
               </div>
-            );
-          })}
+            </div>
+          ))}
         </div>
       </div>
     </section>

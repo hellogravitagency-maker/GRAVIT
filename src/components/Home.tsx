@@ -119,7 +119,7 @@ export default function Home() {
       {/* ══════════════════════════════════════════════════════════════
           01: HERO — Build Your Identity / Connect Your World
       ══════════════════════════════════════════════════════════════ */}
-      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-12 pb-4 sm:pb-6 bg-black">
+      <section ref={heroRef} className="relative w-full flex flex-col items-center justify-center overflow-hidden pt-12 pb-4 sm:pb-6 bg-background transition-colors duration-300">
         {/* Floating Collaborator Pin: Robert (Left) */}
         <div className="hidden sm:flex absolute top-[28%] left-[5%] md:left-[10%] lg:left-[15%] z-30 animate-float-tag-left items-center gap-1.5 px-3 py-1 rounded-full bg-[#2DD4BF] text-black text-xs font-bold shadow-[0_8px_24px_rgba(45,212,191,0.35)] select-none pointer-events-auto">
           <span>Robert</span>
@@ -157,7 +157,7 @@ export default function Home() {
         <div className="hero-content relative z-10 flex flex-col items-center text-center w-full px-4 sm:px-6 pt-16 pb-2 max-w-7xl mx-auto">
           
           {/* Headline — GRAVIT Signature Font (Syne) */}
-          <h1 className="hero-headline text-[clamp(2rem,5.5vw,4.5rem)] font-heading font-bold text-white tracking-tight leading-[1.05] min-h-[2.5em]">
+          <h1 className="hero-headline text-[clamp(2rem,5.5vw,4.5rem)] font-heading font-bold text-primary tracking-tight leading-[1.05] min-h-[2.5em] transition-colors duration-300">
             Engineering the
             <br />
             <span className="text-gradient-accent pb-2 inline-block">
@@ -166,13 +166,13 @@ export default function Home() {
           </h1>
 
           {/* Subtitle — GRAVIT Body Font (Inter) */}
-          <p className="hero-subtitle mt-4 sm:mt-5 text-xs sm:text-sm md:text-base text-zinc-400 font-normal leading-relaxed max-w-2xl text-center">
+          <p className="hero-subtitle mt-4 sm:mt-5 text-xs sm:text-sm md:text-base text-secondary font-normal leading-relaxed max-w-2xl text-center">
             We craft high-performance digital products for ambitious teams.
             Strategy, design, and engineering — unified under one roof.
           </p>
 
-          {/* 3D Cards Carousel — tight bottom margin */}
-          <div className="relative w-full flex justify-center items-center h-[335px] sm:h-[395px] lg:h-[445px] mt-10 sm:mt-12 lg:mt-14 mb-2">
+          {/* 3D Cards Carousel */}
+          <div className="relative w-full flex justify-center items-center h-[335px] sm:h-[395px] lg:h-[445px] mt-16 sm:mt-20 lg:mt-24 mb-6">
             <Suspense fallback={
               <div className="w-full h-full flex items-center justify-center relative">
                 <div className="absolute bg-[#0096A8] rounded-[26px] shadow-2xl border border-white/20" style={{ width: 330, height: 440, transform: 'translateZ(0)', overflow: 'hidden' }}>
@@ -195,15 +195,15 @@ export default function Home() {
 
           {/* Start Project CTA with text */}
           <div className="hero-cta flex flex-col items-center text-center mt-2 z-20 max-w-md px-4">
-            <p className="text-xs sm:text-sm text-zinc-400 mb-2.5 leading-relaxed">
+            <p className="text-xs sm:text-sm text-secondary mb-2.5 leading-relaxed">
               Ready to bring your digital vision to life? Let’s create something extraordinary.
             </p>
             <Link 
               to="/contact" 
-              className="group inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-white text-black font-semibold text-xs sm:text-sm shadow-[0_10px_25px_rgba(255,255,255,0.15)] hover:scale-105 hover:bg-zinc-100 transition-all duration-300 pointer-events-auto"
+              className="group inline-flex items-center gap-2.5 px-6 py-2.5 sm:py-3 rounded-full bg-primary text-primary-foreground font-semibold text-xs sm:text-sm shadow-xl hover:scale-105 hover:bg-primary/90 transition-all duration-300 pointer-events-auto"
             >
               <span>Start a Project</span>
-              <span className="w-5 h-5 rounded-full bg-black text-white flex items-center justify-center text-[11px] font-bold group-hover:translate-x-0.5 transition-transform">
+              <span className="w-5 h-5 rounded-full bg-background text-primary flex items-center justify-center text-[11px] font-bold group-hover:translate-x-0.5 transition-transform">
                 →
               </span>
             </Link>

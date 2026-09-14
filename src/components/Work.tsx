@@ -22,6 +22,7 @@ export const projectsData: Record<string, any> = {
  year: '2026',
  link: 'https://ssvemhs.pages.dev/',
  color: ' ',
+ image: '/images/SSVEMHS.png',
  },
  "little-stars": {
  category: 'Playgroup Academy',
@@ -36,6 +37,7 @@ export const projectsData: Record<string, any> = {
  year: '2026',
  link: 'https://little-stars-academy.pages.dev/',
  color: ' ',
+ image: '/images/Little_Stars.png',
  },
  "wonderkids": {
  category: 'Academy Dashboard',
@@ -50,6 +52,7 @@ export const projectsData: Record<string, any> = {
  year: '2026',
  link: 'https://wonderkids-67h.pages.dev/',
  color: ' ',
+ image: '/images/WonderKids.png',
  }
 };
 
@@ -144,24 +147,11 @@ export default function Work() {
  <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
  
  {/* Abstract UI representation */}
- <div className="absolute inset-x-8 inset-y-8 md:inset-x-24 md:inset-y-16 bg-background/90 backdrop-blur-md border border-white/10 shadow-[0_0_100px_rgba(0,0,0,0.2)] rounded-2xl flex overflow-hidden transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
- {/* Sidebar */}
- <div className="w-64 border-r border-white/10 bg-white/5 p-6 hidden md:flex flex-col gap-6">
- <div className="w-full h-10 bg-white/10 rounded-xl mb-4 border border-white/5" />
- <div className="w-2/3 h-4 bg-white/10 rounded-full" />
- <div className="w-3/4 h-4 bg-white/5 rounded-full" />
- <div className="w-1/2 h-4 bg-white/5 rounded-full" />
- </div>
- {/* Main Content */}
- <div className="flex-1 p-8 md:p-12 grid grid-cols-3 gap-6 auto-rows-max relative overflow-hidden">
- <div className="col-span-3 h-40 bg-white/[0.03] backdrop-blur-md border border-white/10 rounded-2xl flex items-center justify-center p-8">
- <div className="w-full h-full bg-white/5 rounded-xl" />
- </div>
- <div className="h-64 bg-white/[0.02] border border-white/5 rounded-2xl" />
- <div className="h-64 bg-white/[0.02] border border-white/5 rounded-2xl" />
- <div className="h-64 bg-white/[0.02] border border-white/5 rounded-2xl" />
- </div>
- </div>
+ <img 
+   src={projectsData.ssvemhs.image} 
+   alt={projectsData.ssvemhs.title} 
+   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+ />
  
  {/* Hover View Project CTA */}
  <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
@@ -197,20 +187,11 @@ export default function Work() {
  <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
  
  {/* Abstract Mobile UI representation */}
- <div className="absolute bottom-0 right-[10%] md:right-[20%] w-[80%] md:w-[40%] h-[90%] bg-background/90 backdrop-blur-xl border-t border-l border-r border-white/10 rounded-t-[3rem] shadow-2xl p-8 transform group-hover:translate-y-4 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)] flex flex-col gap-6 overflow-hidden">
- 
- <div className="w-1/3 h-2 bg-white/20 rounded-full mx-auto mb-4" />
- 
- <div className="w-full aspect-square bg-white/[0.03] border border-white/10 rounded-3xl p-6 flex flex-col justify-end relative overflow-hidden">
- <div className="absolute inset-0 bg-white/5" />
- <div className="w-3/4 h-8 bg-white/20 rounded-lg relative z-10" />
- </div>
- 
- <div className="flex gap-4">
- <div className="flex-1 h-20 bg-white/[0.03] border border-white/10 rounded-2xl" />
- <div className="flex-1 h-20 bg-white/[0.03] border border-white/10 rounded-2xl" />
- </div>
- </div>
+ <img 
+   src={projectsData["little-stars"].image} 
+   alt={projectsData["little-stars"].title} 
+   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+ />
  
  {/* Hover View Project CTA */}
  <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
@@ -246,32 +227,11 @@ export default function Work() {
  <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
  
  {/* Abstract Data/Dashboard UI */}
- <div className="absolute inset-12 md:inset-20 bg-background/80 backdrop-blur-2xl border border-white/10 shadow-2xl rounded-3xl flex flex-col overflow-hidden transform group-hover:scale-105 transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]">
- <div className="h-16 border-b border-white/10 bg-white/5 flex items-center px-8 gap-4">
- <div className="flex gap-2">
- <div className="w-3 h-3 rounded-full bg-red-500/50" />
- <div className="w-3 h-3 rounded-full bg-yellow-500/50" />
- <div className="w-3 h-3 rounded-full bg-green-500/50" />
- </div>
- <div className="w-32 h-6 bg-white/10 rounded-full ml-4" />
- </div>
- <div className="flex-1 p-8 md:p-12 flex gap-8">
- <div className="w-1/3 flex flex-col gap-6">
- <div className="h-32 bg-white/[0.03] border border-white/5 rounded-2xl flex items-center justify-center relative overflow-hidden">
- <div className="absolute w-24 h-24 bg-orange-500/20 blur-3xl rounded-full" />
- <div className="w-16 h-16 rounded-full border-[4px] border-white/20 border-t-white/80" />
- </div>
- <div className="flex-1 bg-white/[0.03] border border-white/5 rounded-2xl" />
- </div>
- <div className="w-2/3 bg-white/[0.03] border border-white/5 rounded-2xl relative overflow-hidden p-8">
- <div className="absolute bottom-0 w-full h-1/2 bg-white/5" />
- {/* Simulated Graph Lines */}
- <svg className="absolute inset-0 w-full h-full" preserveAspectRatio="none" viewBox="0 0 100 100">
- <path d="M 0,100 L 20,60 L 40,80 L 60,30 L 80,50 L 100,10" fill="none" stroke="rgba(255,255,255,0.2)" strokeWidth="2" />
- </svg>
- </div>
- </div>
- </div>
+ <img 
+   src={projectsData.wonderkids.image} 
+   alt={projectsData.wonderkids.title} 
+   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+ />
  
  {/* Hover View Project CTA */}
  <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">

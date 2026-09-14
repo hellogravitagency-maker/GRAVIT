@@ -10,34 +10,9 @@ const Terms = React.lazy(() => import('./components/Terms'));
 const Privacy = React.lazy(() => import('./components/Privacy'));
 const RefundPolicy = React.lazy(() => import('./components/RefundPolicy'));
 const Services = React.lazy(() => import('./pages/Services'));
-const Pricing = React.lazy(() => import('./pages/Pricing'));
-const Blog = React.lazy(() => import('./pages/Blog'));
 const ChatWidget = React.lazy(() => import('./components/ChatWidget'));
 const NotFound = React.lazy(() => import('./components/NotFound'));
 const CaseStudy = React.lazy(() => import('./components/CaseStudy'));
-const Showcase = React.lazy(() => import('./pages/Showcase'));
-const Websites = React.lazy(() => import('./pages/Websites'));
-const WebsiteTemplates = React.lazy(() => import('./pages/WebsiteTemplates'));
-const Analytics = React.lazy(() => import('./pages/Analytics'));
-const Portfolios = React.lazy(() => import('./pages/Portfolios'));
-const DesignIntelligence = React.lazy(() => import('./pages/DesignIntelligence'));
-const AIBuilderLanding = React.lazy(() => import('./pages/AIBuilderLanding'));
-const AIBuilderStudio = React.lazy(() => import('./pages/AIBuilderStudio'));
-const LogoDesign = React.lazy(() => import('./pages/LogoDesign'));
-const PosterDesign = React.lazy(() => import('./pages/PosterDesign'));
-const SEOPage = React.lazy(() => import('./pages/SEOPage'));
-const Ecommerce = React.lazy(() => import('./pages/Ecommerce'));
-const DomainSearch = React.lazy(() => import('./pages/DomainSearch'));
-const HelpCenter = React.lazy(() => import('./pages/HelpCenter'));
-const Invoicing = React.lazy(() => import('./pages/Invoicing'));
-const Blogs = React.lazy(() => import('./pages/Blogs'));
-const Forum = React.lazy(() => import('./pages/Forum'));
-const Scheduling = React.lazy(() => import('./pages/Scheduling'));
-const Webinars = React.lazy(() => import('./pages/Webinars'));
-const Donations = React.lazy(() => import('./pages/Donations'));
-const FinancialSolutions = React.lazy(() => import('./pages/FinancialSolutions'));
-const BusinessEmail = React.lazy(() => import('./pages/BusinessEmail'));
-const MarketingTools = React.lazy(() => import('./pages/MarketingTools'));
 
 import { DelayedRender } from './components/ui/DelayedRender';
 
@@ -96,43 +71,13 @@ export default function App() {
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
               <Route path="/about" element={<PageTransition><About /></PageTransition>} />
               <Route path="/agency" element={<Navigate to="/about" replace />} />
-              {/* Product pages */}
-              <Route path="/websites" element={<PageTransition><Websites /></PageTransition>} />
-              <Route path="/templates" element={<PageTransition><WebsiteTemplates /></PageTransition>} />
-              <Route path="/analytics" element={<PageTransition><Analytics /></PageTransition>} />
-              <Route path="/portfolios" element={<PageTransition><Portfolios /></PageTransition>} />
-              <Route path="/design-intelligence" element={<PageTransition><DesignIntelligence /></PageTransition>} />
-              <Route path="/ai-builder" element={<PageTransition><AIBuilderLanding /></PageTransition>} />
-              <Route path="/ai-builder/studio" element={<PageTransition><AIBuilderStudio /></PageTransition>} />
-              <Route path="/pricing" element={<PageTransition><Pricing /></PageTransition>} />
               <Route path="/services" element={<PageTransition><Services /></PageTransition>} />
-              <Route path="/blog" element={<PageTransition><Blog /></PageTransition>} />
               <Route path="/work" element={<PageTransition><Work /></PageTransition>} />
               <Route path="/work/:slug" element={<PageTransition><CaseStudy /></PageTransition>} />
-              <Route path="/showcase" element={<PageTransition><Showcase /></PageTransition>} />
               <Route path="/contact" element={<PageTransition><Contact /></PageTransition>} />
               <Route path="/terms" element={<PageTransition><Terms /></PageTransition>} />
               <Route path="/privacy" element={<PageTransition><Privacy /></PageTransition>} />
               <Route path="/refund-policy" element={<PageTransition><RefundPolicy /></PageTransition>} />
-              
-              {/* New Creative & Marketing Pages */}
-              <Route path="/logo-design" element={<PageTransition><LogoDesign /></PageTransition>} />
-              <Route path="/poster-design" element={<PageTransition><PosterDesign /></PageTransition>} />
-              <Route path="/seo" element={<PageTransition><SEOPage /></PageTransition>} />
-              
-              {/* Mega Menu Placeholders */}
-              <Route path="/ecommerce" element={<PageTransition><Ecommerce /></PageTransition>} />
-              <Route path="/blogs" element={<PageTransition><Blogs /></PageTransition>} />
-              <Route path="/invoicing" element={<PageTransition><Invoicing /></PageTransition>} />
-              <Route path="/scheduling" element={<PageTransition><Scheduling /></PageTransition>} />
-              <Route path="/donations" element={<PageTransition><Donations /></PageTransition>} />
-              <Route path="/financial-solutions" element={<PageTransition><FinancialSolutions /></PageTransition>} />
-              <Route path="/domain-search" element={<PageTransition><DomainSearch /></PageTransition>} />
-              <Route path="/business-email" element={<PageTransition><BusinessEmail /></PageTransition>} />
-              <Route path="/marketing-tools" element={<PageTransition><MarketingTools /></PageTransition>} />
-              <Route path="/help" element={<PageTransition><HelpCenter /></PageTransition>} />
-              <Route path="/forum" element={<PageTransition><Forum /></PageTransition>} />
-              <Route path="/webinars" element={<PageTransition><Webinars /></PageTransition>} />
               
               {/* Dynamic Placeholders */}
               <Route path="*" element={<PageTransition><NotFound /></PageTransition>} />
