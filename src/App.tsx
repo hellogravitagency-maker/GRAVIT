@@ -29,7 +29,7 @@ export default function App() {
 
       <SmoothScroll>
         <main className="relative z-10 bg-background text-primary w-full min-h-screen selection:bg-primary selection:text-background">
-          <Suspense fallback={<div className="fixed inset-0 z-[100] bg-black"></div>}>
+          <Suspense fallback={<div className="min-h-screen bg-background opacity-40 transition-opacity" />}>
             <Routes location={location} key={location.pathname}>
               <Route path="/" element={<PageTransition><Home /></PageTransition>} />
               <Route path="/about" element={<PageTransition><About /></PageTransition>} />

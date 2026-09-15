@@ -88,10 +88,11 @@ export default function Home() {
           </p>
 
           {/* 3D Cards Carousel */}
-          <div className="relative w-full flex justify-center items-center h-[335px] sm:h-[395px] lg:h-[445px] mt-16 sm:mt-20 lg:mt-24 mb-6">
+          <div className="relative w-full flex justify-center items-center h-[360px] sm:h-[420px] lg:h-[480px] mt-12 sm:mt-16 lg:mt-20 mb-6">
             <Infinite3DCarousel 
               style={{ width: '100%', height: '100%' }}
-              autoPlay={false}
+              autoPlay={true}
+              autoPlaySpeed={22}
               dragSensitivity={1.1}
               blurAmount={0}
               sideRotation={14}

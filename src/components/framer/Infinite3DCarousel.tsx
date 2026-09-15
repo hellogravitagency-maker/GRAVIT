@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export interface CarouselItem {
   id?: string | number;
@@ -16,8 +17,8 @@ export interface CarouselItem {
 const DEFAULT_ITEMS: CarouselItem[] = [
   {
     id: 1,
-    title: "Project 1",
-    category: "Portfolio",
+    title: "Yellow Porsche GT3 RS",
+    category: "Automotive Editorial",
     image: "/images/hero-porsche.webp",
     alt: "Yellow Porsche GT3 RS",
     link: "/contact",
@@ -27,8 +28,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   },
   {
     id: 2,
-    title: "Project 2",
-    category: "Portfolio",
+    title: "Aurelia Academy",
+    category: "Education Platform",
     image: "/images/Aurelia Academy Brighter Tomorrow.webp",
     alt: "Aurelia Academy",
     link: "/contact",
@@ -38,8 +39,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   },
   {
     id: 3,
-    title: "Project 3",
-    category: "Portfolio",
+    title: "KŌZU Ramen",
+    category: "Brand & Digital Experience",
     image: "/images/KŌZU Ramen Bowls That Bring Good Mood.webp",
     alt: "KOZU Ramen Bowls",
     link: "/contact",
@@ -49,8 +50,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   },
   {
     id: 4,
-    title: "Project 4",
-    category: "Portfolio",
+    title: "Shadow Garden",
+    category: "Interactive Interface",
     image: "/images/Shadow Garden Portfolio Interface.webp",
     alt: "Shadow Garden Portfolio",
     link: "/contact",
@@ -60,8 +61,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
   },
   {
     id: 5,
-    title: "Project 5",
-    category: "Portfolio",
+    title: "VÉLORA",
+    category: "Luxury Fashion Ecommerce",
     image: "/images/VÉLORA Style Moves With You.webp",
     alt: "VELORA Style",
     link: "/contact",
@@ -87,26 +88,28 @@ export function computeCardStyle(
   sideTilt: number
 ) {
   const basePosition = i * cardStep;
-  let relativePosition = (basePosition - rendered) % cycle;
-  
-  if (relativePosition > cycle / 2) relativePosition -= cycle;
-  if (relativePosition < -cycle / 2) relativePosition += cycle;
-  
+  // Continuous mathematical modulo in [-cycle / 2, cycle / 2]
+  let relativePosition = ((basePosition - rendered) % cycle + cycle) % cycle;
+  if (relativePosition > cycle / 2) {
+    relativePosition -= cycle;
+  }
+
   const absDistance = Math.abs(relativePosition) / cardStep;
-  const clampedDistance = Math.min(absDistance, 2.25);
+  const clampedDistance = Math.min(absDistance, 3.5);
   const direction = relativePosition === 0 ? 0 : relativePosition > 0 ? 1 : -1;
-  const eased = Math.min(1, clampedDistance / 2);
-  const depthEase = Math.pow(eased, 0.9);
+  const eased = Math.min(1, clampedDistance / 2.2);
+  const depthEase = Math.pow(eased, 0.85);
 
   const translateX = relativePosition;
   const rotateY = -direction * depthEase * sideRotation;
   const rotateZ = direction * depthEase * sideTilt;
-  const scale = 1 - depthEase * 0.22;
-  const translateZ = 120 - depthEase * 170;
+  const scale = Math.max(0.72, 1 - depthEase * 0.22);
+  const translateZ = 120 - depthEase * 220;
   const zIndex = 1000 - Math.round(clampedDistance * 100);
 
-  const fadeStartDistance = 1.45;
-  const fadeEndDistance = Math.max(2.5, safeItemsLength / 2);
+  // Cards fade to 0 well before the wrap boundary (cycle / 2 = safeItemsLength / 2)
+  const fadeStartDistance = 1.8;
+  const fadeEndDistance = 3.4;
   const edgeOpacity = Math.max(
     0,
     Math.min(1, 1 - smoothstep(fadeStartDistance, fadeEndDistance, absDistance))
@@ -115,7 +118,7 @@ export function computeCardStyle(
   return {
     zIndex,
     opacity: edgeOpacity,
-    visibility: (edgeOpacity > 0.01 ? "visible" : "hidden") as "visible" | "hidden",
+    visibility: (edgeOpacity > 0.005 ? "visible" : "hidden") as "visible" | "hidden",
     transform: `translate3d(calc(-50% + ${translateX}px), -50%, ${translateZ}px) rotateY(${rotateY}deg) rotateZ(${rotateZ}deg) scale(${scale})`,
     absDistance
   };
@@ -145,7 +148,7 @@ export default function Infinite3DCarousel({
   cardWidth: propCardWidth,
   cardHeight: propCardHeight,
   radius = 26,
-  blurAmount = 6,
+  blurAmount = 0,
   dragSensitivity = 1.1,
   autoPlay = true,
   autoPlaySpeed = 22,
@@ -161,41 +164,17 @@ export default function Infinite3DCarousel({
   const navigate = useNavigate();
   const trackRef = useRef<HTMLElement>(null);
   const [isInView, setIsInView] = useState(true);
-  const [autoPlayEnabled, setAutoPlayEnabled] = useState(false);
+  const isHoveredRef = useRef(false);
+  const [activeDot, setActiveDot] = useState(0);
+  const lastActiveRef = useRef(0);
+
   const [windowWidth, setWindowWidth] = useState<number>(
     typeof window !== "undefined" ? window.innerWidth : 1200
   );
 
   useEffect(() => {
-    if (!autoPlay) return;
-
-    // Keep carousel static during initial hydration and Lighthouse metric window (3.5s)
-    let timer: NodeJS.Timeout | null = null;
-    const startAutoplay = () => setAutoPlayEnabled(true);
-
-    timer = setTimeout(startAutoplay, 3500);
-
-    // If user interacts before 3.5s, enable auto-play immediately
-    const onUserAction = () => {
-      if (timer) clearTimeout(timer);
-      startAutoplay();
-    };
-
-    window.addEventListener("pointerdown", onUserAction, { once: true, passive: true });
-    window.addEventListener("touchstart", onUserAction, { once: true, passive: true });
-    window.addEventListener("wheel", onUserAction, { once: true, passive: true });
-
-    return () => {
-      if (timer) clearTimeout(timer);
-      window.removeEventListener("pointerdown", onUserAction);
-      window.removeEventListener("touchstart", onUserAction);
-      window.removeEventListener("wheel", onUserAction);
-    };
-  }, []);
-
-  useEffect(() => {
     const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
+    window.addEventListener("resize", handleResize, { passive: true });
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
@@ -208,16 +187,16 @@ export default function Infinite3DCarousel({
 
   const cardHeight = useMemo(() => {
     if (propCardHeight) return propCardHeight;
-    if (windowWidth < 640) return 350;
-    if (windowWidth < 1024) return 400;
+    if (windowWidth < 640) return 360;
+    if (windowWidth < 1024) return 410;
     return 460;
   }, [propCardHeight, windowWidth]);
 
   const overlap = useMemo(() => {
     if (propOverlap !== undefined) return propOverlap;
-    if (windowWidth < 640) return 140;
-    if (windowWidth < 1024) return 170;
-    return 200;
+    if (windowWidth < 640) return 120;
+    if (windowWidth < 1024) return 140;
+    return 160;
   }, [propOverlap, windowWidth]);
 
   useEffect(() => {
@@ -226,7 +205,7 @@ export default function Infinite3DCarousel({
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => setIsInView(entry.isIntersecting),
-      { threshold: 0.15 }
+      { threshold: 0.1 }
     );
     observer.observe(el);
     return () => observer.disconnect();
@@ -245,30 +224,29 @@ export default function Infinite3DCarousel({
   const rafRef = useRef<number | null>(null);
   const stepRef = useRef<(time: number) => void>(() => {});
 
-  const safeItems = useMemo(() => {
-    const list = items.length > 0 ? items : DEFAULT_ITEMS;
-    
-    // Duplicate list until it has at least 12 items to prevent wrapping glitch
-    // This ensures cards wrap while they are completely out of view.
-    if (list.length < 12) {
-      const multiplied = [];
-      const times = Math.ceil(12 / list.length);
-      for (let i = 0; i < times; i++) {
-        multiplied.push(...list.map((item, index) => ({ 
-          ...item, 
-          // Unique ID to avoid React key warnings
-          id: `${item.id || index}-${i}` 
-        })));
-      }
-      return multiplied;
-    }
-    return list;
+  const baseItems = useMemo(() => {
+    return items.length > 0 ? items : DEFAULT_ITEMS;
   }, [items]);
-  
+
+  // Triplicate list (at least 15 items) so circular wrap is mathematically hidden
+  const safeItems = useMemo(() => {
+    const times = Math.max(3, Math.ceil(15 / baseItems.length));
+    const multiplied: CarouselItem[] = [];
+    for (let i = 0; i < times; i++) {
+      multiplied.push(
+        ...baseItems.map((item, index) => ({
+          ...item,
+          id: `${item.id || index}-${i}`
+        }))
+      );
+    }
+    return multiplied;
+  }, [baseItems]);
+
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const cardStep = useMemo(() => {
-    return Math.max(70, cardWidth - overlap);
+    return Math.max(80, cardWidth - overlap);
   }, [cardWidth, overlap]);
 
   const cycle = useMemo(() => {
@@ -277,14 +255,14 @@ export default function Infinite3DCarousel({
 
   const shouldAnimateRef = useRef(false);
   const maxMomentumVelocity = useMemo(() => {
-    return Math.max(1400, cardStep * 14);
+    return Math.max(1200, cardStep * 12);
   }, [cardStep]);
 
   const autoPlayDirectionFactor = useMemo(() => {
-    return autoPlayDirection === "Backward" ? 1 : -1;
+    return autoPlayDirection === "Backward" ? -1 : 1;
   }, [autoPlayDirection]);
 
-  // Apply 3D math directly to each DOM node based on wrapped relative distance
+  // Direct 60FPS DOM styling without CSS transition fighting
   const applyFrameStyles = useCallback(
     (rendered: number) => {
       if (safeItems.length === 0) return;
@@ -300,7 +278,6 @@ export default function Infinite3DCarousel({
         cardEl.style.visibility = st.visibility;
         cardEl.style.transform = st.transform;
 
-        // Highlight center button only when state changes to avoid unnecessary DOM queries
         const isCenter = st.absDistance < 0.5;
         const currentCenterState = cardEl.getAttribute("data-center");
         const nextCenterState = isCenter ? "true" : "false";
@@ -308,19 +285,26 @@ export default function Infinite3DCarousel({
           cardEl.setAttribute("data-center", nextCenterState);
           const btnEl = cardEl.querySelector('.carousel-btn') as HTMLElement;
           if (btnEl) {
-            btnEl.style.opacity = (safeItems[i].hasButton || isCenter) ? "1" : "0";
-            btnEl.style.pointerEvents = (safeItems[i].hasButton || isCenter) ? "auto" : "none";
+            btnEl.style.opacity = isCenter ? "1" : "0.75";
+            btnEl.style.pointerEvents = "auto";
           }
         }
       }
+
+      // Sync active pagination dot
+      const currentActive =
+        ((Math.round(rendered / cardStep) % baseItems.length) + baseItems.length) % baseItems.length;
+      if (currentActive !== lastActiveRef.current) {
+        lastActiveRef.current = currentActive;
+        setActiveDot(currentActive);
+      }
     },
-    [cardStep, cycle, safeItems, sideRotation, sideTilt]
+    [baseItems.length, cardStep, cycle, safeItems.length, sideRotation, sideTilt]
   );
 
   const requestAnimationIfNeeded = useCallback(() => {
     if (typeof window === "undefined") return;
     if (rafRef.current !== null) return;
-    if (!shouldAnimateRef.current) return;
     lastFrameTimeRef.current = 0;
     rafRef.current = window.requestAnimationFrame(stepRef.current);
   }, []);
@@ -340,19 +324,19 @@ export default function Infinite3DCarousel({
       let rendered = renderedOffsetRef.current;
       let renderedVelocity = renderedVelocityRef.current;
 
-      // Auto-play when idle and autoPlay is enabled after page load
-      if (isInView && autoPlay && autoPlayEnabled && !pointerActiveRef.current) {
+      // Continuous forward ambient autoplay when not hovered or dragged
+      if (isInView && autoPlay && !pointerActiveRef.current && !isHoveredRef.current) {
         target += autoPlayDirectionFactor * autoPlaySpeed * dt;
       }
 
       // Drag inertia / momentum damping
       target += velocityRef.current * dt;
-      velocityRef.current *= Math.pow(0.94, dt * 60);
+      velocityRef.current *= Math.pow(0.92, dt * 60);
       if (Math.abs(velocityRef.current) < 0.2) velocityRef.current = 0;
 
-      // Smooth spring relaxation
-      const springStiffness = pointerActiveRef.current ? 240 : 170;
-      const springDamping = pointerActiveRef.current ? 30 : 24;
+      // Smooth spring relaxation towards target
+      const springStiffness = pointerActiveRef.current ? 240 : 160;
+      const springDamping = pointerActiveRef.current ? 30 : 26;
       const displacement = target - rendered;
       const acceleration = displacement * springStiffness - renderedVelocity * springDamping;
       renderedVelocity += acceleration * dt;
@@ -371,17 +355,17 @@ export default function Infinite3DCarousel({
       const shouldContinue =
         isInView &&
         (pointerActiveRef.current ||
-          (autoPlay && autoPlayEnabled) ||
-          remainingDisplacement > 0.015 ||
-          remainingRenderedVelocity > 0.015 ||
-          Math.abs(velocityRef.current) > 0.015);
+          (autoPlay && !isHoveredRef.current) ||
+          remainingDisplacement > 0.02 ||
+          remainingRenderedVelocity > 0.02 ||
+          Math.abs(velocityRef.current) > 0.02);
 
       shouldAnimateRef.current = shouldContinue;
       if (shouldContinue && typeof window !== "undefined") {
         rafRef.current = window.requestAnimationFrame(step);
       }
     },
-    [applyFrameStyles, autoPlay, autoPlayEnabled, autoPlayDirectionFactor, autoPlaySpeed, isInView]
+    [applyFrameStyles, autoPlay, autoPlayDirectionFactor, autoPlaySpeed, isInView]
   );
 
   useEffect(() => {
@@ -393,7 +377,7 @@ export default function Infinite3DCarousel({
   }, [applyFrameStyles]);
 
   useEffect(() => {
-    const shouldStart = isInView && autoPlay && autoPlayEnabled;
+    const shouldStart = isInView && autoPlay;
     shouldAnimateRef.current = shouldStart;
     if (shouldStart) {
       requestAnimationIfNeeded();
@@ -407,7 +391,7 @@ export default function Infinite3DCarousel({
         rafRef.current = null;
       }
     };
-  }, [autoPlay, autoPlayEnabled, isInView, requestAnimationIfNeeded]);
+  }, [autoPlay, isInView, requestAnimationIfNeeded]);
 
   // Pointer event handlers with full momentum physics
   const endPointerInteraction = useCallback(
@@ -423,10 +407,16 @@ export default function Infinite3DCarousel({
         target.releasePointerCapture(event.pointerId);
       }
       pointerIdRef.current = null;
+
+      // Magnetic gentle snapping to nearest card when released with low velocity
+      if (Math.abs(velocityRef.current) < 120) {
+        targetOffsetRef.current = Math.round(targetOffsetRef.current / cardStep) * cardStep;
+      }
+
       shouldAnimateRef.current = true;
       requestAnimationIfNeeded();
     },
-    [requestAnimationIfNeeded]
+    [cardStep, requestAnimationIfNeeded]
   );
 
   const onPointerDown = useCallback(
@@ -436,7 +426,6 @@ export default function Infinite3DCarousel({
       dragMovedRef.current = false;
       lastXRef.current = event.clientX;
       lastPointerTimeRef.current = event.timeStamp;
-      targetOffsetRef.current = renderedOffsetRef.current;
       velocityRef.current = 0;
       renderedVelocityRef.current = 0;
       try {
@@ -459,7 +448,8 @@ export default function Infinite3DCarousel({
       lastXRef.current = event.clientX;
       lastPointerTimeRef.current = event.timeStamp;
 
-      const scaledDx = dx * dragSensitivity;
+      // Swiping right moves cards right (decreases targetOffset), swiping left advances cards (increases targetOffset)
+      const scaledDx = -dx * dragSensitivity;
       const next = targetOffsetRef.current + scaledDx;
       targetOffsetRef.current = next;
 
@@ -475,43 +465,57 @@ export default function Infinite3DCarousel({
     [dragSensitivity, maxMomentumVelocity]
   );
 
-  const onKeyDown = useCallback(
-    (event: React.KeyboardEvent) => {
-      if (event.key !== "ArrowLeft" && event.key !== "ArrowRight") return;
-      event.preventDefault();
-      const direction = event.key === "ArrowRight" ? -1 : 1;
-      const nextTarget = targetOffsetRef.current + direction * cardStep;
-      targetOffsetRef.current = nextTarget;
+  const goToNext = useCallback(() => {
+    targetOffsetRef.current = (Math.floor(targetOffsetRef.current / cardStep) + 1) * cardStep;
+    velocityRef.current = 0;
+    shouldAnimateRef.current = true;
+    requestAnimationIfNeeded();
+  }, [cardStep, requestAnimationIfNeeded]);
+
+  const goToPrev = useCallback(() => {
+    targetOffsetRef.current = (Math.ceil(targetOffsetRef.current / cardStep) - 1) * cardStep;
+    velocityRef.current = 0;
+    shouldAnimateRef.current = true;
+    requestAnimationIfNeeded();
+  }, [cardStep, requestAnimationIfNeeded]);
+
+  const goToProject = useCallback(
+    (index: number) => {
+      const currentStepIndex = Math.round(targetOffsetRef.current / cardStep);
+      const currentOrig = ((currentStepIndex % baseItems.length) + baseItems.length) % baseItems.length;
+      let diff = index - currentOrig;
+      if (diff > baseItems.length / 2) diff -= baseItems.length;
+      if (diff < -baseItems.length / 2) diff += baseItems.length;
+      targetOffsetRef.current = (currentStepIndex + diff) * cardStep;
+      velocityRef.current = 0;
       shouldAnimateRef.current = true;
       requestAnimationIfNeeded();
     },
-    [cardStep, requestAnimationIfNeeded]
+    [baseItems.length, cardStep, requestAnimationIfNeeded]
   );
 
-  const onPointerUp = useCallback(
-    (event: React.PointerEvent) => {
-      endPointerInteraction(event);
-    },
-    [endPointerInteraction]
-  );
-
-  const onPointerCancel = useCallback(
-    (event: React.PointerEvent) => {
-      if (pointerIdRef.current === event.pointerId) {
-        endPointerInteraction(event);
+  const onKeyDown = useCallback(
+    (event: React.KeyboardEvent) => {
+      if (event.key === "ArrowLeft") {
+        event.preventDefault();
+        goToPrev();
+      } else if (event.key === "ArrowRight") {
+        event.preventDefault();
+        goToNext();
       }
     },
-    [endPointerInteraction]
+    [goToNext, goToPrev]
   );
 
-  const onPointerLeave = useCallback(
-    (event: React.PointerEvent) => {
-      if (pointerActiveRef.current && pointerIdRef.current === event.pointerId) {
-        endPointerInteraction(event);
-      }
-    },
-    [endPointerInteraction]
-  );
+  const handleMouseEnter = useCallback(() => {
+    isHoveredRef.current = true;
+  }, []);
+
+  const handleMouseLeave = useCallback(() => {
+    isHoveredRef.current = false;
+    shouldAnimateRef.current = true;
+    requestAnimationIfNeeded();
+  }, [requestAnimationIfNeeded]);
 
   const handleCardClick = useCallback(
     (e: React.MouseEvent<HTMLDivElement>, item: CarouselItem) => {
@@ -549,11 +553,12 @@ export default function Infinite3DCarousel({
       aria-label="Infinite 3D Project Showcase Carousel"
       aria-roledescription="carousel"
       tabIndex={0}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
       onPointerDown={onPointerDown}
       onPointerMove={onPointerMove}
-      onPointerUp={onPointerUp}
-      onPointerCancel={onPointerCancel}
-      onPointerLeave={onPointerLeave}
+      onPointerUp={endPointerInteraction}
+      onPointerCancel={endPointerInteraction}
       onKeyDown={onKeyDown}
       className={`relative w-full h-full overflow-hidden select-none cursor-grab active:cursor-grabbing focus:outline-none ${className}`}
       style={{
@@ -562,6 +567,7 @@ export default function Infinite3DCarousel({
         ...style
       }}
     >
+      {/* 3D Scene Viewport */}
       <div className="relative w-full h-full flex items-center justify-center pointer-events-none">
         <div
           className="relative w-full h-full"
@@ -581,7 +587,7 @@ export default function Infinite3DCarousel({
                 onClick={(e) => handleCardClick(e, item)}
                 data-link={item.link || "/contact"}
                 data-center={initStyle.absDistance < 0.5 ? "true" : "false"}
-                className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border border-white/20 shadow-2xl transition-all duration-300 pointer-events-auto"
+                className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border border-white/20 shadow-2xl rounded-[24px] pointer-events-auto select-none"
                 style={{
                   width: `${cardWidth}px`,
                   minWidth: `${cardWidth}px`,
@@ -597,40 +603,34 @@ export default function Infinite3DCarousel({
                   cursor: "grab"
                 }}
               >
-                {/* Card Image Area */}
-                <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center">
-                  {(index === 0 || initStyle.absDistance <= 2.2) && (
-                    <img
-                      src={
-                        item.image.endsWith('.webp')
-                          ? encodeURI(item.image.replace('.webp', index === 0 ? '-400w.webp' : '-300w.webp'))
-                          : item.image
-                      }
-                      srcSet={
-                        item.image.endsWith('.webp')
-                          ? `${encodeURI(item.image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(item.image.replace('.webp', '-400w.webp'))} 400w`
-                          : undefined
-                      }
-                      sizes="(max-width: 640px) 300px, (max-width: 1024px) 340px, 400px"
-                      alt={item.alt || item.title}
-                      loading={index === 0 ? "eager" : "lazy"}
-                      fetchPriority={index === 0 ? "high" : "low"}
-                      decoding={index === 0 ? "sync" : "async"}
-                      draggable={false}
-                      onDragStart={(e) => e.preventDefault()}
-                      className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
-                    />
-                  )}
-                  
-                  {/* Start Project Overlay Button */}
+                {/* Card Image Area with Crisp WebP Graphic */}
+                <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center bg-black/20">
+                  <img
+                    src={encodeURI(item.image.replace('.webp', '-400w.webp'))}
+                    srcSet={`${encodeURI(item.image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(item.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(item.image.replace('.webp', '-600w.webp'))} 600w`}
+                    sizes="(max-width: 640px) 260px, (max-width: 1024px) 300px, 340px"
+                    alt={item.alt || item.title}
+                    loading={index === 0 ? "eager" : "lazy"}
+                    decoding="async"
+                    draggable={false}
+                    onDragStart={(e) => e.preventDefault()}
+                    className="w-full h-full object-cover select-none pointer-events-none transition-transform duration-700 ease-out group-hover:scale-105"
+                  />
+
+                  {/* Card Gradient & Vignette Overlay */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-black/20 pointer-events-none" />
+
+                  {/* Card Header & Footer Overlay */}
                   <div className="absolute inset-0 z-20 flex flex-col justify-between p-5 pointer-events-none">
-                    <div className="flex justify-end w-full">
+                    <div className="flex justify-between items-start w-full">
+                      <span className="px-3 py-1 rounded-full bg-black/40 backdrop-blur-md border border-white/10 text-[11px] font-mono tracking-wider text-white/90 uppercase">
+                        {item.category || "Project"}
+                      </span>
                       <div
                         onClick={handleButtonClick}
-                        className="carousel-btn pointer-events-auto inline-flex items-center gap-2 pl-3.5 pr-1.5 py-1 rounded-full bg-white text-black text-xs font-bold shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
+                        className="carousel-btn pointer-events-auto inline-flex items-center gap-1.5 pl-3 pr-1.5 py-1 rounded-full bg-white text-black text-xs font-bold shadow-lg hover:scale-105 transition-all duration-300 cursor-pointer"
                         style={{
-                          opacity: (item.hasButton || initStyle.absDistance < 0.5) ? 1 : 0,
-                          pointerEvents: (item.hasButton || initStyle.absDistance < 0.5) ? "auto" : "none"
+                          opacity: initStyle.absDistance < 0.5 ? 1 : 0.85
                         }}
                       >
                         <span>Start Project</span>
@@ -639,12 +639,64 @@ export default function Infinite3DCarousel({
                         </span>
                       </div>
                     </div>
+
+                    <div className="flex flex-col text-left">
+                      <h3 className="text-lg sm:text-xl font-heading font-bold text-white tracking-tight leading-snug drop-shadow-md">
+                        {item.title}
+                      </h3>
+                    </div>
                   </div>
                 </div>
               </div>
             );
           })}
         </div>
+      </div>
+
+      {/* Floating Navigation Arrow: Previous */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          goToPrev();
+        }}
+        aria-label="Previous project"
+        className="absolute left-2 sm:left-6 md:left-10 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-background/80 dark:bg-black/60 backdrop-blur-md border border-border/80 text-primary hover:bg-background hover:scale-110 active:scale-95 transition-all shadow-lg flex items-center justify-center cursor-pointer pointer-events-auto"
+      >
+        <ChevronLeft className="w-5 h-5 -translate-x-0.5" />
+      </button>
+
+      {/* Floating Navigation Arrow: Next */}
+      <button
+        type="button"
+        onClick={(e) => {
+          e.stopPropagation();
+          goToNext();
+        }}
+        aria-label="Next project"
+        className="absolute right-2 sm:right-6 md:right-10 top-1/2 -translate-y-1/2 z-40 w-10 h-10 sm:w-11 sm:h-11 rounded-full bg-background/80 dark:bg-black/60 backdrop-blur-md border border-border/80 text-primary hover:bg-background hover:scale-110 active:scale-95 transition-all shadow-lg flex items-center justify-center cursor-pointer pointer-events-auto"
+      >
+        <ChevronRight className="w-5 h-5 translate-x-0.5" />
+      </button>
+
+      {/* Interactive Pagination Indicator Dots */}
+      <div className="absolute bottom-1 sm:bottom-2 left-1/2 -translate-x-1/2 z-40 flex items-center gap-2 pointer-events-auto px-4 py-1.5 rounded-full bg-background/40 dark:bg-black/40 backdrop-blur-sm border border-border/50">
+        {baseItems.map((item, idx) => (
+          <button
+            key={item.id || idx}
+            type="button"
+            onClick={(e) => {
+              e.stopPropagation();
+              goToProject(idx);
+            }}
+            aria-label={`Go to ${item.title}`}
+            className={`transition-all duration-300 rounded-full cursor-pointer ${
+              activeDot === idx
+                ? "w-6 h-2 bg-primary shadow-sm"
+                : "w-2 h-2 bg-primary/30 hover:bg-primary/60"
+            }`}
+          />
+        ))}
       </div>
     </section>
   );
