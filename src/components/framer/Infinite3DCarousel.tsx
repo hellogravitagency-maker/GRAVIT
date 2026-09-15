@@ -22,8 +22,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     image: "/images/hero-porsche.webp",
     alt: "Yellow Porsche GT3 RS",
     link: "/contact",
-    accent: "#6355D8",
-    bg: "#6355D8",
+    accent: "#FFFFFF",
+    bg: "#000000",
     hasButton: true
   },
   {
@@ -33,8 +33,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     image: "/images/Aurelia Academy Brighter Tomorrow.webp",
     alt: "Aurelia Academy",
     link: "/contact",
-    accent: "#FA5D5D",
-    bg: "#FA5D5D",
+    accent: "#FFFFFF",
+    bg: "#000000",
     hasButton: true
   },
   {
@@ -44,8 +44,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     image: "/images/KŌZU Ramen Bowls That Bring Good Mood.webp",
     alt: "KOZU Ramen Bowls",
     link: "/contact",
-    accent: "#0096A8",
-    bg: "#0096A8",
+    accent: "#FFFFFF",
+    bg: "#000000",
     hasButton: true
   },
   {
@@ -55,8 +55,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     image: "/images/Shadow Garden Portfolio Interface.webp",
     alt: "Shadow Garden Portfolio",
     link: "/contact",
-    accent: "#79D862",
-    bg: "#79D862",
+    accent: "#FFFFFF",
+    bg: "#000000",
     hasButton: true
   },
   {
@@ -66,8 +66,8 @@ const DEFAULT_ITEMS: CarouselItem[] = [
     image: "/images/VÉLORA Style Moves With You.webp",
     alt: "VELORA Style",
     link: "/contact",
-    accent: "#4348C9",
-    bg: "#4348C9",
+    accent: "#FFFFFF",
+    bg: "#000000",
     hasButton: true
   }
 ];
@@ -587,13 +587,13 @@ export default function Infinite3DCarousel({
                 onClick={(e) => handleCardClick(e, item)}
                 data-link={item.link || "/contact"}
                 data-center={initStyle.absDistance < 0.5 ? "true" : "false"}
-                className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border border-white/20 shadow-2xl rounded-[24px] pointer-events-auto select-none"
+                className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border border-white/60 hover:border-white shadow-[0_25px_60px_rgba(0,0,0,0.8)] rounded-[24px] pointer-events-auto select-none bg-black"
                 style={{
                   width: `${cardWidth}px`,
                   minWidth: `${cardWidth}px`,
                   height: `${cardHeight}px`,
                   borderRadius: `${radius}px`,
-                  backgroundColor: item.bg || "#0096A8",
+                  backgroundColor: item.bg || "#000000",
                   transformStyle: "preserve-3d",
                   transform: initStyle.transform,
                   opacity: initStyle.opacity,
