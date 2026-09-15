@@ -16,6 +16,12 @@ if (typeof window !== 'undefined') {
       });
     }
   };
+
+  // Automatically recover if a user has a stale HTML file requesting older chunk hashes
+  window.addEventListener('vite:preloadError', (event) => {
+    event.preventDefault();
+    window.location.reload();
+  });
 }
 
 import App from './App.tsx';

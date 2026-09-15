@@ -1,22 +1,22 @@
-import React, { useRef, useState, useEffect, Suspense } from 'react';
+import React, { useRef } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from './SEO';
 import SmartTypewriter from './ui/SmartTypewriter';
 import Infinite3DCarousel from './framer/Infinite3DCarousel';
 import { ArrowRight } from 'lucide-react';
-const TrustedBy = React.lazy(() => import('./home/TrustedBy'));
-const MotionFeatureCards = React.lazy(() => import('./home/MotionFeatureCards'));
-const Capabilities = React.lazy(() => import('./home/Capabilities'));
-const ServiceBranding = React.lazy(() => import('./home/ServiceBranding'));
-const ServiceUIUX = React.lazy(() => import('./home/ServiceUIUX'));
-const ServiceDevelopment = React.lazy(() => import('./home/ServiceDevelopment'));
-const ProcessSection = React.lazy(() => import('./home/ProcessSection'));
-const ManifestoSection = React.lazy(() => import('./home/ManifestoSection'));
-const SelectedWork = React.lazy(() => import('./home/SelectedWork'));
-const PortfolioGrid = React.lazy(() => import('./home/PortfolioGrid'));
-const Results = React.lazy(() => import('./home/Results'));
-const Testimonials = React.lazy(() => import('./home/Testimonials'));
-const Faq = React.lazy(() => import('./home/Faq'));
+import TrustedBy from './home/TrustedBy';
+import MotionFeatureCards from './home/MotionFeatureCards';
+import Capabilities from './home/Capabilities';
+import ServiceBranding from './home/ServiceBranding';
+import ServiceUIUX from './home/ServiceUIUX';
+import ServiceDevelopment from './home/ServiceDevelopment';
+import ProcessSection from './home/ProcessSection';
+import ManifestoSection from './home/ManifestoSection';
+import SelectedWork from './home/SelectedWork';
+import PortfolioGrid from './home/PortfolioGrid';
+import Results from './home/Results';
+import Testimonials from './home/Testimonials';
+import Faq from './home/Faq';
 
 export default function Home() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -119,11 +119,10 @@ export default function Home() {
         </div>
       </section>
 
-      <Suspense fallback={<div className="min-h-[200px] flex items-center justify-center"><div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div></div>}>
-        {/* ══════════════════════════════════════════════════════════════
-            02: TRUSTED BY — Auto-scroll Marquee (Directly below hero)
-        ══════════════════════════════════════════════════════════════ */}
-        <TrustedBy />
+      {/* ══════════════════════════════════════════════════════════════
+          02: TRUSTED BY — Auto-scroll Marquee (Directly below hero)
+      ══════════════════════════════════════════════════════════════ */}
+      <TrustedBy />
 
         {/* ══════════════════════════════════════════════════════════════
             03: WHAT WE BUILD (Motion Feature Cards)
@@ -212,7 +211,6 @@ export default function Home() {
             </div>
           </div>
         </section>
-      </Suspense>
     </main>
   );
 }
