@@ -1,5 +1,5 @@
 import React, { useRef, useState, useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, Terminal, Database, Cloud } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

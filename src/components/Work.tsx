@@ -22,7 +22,7 @@ export const projectsData: Record<string, any> = {
  year: '2026',
  link: 'https://ssvemhs.pages.dev/',
  color: ' ',
- image: '/images/SSVEMHS.png',
+ image: '/images/SSVEMHS.webp',
  },
  "little-stars": {
  category: 'Playgroup Academy',
@@ -37,7 +37,7 @@ export const projectsData: Record<string, any> = {
  year: '2026',
  link: 'https://little-stars-academy.pages.dev/',
  color: ' ',
- image: '/images/Little_Stars.png',
+ image: '/images/Little_Stars.webp',
  },
  "wonderkids": {
  category: 'Academy Dashboard',
@@ -52,7 +52,7 @@ export const projectsData: Record<string, any> = {
  year: '2026',
  link: 'https://wonderkids-67h.pages.dev/',
  color: ' ',
- image: '/images/WonderKids.png',
+ image: '/images/WonderKids.webp',
  }
 };
 
@@ -147,11 +147,13 @@ export default function Work() {
  <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
  
  {/* Abstract UI representation */}
- <img 
-   src={projectsData.ssvemhs.image} 
-   alt={projectsData.ssvemhs.title} 
-   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
- />
+  <img 
+    src={projectsData.ssvemhs.image} 
+    srcSet={`${encodeURI(projectsData.ssvemhs.image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(projectsData.ssvemhs.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(projectsData.ssvemhs.image.replace('.webp', '-600w.webp'))} 600w, ${encodeURI(projectsData.ssvemhs.image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(projectsData.ssvemhs.image)} 1200w`}
+    sizes="(max-width: 768px) 100vw, 800px"
+    alt={projectsData.ssvemhs.title} 
+    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+  />
  
  {/* Hover View Project CTA */}
  <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
@@ -187,11 +189,13 @@ export default function Work() {
  <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
  
  {/* Abstract Mobile UI representation */}
- <img 
-   src={projectsData["little-stars"].image} 
-   alt={projectsData["little-stars"].title} 
-   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
- />
+  <img 
+    src={projectsData["little-stars"].image} 
+    srcSet={`${encodeURI(projectsData["little-stars"].image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(projectsData["little-stars"].image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(projectsData["little-stars"].image.replace('.webp', '-600w.webp'))} 600w, ${encodeURI(projectsData["little-stars"].image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(projectsData["little-stars"].image)} 1200w`}
+    sizes="(max-width: 768px) 100vw, 800px"
+    alt={projectsData["little-stars"].title} 
+    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+  />
  
  {/* Hover View Project CTA */}
  <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
@@ -227,11 +231,13 @@ export default function Work() {
  <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
  
  {/* Abstract Data/Dashboard UI */}
- <img 
-   src={projectsData.wonderkids.image} 
-   alt={projectsData.wonderkids.title} 
-   className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
- />
+  <img 
+    src={projectsData.wonderkids.image} 
+    srcSet={`${encodeURI(projectsData.wonderkids.image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(projectsData.wonderkids.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(projectsData.wonderkids.image.replace('.webp', '-600w.webp'))} 600w, ${encodeURI(projectsData.wonderkids.image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(projectsData.wonderkids.image)} 1200w`}
+    sizes="(max-width: 768px) 100vw, 800px"
+    alt={projectsData.wonderkids.title} 
+    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
+  />
  
  {/* Hover View Project CTA */}
  <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence } from 'motion/react';
 import { ArrowUpRight } from 'lucide-react';
 
 const projects = [
@@ -9,7 +9,7 @@ const projects = [
     description: "A modern real estate platform designed to showcase properties with stunning visuals and seamless user experience.",
     tags: ["Real Estate", "Property", "UI/UX"],
     category: "Website",
-    image: "/assets/work/creative_agency_portfolio_1788030783143.jpg",
+    image: "/assets/work/creative_agency_portfolio_1788030783143.webp",
     link: "https://dribbble.com/shots/27317798-Real-Estate-Website-Landing-Page"
   },
   {
@@ -18,7 +18,7 @@ const projects = [
     description: "Professional healthcare platform connecting patients with doctors, featuring appointment booking and medical resources.",
     tags: ["Healthcare", "Medical", "Wellness"],
     category: "App",
-    image: "/assets/work/fintech_landing_page_1788030771863.jpg",
+    image: "/assets/work/fintech_landing_page_1788030771863.webp",
     link: "https://dribbble.com/shots/27317779-HealthCare-Clinic-Medical-Center-Service-Based-Website"
   },
   {
@@ -27,7 +27,7 @@ const projects = [
     description: "Elegant hospitality website showcasing luxury accommodations with booking system and virtual tours.",
     tags: ["Hotel", "Hospitality", "Booking"],
     category: "Website",
-    image: "/assets/work/luxury_fashion_web_1788030762128.jpg",
+    image: "/assets/work/luxury_fashion_web_1788030762128.webp",
     link: "https://dribbble.com/shots/27317800-Luxury-Resort-Website-Landing-Page"
   },
   {
@@ -36,7 +36,7 @@ const projects = [
     description: "Contemporary furniture e-commerce platform with 3D product views and interior design inspiration.",
     tags: ["Furniture", "E-commerce", "Interior"],
     category: "Website",
-    image: "/assets/work/premium_web_architecture_1788031038602.jpg",
+    image: "/assets/work/premium_web_architecture_1788031038602.webp",
     link: "https://dribbble.com/shots/27317658-E-commerce-Brand-Website-Landing-Page"
   },
   {
@@ -45,7 +45,7 @@ const projects = [
     description: "Full-featured online shopping experience with advanced filtering, secure checkout, and mobile-first design.",
     tags: ["E-commerce", "Retail", "Shopping"],
     category: "App",
-    image: "/assets/work/cyberpunk_ecommerce_1788030750391.jpg",
+    image: "/assets/work/cyberpunk_ecommerce_1788030750391.webp",
     link: "https://dribbble.com/shots/26625180-UTSHA-New-E-commerce-Website-Project"
   },
   {
@@ -54,7 +54,7 @@ const projects = [
     description: "Clean and conversion-focused landing page for B2B SaaS product with interactive demos and pricing.",
     tags: ["SaaS", "B2B", "Tech"],
     category: "App",
-    image: "/assets/work/saas_dashboard_ui_1788030738800.jpg",
+    image: "/assets/work/saas_dashboard_ui_1788030738800.webp",
     link: "https://dribbble.com/shots/26625291-Business-Dashboard-Web-App"
   }
 ];

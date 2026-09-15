@@ -10,7 +10,7 @@ const projects = [
     result: 'Admissions site with online enquiry form',
     link: 'https://little-stars-academy.pages.dev/',
     tag: 'Education',
-    image: "/images/Little_Stars.png"
+    image: "/images/Little_Stars.webp"
   },
   {
     index: '02',
@@ -18,7 +18,7 @@ const projects = [
     result: 'Full institutional rebuild, notice board + faculty directory',
     link: 'https://ssvemhs.pages.dev/',
     tag: 'Education',
-    image: "/images/SSVEMHS.png"
+    image: "/images/SSVEMHS.webp"
   },
   {
     index: '03',
@@ -26,7 +26,7 @@ const projects = [
     result: 'Site audit & pre-deployment QA',
     link: 'https://wonderkids-67h.pages.dev/',
     tag: 'Education',
-    image: "/images/WonderKids.png"
+    image: "/images/WonderKids.webp"
   }
 ];
 
@@ -120,6 +120,8 @@ export default function SelectedWork() {
               <div className="relative z-10 w-full aspect-video rounded-lg overflow-hidden mt-8 md:mt-12 bg-muted/20 border border-border">
                 <img
                   src={p.image}
+                  srcSet={`${encodeURI(p.image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(p.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(p.image.replace('.webp', '-600w.webp'))} 600w, ${encodeURI(p.image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(p.image)} 1200w`}
+                  sizes="(max-width: 640px) 85vw, (max-width: 1024px) 35vw, 25vw"
                   alt={p.name}
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 ease-[0.16,1,0.3,1] group-hover:scale-105"

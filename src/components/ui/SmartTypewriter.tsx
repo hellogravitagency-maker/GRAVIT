@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { motion } from 'motion/react';
 
 interface SmartTypewriterProps {
   words: string[];
@@ -12,18 +11,12 @@ export default function SmartTypewriter({
   words,
   typingSpeed = 60,
   deletingSpeed = 30,
-  delayBeforeDelete = 2500,
+  delayBeforeDelete = 7000,
 }: SmartTypewriterProps) {
   const [index, setIndex] = useState(0);
-  const [subIndex, setSubIndex] = useState(0);
+  // Start with first word fully populated for immediate LCP/FCP paint
+  const [subIndex, setSubIndex] = useState(words[0]?.length || 0);
   const [isDeleting, setIsDeleting] = useState(false);
-  const [blink, setBlink] = useState(true);
-
-  // Blinking cursor
-  useEffect(() => {
-    const timeout = setTimeout(() => setBlink((prev) => !prev), 500);
-    return () => clearTimeout(timeout);
-  }, [blink]);
 
   useEffect(() => {
     if (words.length === 0) return;
@@ -44,7 +37,7 @@ export default function SmartTypewriter({
     // Typing/Deleting effect
     const timeout = setTimeout(() => {
       setSubIndex((prev) => prev + (isDeleting ? -1 : 1));
-    }, isDeleting ? deletingSpeed : typingSpeed + Math.random() * 20);
+    }, isDeleting ? deletingSpeed : typingSpeed + 15);
 
     return () => clearTimeout(timeout);
   }, [subIndex, index, isDeleting, words, typingSpeed, deletingSpeed, delayBeforeDelete]);
@@ -56,10 +49,10 @@ export default function SmartTypewriter({
       <span className="text-primary">
         {words[index].substring(0, subIndex)}
       </span>
-      <motion.span
-        animate={{ opacity: blink ? 1 : 0 }}
-        transition={{ duration: 0.1 }}
-        className="inline-block w-[0.1em] h-[0.9em] bg-primary ml-[2px] align-baseline rounded-sm"
+      {/* Pure CSS blinking cursor without Framer Motion timer/render churn */}
+      <span
+        aria-hidden="true"
+        className="inline-block w-[0.1em] h-[0.9em] bg-primary ml-[2px] align-baseline rounded-sm animate-pulse"
       />
     </span>
   );

@@ -97,6 +97,8 @@ export default function CaseStudy() {
  {project.image ? (
  <img 
  src={project.image} 
+ srcSet={`${encodeURI(project.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(project.image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(project.image)} 1200w`}
+ sizes="(max-width: 768px) 100vw, 100vw"
  alt={`${project.title} Interface`} 
  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
  />
@@ -155,6 +157,8 @@ export default function CaseStudy() {
  {project.image ? (
  <img 
  src={project.image} 
+ srcSet={`${encodeURI(project.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(project.image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(project.image)} 1200w`}
+ sizes="(max-width: 768px) 100vw, 100vw"
  alt={`${project.title} Detail`} 
  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-1000 ease-out"
  />

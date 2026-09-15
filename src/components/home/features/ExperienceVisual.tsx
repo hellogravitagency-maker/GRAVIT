@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, MotionValue, useTransform } from 'framer-motion';
+import { motion, MotionValue, useTransform } from 'motion/react';
 import { LayoutGrid, Type, LayoutTemplate, Smartphone } from 'lucide-react';
 
 interface ExperienceVisualProps {
@@ -113,7 +113,7 @@ export default function ExperienceVisual({ isActive, mouseX, mouseY }: Experienc
           <div className="text-[10px] text-primary font-mono tracking-widest bg-background/80 px-3 py-1 rounded border border-border">
             DESIGN COMPLETE
           </div>
-          <div className="text-[8px] text-muted-foreground font-mono tracking-widest mt-2">
+          <div className="text-[8px] text-foreground font-semibold font-mono tracking-widest mt-2">
             01 / 04
           </div>
         </motion.div>

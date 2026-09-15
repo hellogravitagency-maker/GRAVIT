@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, MotionValue, useTransform } from 'framer-motion';
+import { motion, MotionValue, useTransform } from 'motion/react';
 import { Mail, BrainCircuit, Filter, Users, Bell } from 'lucide-react';
 
 interface AIVisualProps {

@@ -1,6 +1,5 @@
 import { Link } from 'react-router-dom';
 import React, { useState } from 'react';
-import { motion } from 'motion/react';
 import { Linkedin, Instagram } from 'lucide-react';
 
 const XIcon = (props: React.SVGProps<SVGSVGElement>) => (

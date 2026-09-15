@@ -74,6 +74,8 @@ export default function HoverRevealGallery() {
  >
  <img 
  src={project.image} 
+ srcSet={`${encodeURI(project.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(project.image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(project.image)} 1200w`}
+ sizes="(max-width: 768px) 100vw, 50vw"
  alt={project.title} 
  loading="lazy"
  decoding="async"

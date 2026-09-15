@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, MotionValue, useTransform } from 'framer-motion';
+import { motion, MotionValue, useTransform } from 'motion/react';
 import { Database, Lock, Server, Terminal, ArrowRight, ShieldCheck, Zap } from 'lucide-react';
 
 interface ProductVisualProps {

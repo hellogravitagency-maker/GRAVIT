@@ -8,6 +8,8 @@ coverage/
 !.env.example
 lh-report*.json
 lh-report*.html
+lighthouse*.json
+lighthouse*.html
 git_log.txt
 
 # Development and AI Agent Files

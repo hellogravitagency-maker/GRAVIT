@@ -1,8 +1,6 @@
 import { useEffect, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useScrollStore } from '../store/useScrollStore';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 export default function SmoothScroll({ children }: { children: React.ReactNode }) {
   const lenisRef = useRef<any>(null);
@@ -10,11 +8,15 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
 
   useEffect(() => {
     // Disable smooth scroll & heavy GSAP on mobile devices for better performance
-    if (typeof window !== 'undefined' && window.innerWidth < 768) return;
+    if (typeof window !== 'undefined' && window.matchMedia('(max-width: 767px)').matches) return;
 
     let cleanup = () => {};
 
-    import('lenis').then(({ default: Lenis }) => {
+    Promise.all([
+      import('lenis'),
+      import('gsap'),
+      import('gsap/ScrollTrigger')
+    ]).then(([{ default: Lenis }, { gsap }, { ScrollTrigger }]) => {
       gsap.registerPlugin(ScrollTrigger);
 
       const lenis = new Lenis({

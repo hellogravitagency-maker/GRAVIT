@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef } from 'react';
 
 export default function LazySection({ 
   children, 
-  rootMargin = '400px', 
+  rootMargin = '100px', 
   minHeight = '300px' 
 }: { 
-  children: React.ReactNode, 
+  children: React.ReactNode | (() => React.ReactNode), 
   rootMargin?: string, 
   minHeight?: string 
 }) {
@@ -34,7 +34,7 @@ export default function LazySection({
 
   return (
     <div ref={ref} style={{ minHeight: isVisible ? 'auto' : minHeight }} className="w-full relative">
-      {isVisible ? children : null}
+      {isVisible ? (typeof children === 'function' ? (children as () => React.ReactNode)() : children) : null}
     </div>
   );
 }

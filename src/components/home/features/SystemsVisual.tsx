@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, MotionValue, useTransform } from 'framer-motion';
+import { motion, MotionValue, useTransform } from 'motion/react';
 import { Component, MousePointer2, Type, GripHorizontal, Square, AppWindow, Smartphone } from 'lucide-react';
 
 interface SystemsVisualProps {

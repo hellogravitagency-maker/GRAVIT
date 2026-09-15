@@ -1,5 +1,5 @@
 import React, { useRef } from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'motion/react';
 import { ArrowUpRight, MousePointer2, Layout, Layers } from 'lucide-react';
 import { Link } from 'react-router-dom';
 

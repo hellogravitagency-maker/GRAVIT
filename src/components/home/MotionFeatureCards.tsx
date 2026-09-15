@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { motion, AnimatePresence, useMotionValue, useSpring } from 'motion/react';
 import ExperienceVisual from './features/ExperienceVisual';
 import ProductVisual from './features/ProductVisual';
 import AIVisual from './features/AIVisual';

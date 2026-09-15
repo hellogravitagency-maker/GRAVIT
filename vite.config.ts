@@ -22,29 +22,67 @@ export default defineConfig(() => {
     resolve: {
       alias: {
         '@': path.resolve(__dirname, './src'),
+        'motion/react': 'framer-motion',
       },
     },
     esbuild: {
       drop: ['console', 'debugger'],
     },
     server: {
+      port: 3000,
+      host: '0.0.0.0',
       allowedHosts: true,
+      headers: {
+        'X-Frame-Options': 'DENY',
+        'X-Content-Type-Options': 'nosniff',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        'X-XSS-Protection': '1; mode=block',
+      },
       // HMR is disabled in AI Studio via DISABLE_HMR env var.
       // Do not modifyâ€”file watching is disabled to prevent flickering during agent edits.
       hmr: process.env.DISABLE_HMR !== 'true',
       // Disable file watching when DISABLE_HMR is true to save CPU during agent edits.
       watch: process.env.DISABLE_HMR === 'true' ? null : {},
     },
+    preview: {
+      port: 3000,
+      host: '0.0.0.0',
+      headers: {
+        'X-Frame-Options': 'DENY',
+        'X-Content-Type-Options': 'nosniff',
+        'Referrer-Policy': 'strict-origin-when-cross-origin',
+        'Cross-Origin-Opener-Policy': 'same-origin',
+        'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
+        'X-XSS-Protection': '1; mode=block',
+      },
+    },
     build: {
       target: 'esnext',
       modulePreload: false,
       rollupOptions: {
         output: {
-          manualChunks: {
-            'vendor-react': ['react', 'react-dom', 'react-router-dom'],
-            'vendor-gsap': ['gsap', '@gsap/react'],
-            'vendor-framer': ['framer-motion'],
-            'vendor-lucide': ['lucide-react']
+          manualChunks(id) {
+            const normalized = id.replace(/\\/g, '/');
+            if (
+              normalized.includes('/node_modules/react/') ||
+              normalized.includes('/node_modules/react-dom/') ||
+              normalized.includes('/node_modules/react-router/') ||
+              normalized.includes('/node_modules/react-router-dom/') ||
+              normalized.includes('/node_modules/scheduler/')
+            ) {
+              return 'vendor-react';
+            }
+            if (normalized.includes('/node_modules/framer-motion/')) {
+              return 'vendor-motion';
+            }
+            if (normalized.includes('/node_modules/gsap/')) {
+              return 'vendor-gsap';
+            }
+            if (normalized.includes('/node_modules/lucide-react/')) {
+              return 'vendor-lucide';
+            }
           },
           assetFileNames: (assetInfo) => {
             let extType = assetInfo.name?.split('.').pop() || '';
