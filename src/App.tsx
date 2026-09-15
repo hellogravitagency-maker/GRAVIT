@@ -55,7 +55,7 @@ export default function App() {
         )}
         
         {!isStudioMode && (
-          <DelayedRender delay={4000}>
+          <DelayedRender delay={1000}>
             <Suspense fallback={null}>
               <ChatWidget />
             </Suspense>
