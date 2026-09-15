@@ -4,7 +4,6 @@ import SEO from './SEO';
 import SmartTypewriter from './ui/SmartTypewriter';
 import Infinite3DCarousel from './framer/Infinite3DCarousel';
 import { ArrowRight } from 'lucide-react';
-import LazySection from './ui/LazySection';
 const TrustedBy = React.lazy(() => import('./home/TrustedBy'));
 const MotionFeatureCards = React.lazy(() => import('./home/MotionFeatureCards'));
 const Capabilities = React.lazy(() => import('./home/Capabilities'));
@@ -124,85 +123,59 @@ export default function Home() {
         {/* ══════════════════════════════════════════════════════════════
             02: TRUSTED BY — Auto-scroll Marquee (Directly below hero)
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="120px">
-          {() => <TrustedBy />}
-        </LazySection>
+        <TrustedBy />
 
         {/* ══════════════════════════════════════════════════════════════
             03: WHAT WE BUILD (Motion Feature Cards)
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="500px">
-          {() => <MotionFeatureCards />}
-        </LazySection>
+        <MotionFeatureCards />
 
         {/* ══════════════════════════════════════════════════════════════
             03a: CAPABILITIES ARCHITECTURE
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="400px">
-          {() => <Capabilities />}
-        </LazySection>
+        <Capabilities />
 
         {/* ══════════════════════════════════════════════════════════════
             03b: SERVICE PIPELINE
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="400px">
-          {() => <ServiceBranding />}
-        </LazySection>
-        <LazySection minHeight="400px">
-          {() => <ServiceUIUX />}
-        </LazySection>
-        <LazySection minHeight="400px">
-          {() => <ServiceDevelopment />}
-        </LazySection>
+        <ServiceBranding />
+        <ServiceUIUX />
+        <ServiceDevelopment />
 
         {/* ══════════════════════════════════════════════════════════════
             03c: PROCESS
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="400px">
-          {() => <ProcessSection />}
-        </LazySection>
+        <ProcessSection />
 
         {/* ══════════════════════════════════════════════════════════════
             04: MANIFESTO — Scroll Scrub Reveal
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="400px">
-          {() => <ManifestoSection />}
-        </LazySection>
+        <ManifestoSection />
 
         {/* ══════════════════════════════════════════════════════════════
             05: SELECTED WORK
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="500px">
-          {() => <SelectedWork />}
-        </LazySection>
+        <SelectedWork />
 
         {/* ══════════════════════════════════════════════════════════════
             05b: PORTFOLIO GRID
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="500px">
-          {() => <PortfolioGrid />}
-        </LazySection>
+        <PortfolioGrid />
 
         {/* ══════════════════════════════════════════════════════════════
             06: RESULTS / METRICS
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="300px">
-          {() => <Results />}
-        </LazySection>
+        <Results />
 
         {/* ══════════════════════════════════════════════════════════════
             07: TESTIMONIALS
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="400px">
-          {() => <Testimonials />}
-        </LazySection>
+        <Testimonials />
 
         {/* ══════════════════════════════════════════════════════════════
             08: FAQ
         ══════════════════════════════════════════════════════════════ */}
-        <LazySection minHeight="400px">
-          {() => <Faq />}
-        </LazySection>
+        <Faq />
 
         {/* ══════════════════════════════════════════════════════════════
             09: CTA BANNER — Full-width dark

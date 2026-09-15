@@ -12,8 +12,7 @@ export default function ServiceBranding() {
     offset: ["start end", "end start"]
   });
 
-  const scrollY = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scrollY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   // Interactive States
   const colors = [
@@ -92,7 +91,7 @@ export default function ServiceBranding() {
 
         <div className="flex-1 w-full flex justify-center lg:justify-end relative">
           <motion.div 
-            style={{ y: scrollY, opacity }}
+            style={{ y: scrollY }}
             className="relative w-full max-w-[500px] aspect-square md:aspect-[4/3] lg:aspect-square bg-background rounded-3xl border border-black/10 dark:border-white/10 shadow-xl overflow-hidden flex flex-col p-8 group"
             ref={cardRef}
           >

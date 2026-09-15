@@ -22,12 +22,15 @@ export default function Navbar() {
       if (!ticking) {
         window.requestAnimationFrame(() => {
           const currentY = window.scrollY;
-          if (currentY > lastY && currentY > 150) {
-            if (!mobileMenuOpen) setIsVisible(false);
-          } else {
-            setIsVisible(true);
+          const delta = currentY - lastY;
+          if (Math.abs(delta) > 8) {
+            if (delta > 0 && currentY > 150) {
+              if (!mobileMenuOpen) setIsVisible(false);
+            } else if (delta < 0) {
+              setIsVisible(true);
+            }
+            lastY = currentY;
           }
-          lastY = currentY;
           ticking = false;
         });
         ticking = true;

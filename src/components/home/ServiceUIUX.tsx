@@ -12,8 +12,7 @@ export default function ServiceUIUX() {
     offset: ["start end", "end start"]
   });
 
-  const scrollY = useTransform(scrollYProgress, [0, 1], [50, -50]);
-  const opacity = useTransform(scrollYProgress, [0, 0.2, 0.8, 1], [0, 1, 1, 0]);
+  const scrollY = useTransform(scrollYProgress, [0, 1], [40, -40]);
 
   const features = [
     { title: "User Research", desc: "Insights & persona mapping" },
@@ -77,7 +76,7 @@ export default function ServiceUIUX() {
         {/* Left: Motion Card - UI/UX visualization */}
         <div className="flex-1 w-full flex justify-center lg:justify-start relative">
           <motion.div 
-            style={{ y: scrollY, opacity }}
+            style={{ y: scrollY }}
             className="relative w-full max-w-[500px] aspect-square md:aspect-[4/3] lg:aspect-square bg-white dark:bg-[#050505] rounded-3xl border border-black/10 dark:border-white/10 shadow-xl overflow-hidden flex items-center justify-center p-8 group"
             ref={cardRef}
           >
