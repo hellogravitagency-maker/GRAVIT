@@ -5,7 +5,6 @@ import { z } from 'zod';
 import { Link } from 'react-router-dom';
 import { supabase } from '../../lib/supabase';
 import { CheckCircle2, Search, ChevronDown } from 'lucide-react';
-import { HoverBorderGradient } from '../ui/hover-border-gradient';
 import { motion, AnimatePresence } from 'motion/react';
 import { countries } from '../../lib/countries';
 
@@ -167,7 +166,7 @@ export default function ContactForm() {
         : 'border-border/60 hover:border-primary/50 focus:border-primary focus:bg-primary/5'
     }`;
 
-  const labelClasses = "font-mono text-xs uppercase tracking-[0.15em] text-secondary mb-1 block";
+  const labelClasses = "text-sm font-medium text-secondary mb-1 block";
   
   const errorLabel = (message?: string) => 
     message ? <span className="font-mono text-[11px] font-medium text-red-500 mt-1 block" aria-live="polite">{message}</span> : null;
@@ -180,9 +179,9 @@ export default function ContactForm() {
         transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
         className="flex flex-col items-start gap-6 py-12"
       >
-        <h2 className="text-4xl md:text-6xl font-heading font-medium leading-[0.95] text-primary tracking-tight flex items-center gap-4">
+        <h2 className="text-4xl md:text-6xl font-heading font-semibold leading-[0.95] text-primary tracking-[-0.04em] flex items-center gap-4">
           <CheckCircle2 className="w-10 h-10 md:w-14 md:h-14 text-green-500" />
-          <span>MESSAGE<br/>TRANSMITTED.</span>
+          <span>Message sent.</span>
         </h2>
         <p className="text-base md:text-lg text-secondary font-light">
           Your project brief has been securely received. Our lead architect will review and respond within 24 hours.
@@ -484,25 +483,23 @@ export default function ContactForm() {
       </div>
 
       <div className="mt-6">
-        <HoverBorderGradient 
-          as="button"
+        <button
           type="submit"
           disabled={isSubmitting}
-          containerClassName="w-full md:w-auto relative"
-          className="px-10 py-4 text-sm uppercase tracking-widest font-mono font-semibold text-primary bg-background dark:bg-[#050505] disabled:opacity-50 disabled:cursor-not-allowed transition-all shadow-md flex items-center justify-center gap-3 cursor-pointer"
+          className="w-full md:w-auto inline-flex items-center justify-center gap-3 px-8 py-4 rounded-full bg-primary text-background text-[17px] font-medium hover:opacity-85 active:scale-[0.97] transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           {isSubmitting ? (
             <span className="flex items-center justify-center gap-3">
-              <svg className="animate-spin h-4 w-4 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+              <svg className="animate-spin h-4 w-4" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
                 <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
                 <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
               </svg>
-              <span>TRANSMITTING...</span>
+              <span>Sending…</span>
             </span>
           ) : (
-            <span>Initiate Project →</span>
+            <span>Send message</span>
           )}
-        </HoverBorderGradient>
+        </button>
       </div>
     </form>
   );

@@ -7,6 +7,7 @@ const NAV_LINKS = [
   { label: 'Home', href: '/' },
   { label: 'Work', href: '/work' },
   { label: 'Services', href: '/services' },
+  { label: 'Studio', href: '/inex' },
   { label: 'About', href: '/about' },
 ];
 
@@ -47,16 +48,13 @@ export default function Navbar() {
   return (
     <>
       <nav 
-        className={`fixed top-4 left-4 right-4 md:left-8 md:right-8 lg:max-w-4xl lg:mx-auto rounded-full p-[1px] shadow-2xl shadow-black/50 transition-all duration-300 ease-out transform ${
+        className={`fixed top-4 left-4 right-4 md:left-8 md:right-8 lg:max-w-4xl lg:mx-auto rounded-full transition-all duration-500 transform ${
           isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 -translate-y-20 pointer-events-none'
         } ${mobileMenuOpen ? 'z-[160]' : 'z-50'}`}
-        style={{
-          background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0) 100%)'
-        }}
         id="navbar"
       >
         {/* Inner Glass Surface */}
-        <div className="relative z-10 w-full bg-background/60 backdrop-blur-3xl rounded-full flex items-center justify-between px-6 py-3 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_inset_0_-1px_1.5px_rgba(0,0,0,0.5)] border border-white/5">
+        <div className="relative z-10 w-full glass-nav !border rounded-full flex items-center justify-between pl-5 pr-2 py-2 border-border-subtle shadow-[0_10px_40px_-15px_rgba(0,0,0,0.25)]">
           {/* Left: Logo */}
           <Link 
             to="/" 
@@ -64,7 +62,7 @@ export default function Navbar() {
             onClick={() => { closeAll(); window.scrollTo({ top: 0, behavior: 'smooth' }); }}
           >
             <Logo className="w-6 h-6 text-primary transition-transform group-hover:scale-110" />
-            <span className="text-primary font-bold tracking-tight text-lg uppercase">GRAVIT®</span>
+            <span className="text-primary font-semibold tracking-[-0.02em] text-[17px] uppercase">GRAVIT®</span>
           </Link>
 
           {/* Center: Desktop Navigation (Absolute Centered) */}
@@ -75,7 +73,7 @@ export default function Navbar() {
                 <Link 
                   key={item.label} 
                   to={item.href}
-                  className={`flex items-center gap-1.5 py-2 text-[13px] font-semibold tracking-wide transition-colors ${isActive ? 'text-primary' : 'text-secondary hover:text-primary'}`}
+                  className={`flex items-center gap-1.5 py-2 text-[13px] font-normal tracking-[-0.01em] transition-colors ${isActive ? 'text-primary' : 'text-secondary hover:text-primary'}`}
                 >
                   {item.label}
                 </Link>
@@ -92,12 +90,9 @@ export default function Navbar() {
             <Link 
               to="/contact" 
               onClick={closeAll} 
-              className="hidden md:flex items-center justify-center relative p-[1px] rounded-full overflow-hidden group transition-transform hover:scale-105 active:scale-95 shadow-sm"
+              className="hidden md:flex items-center px-4 py-2 rounded-full bg-primary text-background text-[13px] font-medium hover:opacity-85 active:scale-[0.97] transition"
             >
-              <div className="absolute inset-0 bg-gradient-to-b from-white/30 to-white/5 opacity-50 group-hover:opacity-100 transition-opacity" />
-              <div className="relative bg-background/40 backdrop-blur-md px-5 py-2 rounded-full border border-white/10 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)] flex items-center">
-                <span className="text-[13px] font-bold tracking-wide text-primary">Initiate Project</span>
-              </div>
+              Initiate Project
             </Link>
 
             <div className="flex lg:hidden items-center">

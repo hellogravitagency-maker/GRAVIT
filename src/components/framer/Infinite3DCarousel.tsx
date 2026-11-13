@@ -1,12 +1,16 @@
 import React, { useRef, useState, useEffect, useCallback, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { ChevronLeft, ChevronRight, ArrowUpRight } from 'lucide-react';
 
 export interface CarouselItem {
   id?: string | number;
   title: string;
   category?: string;
-  image: string;
+  image?: string;
+  /** Coded UI rendered inside an app-window frame instead of a full-bleed image */
+  content?: React.ReactNode;
+  /** Let content fill the window body edge to edge (screenshots) */
+  fill?: boolean;
   alt?: string;
   link?: string;
   accent?: string;
@@ -587,7 +591,7 @@ export default function Infinite3DCarousel({
                 onClick={(e) => handleCardClick(e, item)}
                 data-link={item.link || "/contact"}
                 data-center={initStyle.absDistance < 0.5 ? "true" : "false"}
-                className="group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border border-white/60 hover:border-white shadow-[0_25px_60px_rgba(0,0,0,0.8)] rounded-[24px] pointer-events-auto select-none bg-black"
+                className={`group absolute left-1/2 top-1/2 flex flex-col overflow-hidden border shadow-[0_25px_60px_rgba(0,0,0,0.8)] rounded-[24px] pointer-events-auto select-none bg-black ${item.content ? 'hero-window border-white/10 hover:border-white/30' : 'border-white/60 hover:border-white'}`}
                 style={{
                   width: `${cardWidth}px`,
                   minWidth: `${cardWidth}px`,
@@ -603,7 +607,24 @@ export default function Infinite3DCarousel({
                   cursor: "grab"
                 }}
               >
-                {/* Card Image Area with Crisp WebP Graphic */}
+                {item.content ? (
+                  /* Product tile: label + title on top, live UI fills the rest */
+                  <div className="relative flex h-full w-full flex-col bg-[linear-gradient(180deg,#161616_0%,#060606_55%)] shadow-[inset_0_1px_0_rgba(255,255,255,0.09)]">
+                    <div className="flex items-start justify-between gap-3 px-5 pt-5 pb-4">
+                      <div className="min-w-0 text-left">
+                        <div className="font-mono text-[10px] uppercase tracking-[0.14em] text-accent">{item.category}</div>
+                        <h3 className="mt-1.5 text-[15px] sm:text-[17px] font-semibold leading-[1.2] tracking-[-0.02em] text-white">{item.title}</h3>
+                      </div>
+                      <span className="grid h-8 w-8 shrink-0 place-items-center rounded-full border border-white/15 text-white/60 transition-colors duration-300 group-hover:border-white group-hover:bg-white group-hover:text-black">
+                        <ArrowUpRight className="h-4 w-4" />
+                      </span>
+                    </div>
+                    <div className={`min-h-0 flex-1 ${item.fill ? 'px-2.5 pb-2.5' : 'flex flex-col justify-center px-5 pb-5'}`}>
+                      {item.content}
+                    </div>
+                  </div>
+                ) : item.image && (
+                /* Card Image Area with Crisp WebP Graphic */
                 <div className="absolute inset-0 w-full h-full overflow-hidden flex items-center justify-center bg-black/20">
                   <img
                     src={encodeURI(item.image.replace('.webp', '-400w.webp'))}
@@ -647,6 +668,7 @@ export default function Infinite3DCarousel({
                     </div>
                   </div>
                 </div>
+                )}
               </div>
             );
           })}

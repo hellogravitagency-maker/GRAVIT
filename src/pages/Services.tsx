@@ -1,152 +1,277 @@
-import React from 'react';
-import { motion } from 'motion/react';
-import { ArrowRight, Monitor, Sparkles, TrendingUp, Paintbrush, Code, Database } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { 
+  Monitor, Sparkles, TrendingUp, Paintbrush, Code, Database, 
+  ArrowRight, CheckCircle2, Shield, Zap, Layers, Server, 
+  Cpu, Award, ExternalLink, SlidersHorizontal, Check, ShoppingBag
+} from 'lucide-react';
 import SEO from '@/components/SEO';
+import PageIntro from '@/components/ui/PageIntro';
+import CtaPanel from '@/components/CtaPanel';
 
-const SERVICES = [
+interface ServicePillar {
+  id: string;
+  number: string;
+  title: string;
+  tagline: string;
+  description: string;
+  icon: typeof Monitor;
+  deliverables: string[];
+  techStack: string[];
+  slaMetric: string;
+  slaLabel: string;
+}
+
+const SERVICE_PILLARS: ServicePillar[] = [
   {
-    title: "Web Platforms",
-    description: "High-performance digital storefronts engineered for conversion and absolute visual excellence.",
+    id: 'web-platforms',
+    number: '01',
+    title: 'High-Performance Web & Brand Flagships',
+    tagline: 'Architectural aesthetics with extreme velocity.',
+    description: 'We engineer bespoke digital experiences that captivate discerning audiences. From luxury architectural sanctuaries to global consumer brands, every pixel is deliberate, responsive, and blazing fast.',
     icon: Monitor,
-    href: "/websites"
+    deliverables: [
+      'Bespoke fluid motion & physical spring animations',
+      'Optical typography with size-specific tracking',
+      'Sub-100ms global Time-to-First-Byte (TTFB)',
+      'Lighthouse 98+ guaranteed on mobile and desktop',
+      'Headless CMS & structured content schema'
+    ],
+    techStack: ['React 19', 'Tailwind v4', 'Framer Motion', 'Vite', 'Cloudflare Edge'],
+    slaMetric: '< 100ms',
+    slaLabel: 'Edge TTFB Latency'
   },
   {
-    title: "AI Integrations",
-    description: "Automate workflows and deploy artificial intelligence directly into your core operations.",
-    icon: Sparkles,
-    href: "/ai-builder"
-  },
-  {
-    title: "Performance Data",
-    description: "Real-time, scalable data architecture and tracking to optimize your entire digital footprint.",
-    icon: TrendingUp,
-    href: "/analytics"
-  },
-  {
-    title: "Design Systems",
-    description: "Strategic UI/UX design powered by deep user research, motion logic, and behavioral metrics.",
-    icon: Paintbrush,
-    href: "/design-intelligence"
-  },
-  {
-    title: "Templates",
-    description: "Premium, conversion-optimized starting points for ambitious consumer and B2B brands.",
-    icon: Code,
-    href: "/templates"
-  },
-  {
-    title: "Custom Engineering",
-    description: "Bespoke backend infrastructure and seamless connections across your entire technology stack.",
+    id: 'saas-workstations',
+    number: '02',
+    title: 'B2B SaaS Workstations & Telemetry',
+    tagline: 'Enterprise-grade cloud workstations.',
+    description: 'Mission-critical telemetry interfaces engineered for complex data visualization. We turn high-density telemetry streams into intuitive, actionable workstations with sub-second responsiveness.',
     icon: Database,
-    href: "/contact"
+    deliverables: [
+      'Interactive area throughput charts & live stream monitors',
+      'Low-latency WebSocket connections for real-time telemetry',
+      'Role-based access control (RBAC) & multi-tenant isolation',
+      'Synthetic load testing & JSON payload inspection',
+      'Zero-latency optimistic UI state updates'
+    ],
+    techStack: ['React 19', 'TypeScript', 'Supabase PostgreSQL', 'WebSockets', 'Tailwind v4'],
+    slaMetric: '99.99%',
+    slaLabel: 'Uptime Availability'
+  },
+  {
+    id: 'ecommerce-retail',
+    number: '03',
+    title: 'Modern E-Commerce & Retail Systems',
+    tagline: 'Fluid commerce engineered for conversion.',
+    description: 'Scandinavian minimalist and avant-garde street couture storefronts designed to maximize average order value. Seamless cart drawers, instant search filtering, and global localized checkout.',
+    icon: ShoppingBag,
+    deliverables: [
+      'Interactive sliding cart & bag drawers with zero reload',
+      'Material & size filtering with instant URL sync',
+      'Multi-currency automatic geo-localization',
+      'Stripe & Shopify headless checkout integration',
+      'Real-time inventory synchronization'
+    ],
+    techStack: ['React 19', 'Shopify / Stripe API', 'Zustand', 'Tailwind v4', 'Motion'],
+    slaMetric: '+38%',
+    slaLabel: 'Avg Checkout Velocity'
+  },
+  {
+    id: 'ai-automation',
+    number: '04',
+    title: 'Autonomous AI Multi-Agent & Workflows',
+    tagline: 'Durable intelligence deployed into core ops.',
+    description: 'We build production multi-agent systems and deterministic workflow pipelines that eliminate manual toil. From automated CRM enrichment to intelligent support routing and self-healing jobs.',
+    icon: Cpu,
+    deliverables: [
+      'Stateful multi-agent swarms with deterministic guardrails',
+      'Durable workflow pipelines engineered with n8n & LangGraph',
+      'Vector semantic search & domain-specific RAG integration',
+      'Automatic lead qualification, enrichment, and CRM sync',
+      'Human-in-the-loop validation and audit logging'
+    ],
+    techStack: ['OpenAI GPT-4o', 'LangGraph', 'n8n', 'Python / Node.js', 'Redis'],
+    slaMetric: '0 Failures',
+    slaLabel: 'Unhandled Exception Rate'
+  },
+  {
+    id: 'clinical-health',
+    number: '05',
+    title: 'Healthcare & Regulated Telehealth Platforms',
+    tagline: 'Clinical precision with patient-first ease.',
+    description: 'Academic medical center platforms and telehealth triage systems engineered for safety, compliance, and intuitive booking. Verified doctor directories with same-day calendar scheduling.',
+    icon: Shield,
+    deliverables: [
+      'Attending physician directories with verified credentialing',
+      'Same-day appointment booking with calendar synchronization',
+      'Instant digital video triage routing & intake forms',
+      'Full HIPAA/GDPR architectural privacy safeguards',
+      'Sub-second search across clinical specialties'
+    ],
+    techStack: ['React 19', 'Next-Gen Encryption', 'Tailwind v4', 'Supabase', 'Edge API'],
+    slaMetric: '100%',
+    slaLabel: 'Compliance Architecture'
+  },
+  {
+    id: 'design-systems',
+    number: '06',
+    title: 'Design Systems & Atomic Component Libraries',
+    tagline: 'Token-driven consistency that scales effortlessly.',
+    description: 'We architect living design systems that bridge Figma and production code. Tokenized color, typography, spacing, and accessible components that empower teams to ship 4x faster with absolute consistency.',
+    icon: Paintbrush,
+    deliverables: [
+      'Atomic component architecture (buttons, inputs, modals, cards)',
+      'Design token hierarchy declared at :root for instant theming',
+      'Strict WCAG 2.2 AA accessibility and full screen reader testing',
+      'Figma Variables sync and automated token compilation',
+      'Interactive Storybook documentation and living style guides'
+    ],
+    techStack: ['CSS Variables', 'Tailwind v4', 'Radix Primitives', 'Storybook', 'TypeScript'],
+    slaMetric: '100%',
+    slaLabel: 'WCAG 2.2 AA Compliant'
+  }
+];
+
+const ENGINEERING_STANDARDS = [
+  {
+    title: '100% Type-Safe TypeScript',
+    description: 'Every interface, payload, and function is strictly typed. Zero any, zero unhandled runtime regressions.'
+  },
+  {
+    title: 'Edge-First Global Delivery',
+    description: 'Static assets and serverless compute distributed across 300+ global edge nodes for <50ms response times worldwide.'
+  },
+  {
+    title: 'Lighthouse 98+ Guaranteed',
+    description: 'We audit Core Web Vitals (LCP, INP, CLS) throughout development to guarantee green performance scores.'
+  },
+  {
+    title: 'Complete IP & Code Ownership',
+    description: 'You own 100% of the repository, design assets, and infrastructure from day one. Zero vendor lock-in.'
   }
 ];
 
 export default function Services() {
+  const [activePillar, setActivePillar] = useState<string>('web-platforms');
+
   return (
-    <div className="w-full bg-background text-primary font-sans min-h-screen overflow-x-hidden relative">
+    <div className="w-full bg-background text-primary">
       <SEO 
-        title="Services — GRAVIT"
-        description="Comprehensive digital solutions: Web Design, AI Integration, Analytics, and Performance Engineering."
+        title="Engineering Services & Architecture | GRAVIT"
+        description="Comprehensive digital engineering: Web Platforms, SaaS Workstations, AI Automations, and Design Systems."
         path="/services"
       />
-      
-      {/* HERO SECTION */}
-      <section className="relative z-10 min-h-[70vh] flex flex-col justify-end px-6 md:px-12 pb-16 pt-36 w-full max-w-7xl mx-auto border-b border-white/10">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8 }}
-          className="mb-12"
-        >
-          <div className="text-xs font-mono uppercase tracking-[0.3em] text-secondary mb-8 inline-flex items-center gap-4 bg-white/5 px-4 py-2 rounded-full border border-white/10">
-            <span className="w-2 h-2 rounded-full bg-white" />
-            02 / Capabilities
-          </div>
-          <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-heading font-medium tracking-tight leading-[0.9] text-primary">
-            Digital scale.
-          </h1>
-        </motion.div>
 
-        <div className="flex flex-col md:flex-row gap-12 mt-12 pt-12 border-t border-white/10">
-          <div className="md:w-2/3">
-            <p className="text-xl md:text-2xl text-secondary leading-relaxed font-light">
-              We don't just build websites. We architect comprehensive digital ecosystems designed to scale, convert, and dominate their respective markets.
-            </p>
-          </div>
-          <div className="md:w-1/3 flex flex-col justify-end">
-            <div className="font-mono text-xs uppercase tracking-widest text-secondary">
-              Stack
-              <ul className="mt-4 flex flex-col gap-2 font-sans font-medium text-primary">
-                <li>REACT / NEXT.JS</li>
-                <li>PYTHON / NODE</li>
-                <li>WEBGL / GSAP</li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* Page Intro */}
+      <PageIntro
+        eyebrow="Capabilities & Architecture"
+        title="Engineering that drives conversion."
+        subtitle="Design, distributed engineering, and autonomous workflows tailored for high-growth ventures and global enterprises."
+      />
 
-      {/* ASYMMETRIC BENTO GRID */}
-      <section className="relative z-10 py-24 px-6 md:px-12 w-full max-w-7xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-8">
-          {SERVICES.map((service, i) => {
-            const Icon = service.icon;
+      {/* ── Main Pillars Grid ──────────────────────────────── */}
+      <section className="max-w-[1400px] mx-auto px-4 sm:px-6 md:px-10 lg:px-16 pb-20 md:pb-32">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-7">
+          {SERVICE_PILLARS.map((pillar) => {
+            const Icon = pillar.icon;
             return (
-              <Link
-                key={service.title}
-                to={service.href}
-                className={`group flex flex-col glass-panel overflow-hidden hover:-translate-y-1 transition-all duration-500 hover:shadow-2xl ${
-                  i === 0 || i === 3 ? 'md:col-span-8' : 'md:col-span-4'
-                }`}
+              <div
+                key={pillar.id}
+                className="group relative flex flex-col justify-between rounded-3xl border border-border/80 bg-surface/70 hover:bg-surface hover:border-accent/40 p-8 sm:p-9 transition-all duration-300 shadow-lg hover:shadow-2xl hover:-translate-y-1"
               >
-                <div className="w-full h-48 border-b border-white/10 relative overflow-hidden bg-black/20 flex items-center justify-center">
-                  <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                  <Icon className="w-16 h-16 text-white/10 group-hover:scale-110 group-hover:text-white/20 transition-all duration-700" />
-                </div>
-                
-                <div className="p-8 md:p-10 flex flex-col flex-1">
-                  <h2 className="text-3xl md:text-4xl font-heading font-medium tracking-tight mb-4">
-                    {service.title}
-                  </h2>
-                  <p className="text-secondary font-light text-base leading-relaxed mb-10 flex-1">
-                    {service.description}
+                <div>
+                  {/* Top Row: Number & Icon */}
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="font-mono text-xs uppercase tracking-widest text-accent font-bold">
+                      {pillar.number} / 06
+                    </span>
+                    <div className="h-10 w-10 rounded-2xl bg-surface-hover border border-border flex items-center justify-center text-accent group-hover:bg-accent group-hover:text-black transition-colors">
+                      <Icon size={20} strokeWidth={1.75} />
+                    </div>
+                  </div>
+
+                  {/* Title & Tagline */}
+                  <h3 className="text-2xl font-semibold tracking-[-0.03em] text-primary group-hover:text-accent transition-colors">
+                    {pillar.title}
+                  </h3>
+                  <p className="mt-1 font-mono text-xs text-accent uppercase tracking-wider font-medium">
+                    {pillar.tagline}
                   </p>
-                  
-                  <div className="flex items-center justify-between mt-auto pt-8 border-t border-white/10">
-                    <span className="text-xs font-medium uppercase tracking-widest text-primary">Explore Capability</span>
-                    <span className="text-primary transform group-hover:translate-x-2 transition-transform">&rarr;</span>
+
+                  <p className="mt-3 text-sm text-secondary leading-relaxed font-normal">
+                    {pillar.description}
+                  </p>
+
+                  {/* Deliverables Checklist */}
+                  <div className="mt-6 pt-5 border-t border-border">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-muted block mb-3 font-semibold">
+                      Key Deliverables
+                    </span>
+                    <ul className="space-y-2 text-xs text-secondary">
+                      {pillar.deliverables.map((item) => (
+                        <li key={item} className="flex items-start gap-2">
+                          <CheckCircle2 size={13} className="text-emerald-500 shrink-0 mt-0.5" />
+                          <span className="leading-tight">{item}</span>
+                        </li>
+                      ))}
+                    </ul>
                   </div>
                 </div>
-              </Link>
-            )
+
+                {/* Bottom Footer: SLA Metric & Tech Stack */}
+                <div className="mt-8 pt-5 border-t border-border flex items-center justify-between">
+                  <div>
+                    <span className="text-xs font-mono font-bold text-primary block">
+                      {pillar.slaMetric}
+                    </span>
+                    <span className="text-[10px] font-mono text-muted uppercase tracking-wider">
+                      {pillar.slaLabel}
+                    </span>
+                  </div>
+
+                  <div className="flex items-center gap-1.5 flex-wrap justify-end max-w-[60%]">
+                    {pillar.techStack.slice(0, 3).map((tech) => (
+                      <span 
+                        key={tech} 
+                        className="text-[9px] font-mono px-2 py-0.5 rounded bg-surface-hover border border-border-subtle text-muted"
+                      >
+                        {tech}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            );
           })}
         </div>
       </section>
 
-      {/* BOTTOM CTA */}
-      <section className="relative z-10 py-12 px-6 md:px-12 w-full max-w-7xl mx-auto mb-32">
-        <div className="glass-panel p-16 md:p-24 flex flex-col md:flex-row items-start md:items-center justify-between gap-12 group">
-          <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out" />
-          <div className="relative z-10">
-            <span className="text-xs font-mono uppercase tracking-widest text-secondary block mb-6 bg-white/5 border border-white/10 px-4 py-2 rounded-full w-fit">
-              Initiate
+      {/* ── Engineering Standards Banner ───────────────────── */}
+      <section className="border-y border-border bg-surface/40 py-16 px-4 sm:px-6 md:px-10 lg:px-16">
+        <div className="max-w-[1400px] mx-auto">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <span className="font-mono text-xs uppercase tracking-widest text-accent font-semibold">
+              The Engineering Floor
             </span>
-            <h2 className="text-5xl md:text-7xl font-heading font-medium tracking-tight leading-[0.9]">
-              Start the build.
-            </h2>
+            <h3 className="text-2xl sm:text-4xl font-semibold tracking-[-0.03em] text-primary mt-1">
+              Uncompromising Technical Standards
+            </h3>
           </div>
-          <div className="relative z-10">
-            <Link
-              to="/contact"
-              className="inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-500"
-            >
-              Initiate Project Engineering →
-            </Link>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {ENGINEERING_STANDARDS.map((std, i) => (
+              <div key={std.title} className="p-6 rounded-2xl bg-surface/80 border border-border">
+                <div className="font-mono text-xs text-accent font-bold mb-2">0{i + 1}</div>
+                <h4 className="text-base font-semibold text-primary tracking-tight">{std.title}</h4>
+                <p className="mt-1.5 text-xs text-secondary leading-relaxed">{std.description}</p>
+              </div>
+            ))}
           </div>
         </div>
       </section>
+
+      {/* ── CTA Panel ─────────────────────────────────────── */}
+      <CtaPanel />
     </div>
   );
 }

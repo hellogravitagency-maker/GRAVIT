@@ -1,8 +1,8 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useScrollStore } from '../store/useScrollStore';
 
-export default function SmoothScroll({ children }: { children: React.ReactNode }) {
+export default function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<any>(null);
   const location = useLocation();
 
@@ -64,12 +64,17 @@ export default function SmoothScroll({ children }: { children: React.ReactNode }
  return () => cleanup();
  }, []);
 
- useEffect(() => {
- window.scrollTo(0, 0);
- if (lenisRef.current) {
- lenisRef.current.scrollTo(0, { immediate: true });
- }
- }, [location.pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+    if (lenisRef.current) {
+      if (location.pathname.startsWith('/inex')) {
+        lenisRef.current.stop();
+      } else {
+        lenisRef.current.start();
+        lenisRef.current.scrollTo(0, { immediate: true });
+      }
+    }
+  }, [location.pathname]);
 
  return <>{children}</>;
 }

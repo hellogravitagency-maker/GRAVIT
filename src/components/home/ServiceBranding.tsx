@@ -38,7 +38,7 @@ export default function ServiceBranding() {
   ];
 
   return (
-    <section ref={containerRef} className="py-16 md:py-24 lg:py-32 relative border-t border-black/5 dark:border-white/5 overflow-hidden bg-background">
+    <section ref={containerRef} className="py-14 md:py-20 lg:py-24 relative overflow-hidden bg-background">
       <div className="max-w-7xl mx-auto px-6 w-full flex flex-col lg:flex-row gap-12 md:gap-16 lg:gap-24 items-center">
         
         {/* Left: Text Content */}
@@ -50,16 +50,13 @@ export default function ServiceBranding() {
             transition={{ duration: 0.6 }}
             className="w-full"
           >
-            <div className="inline-flex items-center gap-3 px-3 py-1.5 rounded-full bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 mb-8">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
-              <span className="text-[10px] font-mono uppercase tracking-[0.2em] text-secondary">Service 01</span>
-            </div>
+            <p className="text-sm md:text-[17px] font-medium text-accent mb-4">Service 01</p>
             
-            <h2 className="text-3xl md:text-5xl lg:text-7xl display-editorial mb-6 text-primary tracking-tight">
-              Brand <span className="text-primary/40 italic">Identity.</span>
+            <h2 className="text-4xl md:text-6xl lg:text-7xl display-editorial mb-6 text-primary">
+              Brand <span className="text-muted">Identity.</span>
             </h2>
             
-            <p className="text-secondary text-sm md:text-base lg:text-lg mb-8 md:mb-12 max-w-xl leading-relaxed font-light">
+            <p className="text-secondary text-lg md:text-xl mb-10 md:mb-12 max-w-xl leading-relaxed tracking-[-0.015em]">
               We forge iconic brand identities designed for the modern digital landscape. From foundational logo marks to comprehensive visual systems, we craft cohesive narratives that command attention.
             </p>
 
@@ -73,18 +70,18 @@ export default function ServiceBranding() {
                   transition={{ delay: 0.2 + (idx * 0.1), duration: 0.5 }}
                   className="flex flex-col gap-1 border-l border-black/10 dark:border-white/10 pl-4 relative before:absolute before:left-[-1px] before:top-0 before:h-0 before:w-[1px] before:bg-primary hover:before:h-full before:transition-all before:duration-300"
                 >
-                  <span className="text-sm font-medium text-primary/90">{feature.title}</span>
-                  <span className="text-xs text-secondary font-light">{feature.desc}</span>
+                  <span className="text-base md:text-[17px] font-semibold tracking-[-0.02em] text-primary">{feature.title}</span>
+                  <span className="text-sm text-secondary">{feature.desc}</span>
                 </motion.div>
               ))}
             </div>
 
             <Link 
               to="/contact"
-              className="group inline-flex items-center gap-4 bg-black/5 dark:bg-white/5 border border-black/10 dark:border-white/10 text-primary px-8 py-4 rounded-full font-medium text-sm hover:bg-primary hover:text-primary-foreground transition-all duration-300"
+              className="group inline-flex items-center gap-1.5 text-[15px] md:text-[17px] font-medium text-accent hover:underline underline-offset-4"
             >
-              Initiate Project
-              <ArrowUpRight size={16} className="opacity-50 group-hover:opacity-100 group-hover:translate-x-1 group-hover:-translate-y-1 transition-all" />
+              Start a project
+              <ArrowUpRight size={16} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </motion.div>
         </div>
@@ -92,7 +89,7 @@ export default function ServiceBranding() {
         <div className="flex-1 w-full flex justify-center lg:justify-end relative">
           <motion.div 
             style={{ y: scrollY }}
-            className="relative w-full max-w-[500px] aspect-square md:aspect-[4/3] lg:aspect-square bg-background rounded-3xl border border-black/10 dark:border-white/10 shadow-xl overflow-hidden flex flex-col p-8 group"
+            className="relative w-full max-w-[500px] aspect-square md:aspect-[4/3] lg:aspect-square bg-surface-hover rounded-[28px] border border-border-subtle shadow-[0_30px_80px_-30px_rgba(0,0,0,0.35)] overflow-hidden flex flex-col p-8 group"
             ref={cardRef}
           >
             {/* Top Section: Specs */}

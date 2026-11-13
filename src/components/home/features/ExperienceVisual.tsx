@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { motion, MotionValue, useTransform } from 'motion/react';
-import { LayoutGrid, Type, LayoutTemplate, Smartphone } from 'lucide-react';
+import { Globe, Lock, Monitor, Smartphone, ArrowUpRight } from 'lucide-react';
 
 interface ExperienceVisualProps {
   isActive: boolean;
@@ -9,142 +9,118 @@ interface ExperienceVisualProps {
 }
 
 export default function ExperienceVisual({ isActive, mouseX, mouseY }: ExperienceVisualProps) {
-  const [hoveredZone, setHoveredZone] = useState<string | null>(null);
+  const [deviceMode, setDeviceMode] = useState<'desktop' | 'mobile'>('desktop');
 
-  // Parallax transforms
-  const bgX = useTransform(mouseX, [0, 1], [-2, 2]);
-  const bgY = useTransform(mouseY, [0, 1], [-2, 2]);
-  const iconX = useTransform(mouseX, [0, 1], [-4, 4]);
-  const iconY = useTransform(mouseY, [0, 1], [-4, 4]);
-  const uiX = useTransform(mouseX, [0, 1], [-6, 6]);
-  const uiY = useTransform(mouseY, [0, 1], [-6, 6]);
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    show: {
-      opacity: 1,
-      transition: { staggerChildren: 0.3, delayChildren: 0.2 }
-    }
-  };
-
-  const itemVariants = {
-    hidden: { opacity: 0, y: 15, scale: 0.95 },
-    show: { opacity: 1, y: 0, scale: 1, transition: { type: 'spring', stiffness: 100 } }
-  };
+  const frameX = useTransform(mouseX, [0, 1], [-4, 4]);
+  const frameY = useTransform(mouseY, [0, 1], [-4, 4]);
 
   return (
-    <div className={`relative w-full h-full flex items-center justify-center overflow-hidden bg-background rounded-xl border border-black/5 dark:border-white/5 ${isActive ? '' : 'pointer-events-none'}`}>
-      {/* Background Grid - Parallax */}
-      <motion.div 
-        style={{ x: bgX, y: bgY }}
-        className="absolute inset-0 opacity-20 pointer-events-none"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isActive ? 0.2 : 0 }}
-      >
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="40" height="40" patternUnits="userSpaceOnUse">
-              <path d="M 40 0 L 0 0 0 40" fill="none" stroke="white" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
-      </motion.div>
+    <div className="relative w-full h-full min-h-[340px] md:min-h-[380px] flex flex-col justify-between overflow-hidden rounded-2xl bg-surface/90 border border-border-subtle p-4 sm:p-5 select-none transition-colors duration-300">
+      
+      {/* Top Header / View Controller */}
+      <div className="relative z-20 flex items-center justify-between border-b border-border-subtle pb-3">
+        <div className="flex items-center gap-2">
+          <Globe size={13} className="text-primary" />
+          <span className="font-mono text-xs font-semibold text-primary">
+            Digital Experience Flagship
+          </span>
+        </div>
 
-      {/* Main Browser Frame */}
+        {/* Device Switcher */}
+        <div className="flex items-center p-0.5 rounded-lg bg-surface border border-border-subtle font-mono text-[10px]">
+          <button
+            onClick={() => setDeviceMode('desktop')}
+            className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md transition-all cursor-pointer ${
+              deviceMode === 'desktop'
+                ? 'bg-surface-hover text-primary font-bold shadow-sm'
+                : 'text-muted hover:text-secondary'
+            }`}
+          >
+            <Monitor size={11} />
+            <span className="hidden sm:inline">Desktop</span>
+          </button>
+          <button
+            onClick={() => setDeviceMode('mobile')}
+            className={`inline-flex items-center gap-1 px-2.5 py-0.5 rounded-md transition-all cursor-pointer ${
+              deviceMode === 'mobile'
+                ? 'bg-surface-hover text-primary font-bold shadow-sm'
+                : 'text-muted hover:text-secondary'
+            }`}
+          >
+            <Smartphone size={11} />
+            <span className="hidden sm:inline">Mobile</span>
+          </button>
+        </div>
+      </div>
+
+      {/* Center Content: Browser Window with Real Case Study Preview */}
       <motion.div
-        style={{ x: uiX, y: uiY }}
-        className="relative z-10 w-[80%] max-w-sm aspect-[4/3] bg-background rounded-lg border border-border shadow-2xl flex flex-col overflow-hidden"
-        variants={containerVariants}
-        initial="hidden"
-        animate={isActive ? "show" : "hidden"}
+        style={{ x: frameX, y: frameY }}
+        className="relative z-10 flex-1 my-3 flex items-center justify-center overflow-hidden"
       >
-        {/* Browser Header */}
-        <div className="h-6 border-b border-border flex items-center px-3 gap-1.5 bg-muted/50">
-          <div className="w-2 h-2 rounded-full bg-border" />
-          <div className="w-2 h-2 rounded-full bg-border" />
-          <div className="w-2 h-2 rounded-full bg-border" />
-          <div className="mx-auto text-[8px] tracking-widest text-muted-foreground uppercase font-mono">gravit.dev</div>
-        </div>
-
-        {/* Browser Content */}
-        <div className="flex-1 p-4 flex flex-col gap-4">
-          {/* Headline */}
-          <motion.div 
-            variants={itemVariants}
-            className="group relative"
-            onMouseEnter={() => setHoveredZone('type')}
-            onMouseLeave={() => setHoveredZone(null)}
-          >
-            <div className={`w-3/4 h-4 rounded transition-colors ${hoveredZone === 'type' ? 'bg-foreground' : 'bg-muted'}`} />
-            <div className={`w-1/2 h-4 rounded mt-2 transition-colors ${hoveredZone === 'type' ? 'bg-foreground' : 'bg-muted'}`} />
-            {hoveredZone === 'type' && (
-              <div className="absolute -top-6 left-0 bg-foreground text-background text-[9px] font-mono px-2 py-0.5 rounded font-bold uppercase tracking-wider z-20">
-                TYPE / SCALE 01
-              </div>
-            )}
-          </motion.div>
-
-          {/* Grid Layout */}
-          <motion.div 
-            variants={itemVariants}
-            className="grid grid-cols-3 gap-2 flex-1 group relative"
-            onMouseEnter={() => setHoveredZone('grid')}
-            onMouseLeave={() => setHoveredZone(null)}
-          >
-            {[1, 2, 3].map((i) => (
-              <div key={i} className={`rounded border transition-colors cursor-pointer ${hoveredZone === 'grid' ? 'bg-muted border-foreground/30' : 'bg-muted/50 border-border'}`} />
-            ))}
-            {hoveredZone === 'grid' && (
-              <div className="absolute -top-6 left-1/2 -translate-x-1/2 bg-foreground text-background text-[9px] font-mono px-2 py-0.5 rounded font-bold uppercase tracking-wider whitespace-nowrap z-20">
-                GRID / 12 COL
-              </div>
-            )}
-          </motion.div>
-        </div>
-        
-        {/* Completed Overlay */}
-        <motion.div 
-          className="absolute inset-0 bg-background/40 backdrop-blur-[2px] flex flex-col items-center justify-center pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: isActive ? [0, 0, 0, 1] : 0 }}
-          transition={{ duration: 4, times: [0, 0.7, 0.8, 1] }}
+        <div
+          className={`transition-all duration-300 ease-out flex flex-col rounded-xl border border-border bg-surface shadow-sm overflow-hidden ${
+            deviceMode === 'desktop'
+              ? 'w-full max-w-lg aspect-[16/10] sm:aspect-[16/9]'
+              : 'w-[220px] aspect-[9/15] py-1'
+          }`}
         >
-          <div className="text-[10px] text-primary font-mono tracking-widest bg-background/80 px-3 py-1 rounded border border-border">
-            DESIGN COMPLETE
+          {/* Browser Chrome */}
+          <div className="h-7 border-b border-border-subtle px-3 flex items-center justify-between bg-surface-hover/50">
+            <div className="flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-border" />
+              <span className="w-2 h-2 rounded-full bg-border" />
+              <span className="w-2 h-2 rounded-full bg-border" />
+            </div>
+
+            <div className="flex items-center gap-1.5 px-2.5 py-0.5 rounded-md bg-surface border border-border-subtle font-mono text-[9px] text-secondary">
+              <Lock size={9} className="text-emerald-500" />
+              <span>gravit.agency/work/velora</span>
+            </div>
+
+            <span className="w-3" />
           </div>
-          <div className="text-[8px] text-foreground font-semibold font-mono tracking-widest mt-2">
-            01 / 04
+
+          {/* Browser Interior: Clean Editorial Layout */}
+          <div className="flex-1 p-3.5 sm:p-5 flex flex-col justify-between bg-background">
+            <div>
+              <span className="inline-block font-mono text-[8.5px] uppercase tracking-wider text-[#FF6A39] font-bold px-2 py-0.5 rounded bg-[#FF6A39]/10 border border-[#FF6A39]/20 mb-2">
+                Featured Case Study
+              </span>
+              <h4 className="font-serif italic text-lg sm:text-2xl font-medium tracking-tight text-primary leading-tight">
+                VÉLORA — Style Moves With You.
+              </h4>
+              <p className="text-[11px] sm:text-xs text-secondary leading-relaxed mt-1.5 max-w-sm">
+                Luxury apparel e-commerce engineered with fluid transitions and custom checkout architecture.
+              </p>
+            </div>
+
+            {/* Architecture Tags */}
+            <div className="flex flex-wrap items-center gap-1.5 pt-2 border-t border-border-subtle/50 font-mono text-[8.5px] uppercase text-muted">
+              <span className="px-2 py-0.5 rounded bg-surface border border-border-subtle">
+                React 19
+              </span>
+              <span className="px-2 py-0.5 rounded bg-surface border border-border-subtle">
+                Tailwind CSS
+              </span>
+              <span className="px-2 py-0.5 rounded bg-surface border border-border-subtle">
+                Framer Motion
+              </span>
+            </div>
           </div>
-        </motion.div>
+        </div>
       </motion.div>
 
-      {/* Floating Icons connecting to the interface */}
-      <motion.div 
-        style={{ x: iconX, y: iconY }}
-        className="absolute inset-0 pointer-events-none flex items-center justify-center"
-      >
-        <div className="absolute top-[20%] left-[10%] text-muted-foreground">
-          <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: isActive ? [0, 1, 1, 0] : 0, scale: isActive ? [0, 1, 1, 0.5] : 0 }} transition={{ duration: 4, times: [0, 0.1, 0.8, 1] }}>
-            <LayoutGrid size={20} />
-          </motion.div>
-        </div>
-        <div className="absolute top-[30%] right-[15%] text-white/70">
-          <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: isActive ? [0, 1, 1, 0] : 0, scale: isActive ? [0, 1, 1, 0.5] : 0 }} transition={{ duration: 4, times: [0, 0.3, 0.8, 1] }}>
-            <Type size={20} />
-          </motion.div>
-        </div>
-        <div className="absolute bottom-[20%] left-[20%] text-white/70">
-          <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: isActive ? [0, 1, 1, 0] : 0, scale: isActive ? [0, 1, 1, 0.5] : 0 }} transition={{ duration: 4, times: [0, 0.5, 0.8, 1] }}>
-            <LayoutTemplate size={20} />
-          </motion.div>
-        </div>
-        <div className="absolute bottom-[25%] right-[10%] text-white/70">
-          <motion.div initial={{ opacity: 0, scale: 0 }} animate={{ opacity: isActive ? [0, 1, 1, 0] : 0, scale: isActive ? [0, 1, 1, 0.5] : 0 }} transition={{ duration: 4, times: [0, 0.7, 0.8, 1] }}>
-            <Smartphone size={20} />
-          </motion.div>
-        </div>
-      </motion.div>
+      {/* Bottom Detail Row */}
+      <div className="relative z-20 mt-1 p-2.5 sm:p-3 border border-border-subtle bg-surface-hover/70 backdrop-blur rounded-xl flex items-center justify-between text-xs">
+        <span className="font-mono text-[10px] text-secondary">
+          Editorial Design · Fluid Motion · Responsive Engineering
+        </span>
+        <span className="font-mono text-[10px] text-primary font-medium flex items-center gap-1">
+          Production Ready
+        </span>
+      </div>
+
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState, type ComponentPropsWithoutRef } from "react"
 
 import { flushSync } from "react-dom"
 
@@ -13,8 +13,9 @@ export type TransitionVariant =
  | "rectangle"
  | "star"
 
-interface AnimatedThemeTogglerProps extends React.ComponentPropsWithoutRef<"button"> {
- duration?: number
+interface AnimatedThemeTogglerProps extends ComponentPropsWithoutRef<"button"> {
+  className?: string
+  duration?: number
  variant?: TransitionVariant
  /** When true, the transition expands from the viewport center instead of the button center. */
  fromCenter?: boolean

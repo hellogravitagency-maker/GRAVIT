@@ -1,9 +1,6 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { gsap } from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-
-gsap.registerPlugin(ScrollTrigger);
+import { Plus } from 'lucide-react';
 
 const faqs = [
   {
@@ -29,89 +26,46 @@ const faqs = [
 ];
 
 export default function Faq() {
-  const [openIndex, setOpenIndex] = useState<number | null>(null);
-  const containerRef = useRef<HTMLElement>(null);
-  const listRef = useRef<HTMLDivElement>(null);
-
-  const toggle = (index: number) => {
-    setOpenIndex(openIndex === index ? null : index);
-  };
-
-  useEffect(() => {
-    let ctx = gsap.context(() => {
-      const items = gsap.utils.toArray('.faq-item');
-
-      gsap.fromTo(items,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.7,
-          stagger: 0.1,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: listRef.current,
-            start: "top 85%",
-          }
-        }
-      );
-    }, containerRef);
-
-    return () => ctx.revert();
-  }, []);
+  const [open, setOpen] = useState<number | null>(null);
 
   return (
-    <section ref={containerRef} className="py-16 md:py-24 border-t border-border overflow-hidden">
-      <div className="section-editorial">
-        <div className="mb-8 md:mb-12">
-          <p className="text-xs font-mono uppercase tracking-[0.2em] text-secondary mb-4">FAQ</p>
-          <h2 className="text-4xl md:text-5xl display-editorial text-primary">
-            Common questions
-          </h2>
+    <section className="py-24 md:py-40 bg-background">
+      <div className="max-w-3xl mx-auto px-6">
+        <div className="text-center mb-14 md:mb-20">
+          <p className="text-sm md:text-[17px] font-medium text-accent mb-4">FAQ</p>
+          <h2 className="display-editorial text-4xl md:text-6xl lg:text-7xl text-primary">Questions? Answers.</h2>
         </div>
 
-        <div ref={listRef} className="max-w-3xl">
-          {faqs.map((faq, index) => (
-            <div key={index} className="faq-item border-b border-border group">
-              <button
-                onClick={() => toggle(index)}
-                className="w-full py-7 md:py-8 flex items-center justify-between text-left cursor-pointer outline-none"
-              >
-                <div className="flex items-center gap-5">
-                  <span className="font-mono text-xs text-muted group-hover:text-secondary transition-colors duration-300 tabular-nums">
-                    {(index + 1).toString().padStart(2, '0')}
-                  </span>
-                  <span className="text-base md:text-lg font-medium tracking-tight text-primary">
-                    {faq.question}
-                  </span>
-                </div>
-                <div className="flex-shrink-0 ml-4">
-                  <div
-                    className={`text-xl font-mono text-muted group-hover:text-primary transition-all duration-400 ease-[0.16,1,0.3,1] flex items-center justify-center w-8 h-8 ${
-                      openIndex === index ? 'rotate-45' : ''
-                    }`}
-                  >
-                    +
-                  </div>
-                </div>
-              </button>
-              <AnimatePresence initial={false}>
-                {openIndex === index && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
-                    className="overflow-hidden"
-                  >
-                    <p className="text-sm text-secondary leading-relaxed pb-7 pl-10 md:pl-[3.25rem]">
-                      {faq.answer}
-                    </p>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </div>
-          ))}
+        <div className="gsap-stagger border-t border-border">
+          {faqs.map((faq, i) => {
+            const isOpen = open === i;
+            return (
+              <div key={faq.question} className="border-b border-border">
+                <button
+                  onClick={() => setOpen(isOpen ? null : i)}
+                  aria-expanded={isOpen}
+                  className="group w-full py-6 md:py-8 flex items-center justify-between gap-6 text-left"
+                >
+                  <span className="text-lg md:text-2xl font-semibold tracking-[-0.025em] text-primary">{faq.question}</span>
+                  <Plus size={24} strokeWidth={1.75}
+                    className={`shrink-0 text-muted group-hover:text-primary transition ${isOpen ? 'rotate-45 text-primary' : ''}`} />
+                </button>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.5, ease: [0.28, 0.11, 0.32, 1] }}
+                      className="overflow-hidden"
+                    >
+                      <p className="pb-8 pr-10 text-base md:text-lg text-secondary leading-relaxed tracking-[-0.015em]">{faq.answer}</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
+            );
+          })}
         </div>
       </div>
     </section>

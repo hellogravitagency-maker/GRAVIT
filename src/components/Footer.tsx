@@ -22,123 +22,139 @@ const WhatsAppIcon = (props: React.SVGProps<SVGSVGElement>) => (
 
 export default function Footer() {
   const [email, setEmail] = useState('');
+  const [isSubscribed, setIsSubscribed] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Newsletter logic
-    setEmail('');
+    if (email.trim()) {
+      setIsSubscribed(true);
+      setTimeout(() => {
+        setEmail('');
+        setIsSubscribed(false);
+      }, 3000);
+    }
   };
 
   return (
-    <footer className="relative z-10 w-full text-primary font-sans pt-20 pb-8 px-4 md:px-8">
-      {/* Liquid Glass Outer Container */}
-      <div className="max-w-[1200px] mx-auto rounded-[40px] p-[1px] shadow-2xl shadow-black/50"
-           style={{
-             background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0) 100%)'
-           }}>
-        
+    <footer className="relative z-10 w-full text-primary font-sans pt-12 sm:pt-16 md:pt-20 pb-4 sm:pb-6 md:pb-8 px-2 sm:px-4 md:px-6 lg:px-8">
+      {/* Liquid Glass Outer Container - Expanded to Edges */}
+      <div 
+        className="w-full rounded-[28px] sm:rounded-[36px] md:rounded-[44px] p-[1px] shadow-2xl shadow-black/50"
+        style={{
+          background: 'linear-gradient(180deg, rgba(255,255,255,0.15) 0%, rgba(255,255,255,0.05) 20%, rgba(255,255,255,0) 100%)'
+        }}
+      >
         {/* Inner Glass Surface */}
-        <div className="w-full rounded-[39px] bg-background/60 backdrop-blur-3xl px-8 py-12 md:px-16 md:py-16 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_inset_0_-1px_1.5px_rgba(0,0,0,0.5)] border border-white/5">
-          
-          {/* Top Row */}
-          <div className="flex flex-col lg:flex-row justify-between gap-16 lg:gap-8">
+        <div className="w-full rounded-[27px] sm:rounded-[35px] md:rounded-[43px] bg-background/60 backdrop-blur-3xl px-5 py-8 sm:px-8 sm:py-12 md:px-12 md:py-14 lg:px-16 lg:py-16 shadow-[inset_0_1px_1px_rgba(255,255,255,0.1),_inset_0_-1px_1.5px_rgba(0,0,0,0.5)] border border-white/5">
+          <div className="w-full max-w-[1700px] mx-auto">
             
-            {/* Brand & Newsletter Column */}
-            <div className="flex flex-col max-w-sm gap-8">
-              <div>
-                <h2 className="text-3xl font-bold tracking-tighter uppercase mb-4 text-primary">
-                  GRAVIT
-                </h2>
-                <p className="text-secondary text-sm leading-relaxed">
-                  High-performance digital products and AI systems crafted with care for ambitious teams that love detail.
+            {/* Top Row */}
+            <div className="flex flex-col lg:flex-row justify-between items-start gap-12 lg:gap-16 xl:gap-24">
+              
+              {/* Brand & Newsletter Column */}
+              <div className="flex flex-col w-full lg:max-w-md xl:max-w-lg gap-6 sm:gap-8">
+                <div>
+                  <h2 className="text-2xl sm:text-3xl font-bold tracking-tighter uppercase mb-3 text-primary">
+                    GRAVIT
+                  </h2>
+                  <p className="text-secondary text-sm sm:text-base leading-relaxed max-w-md">
+                    High-performance digital products and AI systems crafted with care for ambitious teams that love detail.
+                  </p>
+                </div>
+
+                {/* Liquid Glass Newsletter Input */}
+                <form onSubmit={handleSubmit} className="relative flex items-center w-full max-w-md">
+                  <div className="w-full rounded-full p-[1px] bg-gradient-to-b from-white/30 to-white/5">
+                    <div className="w-full rounded-full bg-background/40 backdrop-blur-md flex items-center pr-1.5 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
+                      <input 
+                        type="email" 
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Your email address" 
+                        required
+                        aria-label="Email for newsletter"
+                        className="w-full min-w-0 bg-transparent border-none outline-none text-primary placeholder:text-muted text-xs sm:text-sm px-4 sm:px-6 py-3 sm:py-3.5"
+                      />
+                      <button 
+                        type="submit"
+                        className="group flex-shrink-0 h-8 sm:h-9 px-4 sm:px-5 bg-primary text-primary-foreground rounded-full text-xs font-semibold tracking-wide flex items-center gap-1.5 hover:opacity-90 active:scale-95 transition-all"
+                      >
+                        {isSubscribed ? 'Subscribed' : 'Subscribe'}
+                      </button>
+                    </div>
+                  </div>
+                </form>
+              </div>
+
+              {/* Links Columns */}
+              <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 sm:gap-12 md:gap-16 lg:gap-16 xl:gap-20 w-full lg:w-auto">
+                
+                {/* Col 1 */}
+                <div className="flex flex-col gap-3.5 sm:gap-4">
+                  <span className="text-[11px] font-mono text-muted uppercase tracking-[0.1em] font-semibold mb-1">Navigation</span>
+                  <Link to="/work" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Work</Link>
+                  <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Services</Link>
+                  <Link to="/about" className="text-secondary hover:text-primary text-sm transition-colors duration-300">About</Link>
+                  <Link to="/contact" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Initiate Project</Link>
+                </div>
+
+                {/* Col 2 */}
+                <div className="flex flex-col gap-3.5 sm:gap-4">
+                  <span className="text-[11px] font-mono text-muted uppercase tracking-[0.1em] font-semibold mb-1">Services</span>
+                  <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Web Development</Link>
+                  <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Product Engineering</Link>
+                  <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">AI Systems</Link>
+                  <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">UI/UX Design</Link>
+                </div>
+
+                {/* Col 3 */}
+                <div className="flex flex-col gap-3.5 sm:gap-4 col-span-2 sm:col-span-1">
+                  <span className="text-[11px] font-mono text-muted uppercase tracking-[0.1em] font-semibold mb-1">Legal</span>
+                  <Link to="/privacy" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Privacy Policy</Link>
+                  <Link to="/terms" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Terms of Service</Link>
+                  <Link to="/refund-policy" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Refund Policy</Link>
+                </div>
+
+              </div>
+            </div>
+
+            {/* Divider */}
+            <div className="w-full h-px bg-white/10 dark:bg-white/5 my-8 sm:my-10 md:my-12" />
+
+            {/* Bottom Row */}
+            <div className="flex flex-col sm:flex-row justify-between items-center gap-4 sm:gap-6 text-center sm:text-left">
+              
+              {/* Copyright & Collaborators */}
+              <div className="flex flex-col sm:flex-row items-center gap-2 sm:gap-3 text-secondary text-xs sm:text-[13px]">
+                <p>
+                  © {new Date().getFullYear()} GRAVIT. <span className="hover:text-primary transition-colors cursor-default">Made by Theja</span>
+                </p>
+                <span className="hidden sm:inline text-white/20">•</span>
+                <p className="text-secondary/70">
+                  Photography & Visual Partner: <span className="text-primary font-medium hover:text-[#FF4D4D] transition-colors">INEX STUDIO</span>
                 </p>
               </div>
 
-              {/* Liquid Glass Newsletter Input */}
-              <form onSubmit={handleSubmit} className="relative flex items-center w-full mt-4">
-                <div className="w-full rounded-full p-[1px] bg-gradient-to-b from-white/30 to-white/5">
-                  <div className="w-full rounded-full bg-background/40 backdrop-blur-md flex items-center pr-1 overflow-hidden shadow-[inset_0_1px_1px_rgba(255,255,255,0.1)]">
-                    <input 
-                      type="email" 
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
-                      placeholder="Your email" 
-                      required
-                      className="w-full bg-transparent border-none outline-none text-primary placeholder:text-muted text-sm px-6 py-3.5"
-                    />
-                    <button 
-                      type="submit"
-                      className="group flex-shrink-0 h-9 px-5 bg-primary text-primary-foreground rounded-full text-xs font-semibold tracking-wide flex items-center gap-2 hover:bg-white transition-colors"
-                    >
-                      Subscribe
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </div>
-
-            {/* Links Columns */}
-            <div className="flex flex-wrap gap-12 md:gap-24">
-              
-              {/* Col 1 */}
-              <div className="flex flex-col gap-4">
-                <span className="text-[11px] font-mono text-muted uppercase tracking-[0.1em] font-semibold mb-2">Navigation</span>
-                <Link to="/work" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Work</Link>
-                <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Services</Link>
-                <Link to="/about" className="text-secondary hover:text-primary text-sm transition-colors duration-300">About</Link>
-                <Link to="/contact" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Initiate Project</Link>
-              </div>
-
-              {/* Col 2 */}
-              <div className="flex flex-col gap-4">
-                <span className="text-[11px] font-mono text-muted uppercase tracking-[0.1em] font-semibold mb-2">Services</span>
-                <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Web Development</Link>
-                <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Product Engineering</Link>
-                <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">AI Systems</Link>
-                <Link to="/services" className="text-secondary hover:text-primary text-sm transition-colors duration-300">UI/UX Design</Link>
-              </div>
-
-              {/* Col 3 */}
-              <div className="flex flex-col gap-4">
-                <span className="text-[11px] font-mono text-muted uppercase tracking-[0.1em] font-semibold mb-2">Legal</span>
-                <Link to="/privacy" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Privacy Policy</Link>
-                <Link to="/terms" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Terms of Service</Link>
-                <Link to="/refund-policy" className="text-secondary hover:text-primary text-sm transition-colors duration-300">Refund Policy</Link>
+              {/* Social Glass Buttons */}
+              <div className="flex items-center flex-wrap justify-center gap-2.5 sm:gap-3">
+                <a href="https://www.linkedin.com/in/gravit-agency-235943427" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-primary hover:bg-white/10 transition-all duration-300 backdrop-blur-sm active:scale-95">
+                  <Linkedin className="w-4 h-4" />
+                </a>
+                <a href="https://x.com/gravit_agency" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-primary hover:bg-white/10 transition-all duration-300 backdrop-blur-sm active:scale-95">
+                  <XIcon className="w-4 h-4" />
+                </a>
+                <a href="https://www.instagram.com/gravit_agency/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-primary hover:bg-white/10 transition-all duration-300 backdrop-blur-sm active:scale-95">
+                  <Instagram className="w-4 h-4" />
+                </a>
+                <a href="https://discord.com/users/gravit.agency_92986" title="Discord: gravit.agency_92986" target="_blank" rel="noopener noreferrer" aria-label="Discord" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-primary hover:bg-white/10 transition-all duration-300 backdrop-blur-sm active:scale-95">
+                  <DiscordIcon className="w-4 h-4" />
+                </a>
+                <a href="https://wa.me/919390009700?text=Hi%20GRAVIT%2C%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (+91 9390009700)" className="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-[#25D366] hover:bg-white/10 hover:border-[#25D366]/40 transition-all duration-300 backdrop-blur-sm active:scale-95">
+                  <WhatsAppIcon className="w-4 h-4" />
+                </a>
               </div>
 
             </div>
-          </div>
-
-          {/* Divider */}
-          <div className="w-full h-px bg-white/5 my-12" />
-
-          {/* Bottom Row */}
-          <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-            
-            {/* Copyright */}
-            <p className="text-secondary text-[13px]">
-              © {new Date().getFullYear()} GRAVIT. <span className="hover:text-primary transition-colors cursor-default">Made by Theja</span>
-            </p>
-
-            {/* Social Glass Buttons */}
-            <div className="flex items-center gap-3">
-              <a href="https://www.linkedin.com/in/gravit-agency-235943427" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-primary hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
-                <Linkedin className="w-4 h-4" />
-              </a>
-              <a href="https://x.com/gravit_agency" target="_blank" rel="noopener noreferrer" aria-label="X (Twitter)" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-primary hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
-                <XIcon className="w-4 h-4" />
-              </a>
-              <a href="https://www.instagram.com/gravit_agency/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-primary hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
-                <Instagram className="w-4 h-4" />
-              </a>
-              <a href="https://discord.com/users/gravit.agency_92986" title="Discord: gravit.agency_92986" target="_blank" rel="noopener noreferrer" aria-label="Discord" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-primary hover:bg-white/10 transition-all duration-300 backdrop-blur-sm">
-                <DiscordIcon className="w-4 h-4" />
-              </a>
-              <a href="https://wa.me/919390009700?text=Hi%20GRAVIT%2C%20I%20would%20like%20to%20discuss%20a%20project." target="_blank" rel="noopener noreferrer" aria-label="WhatsApp (+91 9390009700)" className="w-10 h-10 rounded-full bg-white/5 border border-white/10 flex items-center justify-center text-secondary hover:text-[#25D366] hover:bg-white/10 hover:border-[#25D366]/40 transition-all duration-300 backdrop-blur-sm">
-                <WhatsAppIcon className="w-4 h-4" />
-              </a>
-            </div>
-
           </div>
         </div>
       </div>

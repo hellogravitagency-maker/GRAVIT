@@ -33,10 +33,9 @@ export default defineConfig(() => {
       host: '0.0.0.0',
       allowedHosts: true,
       headers: {
-        'X-Frame-Options': 'DENY',
+        'X-Frame-Options': 'SAMEORIGIN',
         'X-Content-Type-Options': 'nosniff',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
-        'Cross-Origin-Opener-Policy': 'same-origin',
         'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
         'X-XSS-Protection': '1; mode=block',
       },
@@ -50,10 +49,9 @@ export default defineConfig(() => {
       port: 3000,
       host: '0.0.0.0',
       headers: {
-        'X-Frame-Options': 'DENY',
+        'X-Frame-Options': 'SAMEORIGIN',
         'X-Content-Type-Options': 'nosniff',
         'Referrer-Policy': 'strict-origin-when-cross-origin',
-        'Cross-Origin-Opener-Policy': 'same-origin',
         'Permissions-Policy': 'camera=(), microphone=(), geolocation=()',
         'X-XSS-Protection': '1; mode=block',
       },

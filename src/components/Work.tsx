@@ -1,13 +1,9 @@
-import React, { useEffect } from 'react';
-import { motion, useScroll, useTransform } from 'motion/react';
-import { Link } from 'react-router-dom';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import { ArrowRight, Code2, Layers, Cpu, ExternalLink } from 'lucide-react';
 import SEO from './SEO';
+import PageIntro from './ui/PageIntro';
+import SelectedWork from './home/SelectedWork';
+import CtaPanel from './CtaPanel';
 
-gsap.registerPlugin(ScrollTrigger);
-
+// Case-study data, read by CaseStudy.tsx via /work/:slug
 export const projectsData: Record<string, any> = {
  "ssvemhs": {
  category: 'EdTech Portal',
@@ -57,216 +53,16 @@ export const projectsData: Record<string, any> = {
 };
 
 export default function Work() {
- const { scrollYProgress } = useScroll();
- const yHero = useTransform(scrollYProgress, [0, 1], ['0%', '20%']);
-
- useEffect(() => {
- window.scrollTo(0, 0);
- const ctx = gsap.context(() => {
- gsap.fromTo('.project-card', {
- y: 100,
- opacity: 0,
- scale: 0.95
- }, {
- y: 0,
- opacity: 1,
- scale: 1,
- stagger: 0.15,
- duration: 1,
- ease: 'power3.out',
- scrollTrigger: { trigger: '.projects-container', start: 'top 80%' },
- });
- });
- return () => ctx.revert();
- }, []);
-
- return (
- <div className="w-full bg-background text-primary min-h-screen font-sans overflow-hidden relative">
- <SEO 
+  return (
+    <div className="w-full bg-background text-primary">
+      <SEO 
  title="Selected Work & Case Studies | GRAVIT®" 
  description="Explore our portfolio of high-performance web applications, SaaS platforms, and digital products." 
  path="/work"
  />
-
-
- 
- {/* 01: HERO */}
- <section className="relative z-10 min-h-screen flex flex-col justify-end px-6 md:px-12 pb-16 pt-36 w-full max-w-7xl mx-auto border-b border-white/5">
- <motion.div style={{ y: yHero }} className="mb-12">
- <div className="text-xs font-mono uppercase tracking-[0.3em] text-secondary mb-8 inline-flex items-center gap-4 bg-white/5 px-4 py-2 rounded-full border border-white/10">
- <span className="w-2 h-2 rounded-full bg-white" />
- Archive / 2024–2026
- </div>
- <h1 className="text-6xl md:text-8xl lg:text-[10rem] font-heading font-medium tracking-tight leading-[0.9] text-primary">
- Selected<br />systems.
- </h1>
- </motion.div>
-
- <motion.div
- initial={{ opacity: 0, y: 20 }}
- animate={{ opacity: 1, y: 0 }}
- transition={{ duration: 0.8, delay: 0.3 }}
- className="flex flex-col md:flex-row gap-12 pt-12 border-t border-white/10"
- >
- <div className="md:w-2/3 lg:w-1/2">
- <p className="text-xl md:text-3xl text-secondary leading-relaxed font-light">
- We don't build portfolios of pretty pictures. We build production-ready digital products engineered to perform and scale. Here is a selection of our recent architectures.
- </p>
- </div>
- </motion.div>
- </section>
-
- {/* 02: EDITORIAL PROJECT SEQUENCE */}
- <section className="relative z-10 px-6 md:px-12 w-full max-w-7xl mx-auto pt-32 pb-16 projects-container">
- <div className="flex flex-col gap-32">
- 
- {/* Project 1: SSVEMHS */}
- <Link to="/work/ssvemhs" className="project-card group block">
- <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12 items-end">
- <div className="md:col-span-5">
- <div className="text-sm font-mono text-secondary mb-4 bg-white/5 inline-flex px-3 py-1 rounded-full border border-white/10">01 / {projectsData.ssvemhs.category}</div>
- <h2 className="text-4xl md:text-6xl font-heading font-medium tracking-tight group-hover:text-white transition-colors duration-500">
- {projectsData.ssvemhs.title}
- </h2>
- </div>
- <div className="md:col-span-7 flex flex-col md:items-end justify-end">
- <p className="text-lg text-secondary md:text-right max-w-lg mb-6 leading-relaxed">
- {projectsData.ssvemhs.desc}
- </p>
- <div className="flex flex-wrap md:justify-end gap-3">
- {projectsData.ssvemhs.tags.map((tag: string) => (
- <span key={tag} className="text-xs font-mono uppercase tracking-widest text-secondary bg-white/5 border border-white/10 px-4 py-2 rounded-full">
- {tag}
- </span>
- ))}
- </div>
- </div>
- </div>
- 
- <div className={`w-full aspect-[16/9] md:aspect-[21/9] glass-panel rounded-[3rem] overflow-hidden relative group-hover:border-white/20 transition-all duration-700`}>
- <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
- 
- {/* Abstract UI representation */}
-  <img 
-    src={projectsData.ssvemhs.image} 
-    srcSet={`${encodeURI(projectsData.ssvemhs.image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(projectsData.ssvemhs.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(projectsData.ssvemhs.image.replace('.webp', '-600w.webp'))} 600w, ${encodeURI(projectsData.ssvemhs.image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(projectsData.ssvemhs.image)} 1200w`}
-    sizes="(max-width: 768px) 100vw, 800px"
-    alt={projectsData.ssvemhs.title} 
-    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-  />
- 
- {/* Hover View Project CTA */}
- <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
- View Project <ExternalLink className="w-4 h-4" />
- </div>
- </div>
- </Link>
-
- {/* Project 2: Little Stars */}
- <Link to="/work/little-stars" className="project-card group block">
- <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12 items-end">
- <div className="md:col-span-5">
- <div className="text-sm font-mono text-secondary mb-4 bg-white/5 inline-flex px-3 py-1 rounded-full border border-white/10">02 / {projectsData["little-stars"].category}</div>
- <h2 className="text-4xl md:text-6xl font-heading font-medium tracking-tight group-hover:text-white transition-colors duration-500">
- {projectsData["little-stars"].title}
- </h2>
- </div>
- <div className="md:col-span-7 flex flex-col md:items-end justify-end">
- <p className="text-lg text-secondary md:text-right max-w-lg mb-6 leading-relaxed">
- {projectsData["little-stars"].desc}
- </p>
- <div className="flex flex-wrap md:justify-end gap-3">
- {projectsData["little-stars"].tags.map((tag: string) => (
- <span key={tag} className="text-xs font-mono uppercase tracking-widest text-secondary bg-white/5 border border-white/10 px-4 py-2 rounded-full">
- {tag}
- </span>
- ))}
- </div>
- </div>
- </div>
- 
- <div className={`w-full aspect-[16/9] md:aspect-[21/9] glass-panel rounded-[3rem] overflow-hidden relative group-hover:border-white/20 transition-all duration-700`}>
- <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
- 
- {/* Abstract Mobile UI representation */}
-  <img 
-    src={projectsData["little-stars"].image} 
-    srcSet={`${encodeURI(projectsData["little-stars"].image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(projectsData["little-stars"].image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(projectsData["little-stars"].image.replace('.webp', '-600w.webp'))} 600w, ${encodeURI(projectsData["little-stars"].image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(projectsData["little-stars"].image)} 1200w`}
-    sizes="(max-width: 768px) 100vw, 800px"
-    alt={projectsData["little-stars"].title} 
-    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-  />
- 
- {/* Hover View Project CTA */}
- <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
- View Project <ExternalLink className="w-4 h-4" />
- </div>
- </div>
- </Link>
-
- {/* Project 3: WonderKids */}
- <Link to="/work/wonderkids" className="project-card group block">
- <div className="grid grid-cols-1 md:grid-cols-12 gap-8 mb-12 items-end">
- <div className="md:col-span-5">
- <div className="text-sm font-mono text-secondary mb-4 bg-white/5 inline-flex px-3 py-1 rounded-full border border-white/10">03 / {projectsData.wonderkids.category}</div>
- <h2 className="text-4xl md:text-6xl font-heading font-medium tracking-tight group-hover:text-white transition-colors duration-500">
- {projectsData.wonderkids.title}
- </h2>
- </div>
- <div className="md:col-span-7 flex flex-col md:items-end justify-end">
- <p className="text-lg text-secondary md:text-right max-w-lg mb-6 leading-relaxed">
- {projectsData.wonderkids.desc}
- </p>
- <div className="flex flex-wrap md:justify-end gap-3">
- {projectsData.wonderkids.tags.map((tag: string) => (
- <span key={tag} className="text-xs font-mono uppercase tracking-widest text-secondary bg-white/5 border border-white/10 px-4 py-2 rounded-full">
- {tag}
- </span>
- ))}
- </div>
- </div>
- </div>
- 
- <div className={`w-full aspect-[16/9] md:aspect-[21/9] glass-panel rounded-[3rem] overflow-hidden relative group-hover:border-white/20 transition-all duration-700`}>
- <div className={`absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-700`} />
- 
- {/* Abstract Data/Dashboard UI */}
-  <img 
-    src={projectsData.wonderkids.image} 
-    srcSet={`${encodeURI(projectsData.wonderkids.image.replace('.webp', '-300w.webp'))} 300w, ${encodeURI(projectsData.wonderkids.image.replace('.webp', '-400w.webp'))} 400w, ${encodeURI(projectsData.wonderkids.image.replace('.webp', '-600w.webp'))} 600w, ${encodeURI(projectsData.wonderkids.image.replace('.webp', '-800w.webp'))} 800w, ${encodeURI(projectsData.wonderkids.image)} 1200w`}
-    sizes="(max-width: 768px) 100vw, 800px"
-    alt={projectsData.wonderkids.title} 
-    className="absolute inset-0 w-full h-full object-cover transform group-hover:scale-[1.02] transition-transform duration-700 ease-[cubic-bezier(0.16,1,0.3,1)]"
-  />
- 
- {/* Hover View Project CTA */}
- <div className="absolute top-8 right-8 bg-white/10 backdrop-blur-xl border border-white/20 text-white font-mono text-xs uppercase tracking-widest px-6 py-3 rounded-full flex items-center gap-3 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0 transition-all duration-500 z-20">
- View Project <ExternalLink className="w-4 h-4" />
- </div>
- </div>
- </Link>
-
- </div>
- </section>
-
- {/* 03: CTA */}
- <section className="relative z-10 px-6 md:px-12 py-32 w-full max-w-7xl mx-auto border-t border-white/5">
- <div className="relative overflow-hidden glass-panel rounded-[3rem] p-12 md:p-24 flex flex-col items-center justify-center text-center group">
- <div className="absolute inset-0 bg-white/5 opacity-0 group-hover:opacity-100 transition-opacity duration-1000 ease-out" />
- 
- <h2 className="relative z-10 text-3xl md:text-5xl lg:text-7xl font-heading font-medium tracking-tight leading-[0.9] mb-8 text-primary">
- Want to see the code?
- </h2>
- <p className="relative z-10 text-secondary max-w-2xl mb-12 text-lg leading-relaxed">
- We treat our infrastructure as seriously as our interfaces. Contact us to discuss architecture patterns, database structures, or specific technical challenges.
- </p>
- <Link to="/contact" className="relative z-10 group/btn inline-flex items-center justify-center bg-primary text-background px-10 py-5 text-sm font-medium rounded-full hover:bg-white/90 transition-all duration-500">
- Discuss architecture
- <ArrowRight className="w-4 h-4 ml-3 group-hover/btn:translate-x-1 transition-transform" />
- </Link>
- </div>
- </section>
-
- </div>
- );
+      <PageIntro eyebrow="Work" title="Work that ships." subtitle="Sites and products we've designed, built and launched." />
+      <SelectedWork showHeader={false} />
+      <CtaPanel />
+    </div>
+  );
 }
