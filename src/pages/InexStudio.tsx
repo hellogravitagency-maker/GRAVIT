@@ -5,8 +5,6 @@ import {
   Film,
   PenTool,
   TrendingUp,
-  Code2,
-  Bot,
   Check,
   ChevronDown,
   Mail,
@@ -16,8 +14,6 @@ import {
   ArrowUpRight,
   Menu,
   X,
-  Sparkles,
-  ExternalLink,
 } from 'lucide-react';
 
 interface ServiceItem {
@@ -49,20 +45,6 @@ const SERVICES: ServiceItem[] = [
     title: 'Digital Marketing',
     desc: 'Social media, ads and campaigns tracked to real results.',
     tag: 'Growth & Ads',
-  },
-  {
-    icon: '💻',
-    lucideIcon: <Code2 className="w-5 h-5 text-[#E31E24]" />,
-    title: 'Web & App Development',
-    desc: 'Fast, mobile-friendly websites and apps that convert visitors.',
-    tag: 'Tech & Engineering',
-  },
-  {
-    icon: '🤖',
-    lucideIcon: <Bot className="w-5 h-5 text-[#E31E24]" />,
-    title: 'AI Automation',
-    desc: 'Smart tools that save your team hours every week.',
-    tag: 'AI Workflows',
   },
 ];
 
@@ -103,10 +85,10 @@ const WORK_ITEMS: WorkItem[] = [
   {
     id: 'w4',
     title: 'Launch visuals',
-    category: 'Web & 3D Visuals',
+    category: 'Motion & 3D Visuals',
     gradient: 'from-[#3a3d45] via-[#1c1e22] to-[#0a0a0c]',
-    summary: 'Interactive web visuals, 3D product renders, and responsive web application engineered for maximum conversion velocity.',
-    deliverables: ['Responsive Web Experience', 'Keyframe Animations', 'Interactive Prototypes'],
+    summary: 'High-impact keyframe renders, 3D product visuals, and dynamic motion graphics engineered for launch campaigns.',
+    deliverables: ['Cinema Launch Visuals', 'Keyframe Animations', 'Motion Assets'],
   },
 ];
 
@@ -176,7 +158,7 @@ export default function InexStudio(): React.JSX.Element {
     <div className="min-h-screen bg-[#050506] text-[#E5E7EB] font-sans selection:bg-[#E31E24] selection:text-white antialiased">
       <SEO
         title="INEX Studio — Create. Grow. Build."
-        description="INEX Studio is a creative & digital studio: videos, branding, marketing, websites and AI automation. One team that plans, builds and grows your business."
+        description="INEX Studio is a creative & digital studio: videos, branding, and marketing. One team that plans, builds and grows your brand."
       />
 
       {/* Top Banner connecting back to GRAVIT Studio */}
@@ -330,7 +312,7 @@ export default function InexStudio(): React.JSX.Element {
 
             {/* Lead */}
             <p className="text-[#c3c6cd] text-base sm:text-lg leading-relaxed mb-6 max-w-[560px]">
-              Videos, branding, marketing, websites and AI automation — one team that plans, builds and grows your business.
+              Videos, branding, and marketing — one team that plans, builds and grows your business.
             </p>
 
             {/* Buttons */}
@@ -386,7 +368,7 @@ export default function InexStudio(): React.JSX.Element {
             </div>
             <div className="p-2">
               <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
-                5
+                3
               </b>
               <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Services, one team</span>
             </div>
@@ -407,10 +389,10 @@ export default function InexStudio(): React.JSX.Element {
             Everything your brand needs, in one place
           </h2>
           <p className="text-[#8a8e98] text-sm sm:text-base max-w-[560px] mb-8">
-            Tell us your goal. We pick the right mix — you don’t juggle five vendors.
+            Tell us your goal. We pick the right mix — creative production, branding, and digital marketing.
           </p>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
             {SERVICES.map((s, idx) => (
               <div
                 key={idx}
@@ -430,7 +412,7 @@ export default function InexStudio(): React.JSX.Element {
                   </h3>
                   <p className="text-sm text-[#8a8e98] leading-relaxed">{s.desc}</p>
                 </div>
-                <div className="mt-5 pt-3 border-t border-[#22252c]/50 flex items-center justify-between text-xs text-[#8a8e98]">
+                <div className="mt-6 pt-4 border-t border-[#22252c]/50 flex items-center justify-between text-xs text-[#8a8e98]">
                   <span className="font-mono">INEX · Core 0{idx + 1}</span>
                   <a
                     href="#contact"
@@ -441,27 +423,6 @@ export default function InexStudio(): React.JSX.Element {
                 </div>
               </div>
             ))}
-
-            {/* Callout Card */}
-            <div className="bg-gradient-to-br from-[#2a0709] via-[#0e0f13] to-[#050506] border border-[#E31E24]/30 rounded-xl p-6 flex flex-col justify-between">
-              <div>
-                <div className="w-11 h-11 rounded-lg bg-[#E31E24] text-white inline-grid place-items-center mb-4">
-                  <Sparkles className="w-5 h-5" />
-                </div>
-                <h3 className="text-lg font-bold text-white mb-2">Need a custom package?</h3>
-                <p className="text-sm text-[#c3c6cd] leading-relaxed">
-                  Combine video production, identity design, and web development into a single turnkey launch.
-                </p>
-              </div>
-              <div className="mt-6">
-                <a
-                  href="#contact"
-                  className="inline-flex items-center gap-2 text-sm font-bold text-white bg-[#E31E24] px-4 py-2 rounded-lg hover:bg-[#c8171d] transition-colors"
-                >
-                  Book Discovery Call <ArrowRight className="w-4 h-4" />
-                </a>
-              </div>
-            </div>
           </div>
         </div>
       </section>
