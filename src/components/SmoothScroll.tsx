@@ -31,9 +31,6 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
 
  lenisRef.current = lenis;
 
- if (location.pathname.startsWith('/inex')) {
-   lenis.stop();
- }
 
  // Connect Lenis to GSAP ScrollTrigger
  lenis.on('scroll', (e: any) => {
@@ -71,12 +68,7 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
   useEffect(() => {
     window.scrollTo(0, 0);
     if (lenisRef.current) {
-      if (location.pathname.startsWith('/inex')) {
-        lenisRef.current.stop();
-      } else {
-        lenisRef.current.start();
-        lenisRef.current.scrollTo(0, { immediate: true });
-      }
+      lenisRef.current.scrollTo(0, { immediate: true });
     }
   }, [location.pathname]);
 
