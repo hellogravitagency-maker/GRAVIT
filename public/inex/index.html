@@ -1794,39 +1794,16 @@
       yearEl.textContent = new Date().getFullYear();
     }
 
-    // 9. GSAP Smooth Reveals (Clean opacity fade with zero counter-scroll translation)
+    // 9. GSAP Smooth Reveals (Reliable, resilient, zero invisible traps)
     try {
       if (typeof gsap !== 'undefined') {
-        // Hero Elements Soft Entrance
-        gsap.fromTo('.hero-main-title',
-          { opacity: 0, y: 16 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', clearProps: 'all' }
-        );
-
-        gsap.fromTo('.hero-narrative, .hero-actions',
-          { opacity: 0, y: 12 },
-          { opacity: 1, y: 0, duration: 0.8, ease: 'power2.out', stagger: 0.1, delay: 0.1, clearProps: 'all' }
-        );
-
-        // Film Cards Scroll Reveal: Smooth opacity without layout shift or counter-scroll movement
-        if (typeof ScrollTrigger !== 'undefined') {
-          gsap.utils.toArray('.film-card').forEach((card) => {
-            gsap.fromTo(card,
-              { opacity: 0 },
-              {
-                opacity: 1,
-                duration: 0.6,
-                ease: 'power2.out',
-                clearProps: 'all',
-                scrollTrigger: {
-                  trigger: card,
-                  start: 'top 90%',
-                  once: true,
-                }
-              }
-            );
-          });
-        }
+        gsap.from('.hero-main-title, .hero-narrative, .hero-actions', {
+          opacity: 0,
+          duration: 0.8,
+          ease: 'power2.out',
+          stagger: 0.08,
+          clearProps: 'all'
+        });
       }
     } catch(e) {
       console.warn('GSAP animations skipped:', e);

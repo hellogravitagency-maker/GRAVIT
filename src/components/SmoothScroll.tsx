@@ -31,6 +31,10 @@ export default function SmoothScroll({ children }: { children: ReactNode }) {
 
  lenisRef.current = lenis;
 
+ if (location.pathname.startsWith('/inex')) {
+   lenis.stop();
+ }
+
  // Connect Lenis to GSAP ScrollTrigger
  lenis.on('scroll', (e: any) => {
  ScrollTrigger.update();
