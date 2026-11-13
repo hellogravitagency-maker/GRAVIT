@@ -1,658 +1,738 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import SEO from '../components/SEO';
-import { Play, Volume2, VolumeX, X, ArrowLeft, ArrowDown, ArrowRight } from 'lucide-react';
+import {
+  Film,
+  PenTool,
+  TrendingUp,
+  Code2,
+  Bot,
+  Check,
+  ChevronDown,
+  Mail,
+  MessageSquare,
+  Phone,
+  ArrowRight,
+  ArrowUpRight,
+  Menu,
+  X,
+  Sparkles,
+  ExternalLink,
+} from 'lucide-react';
 
-interface FilmWork {
-  id: string;
+interface ServiceItem {
+  icon: string;
+  lucideIcon: React.ReactNode;
   title: string;
-  client: string;
-  tag: string;
-  director: string;
   desc: string;
-  specs: string[];
-  video: string;
-  spanClass: string;
+  tag: string;
 }
 
-const FILMS_DATA: FilmWork[] = [
+const SERVICES: ServiceItem[] = [
   {
-    id: 'film-1',
-    title: 'APEX 992 — The Physics of Apex Velocity',
-    client: 'Porsche Motorsport',
-    tag: 'Automotive Pursuit Film',
-    director: 'Dir. Alex Vance · 2.39:1 Scope',
-    desc: 'High-speed camera pursuit on Circuit Paul Ricard. Shot with Russian Arm gyro-stabilised gimbal at 160 km/h with custom anamorphic flare filtration.',
-    specs: ['ARRI Alexa 35', 'Cooke Anamorphic /i', '120 FPS High-Speed', 'Russian Arm Pursuit Rig'],
-    video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_092455_089c54f8-3b03-4966-9df1-e9746063d0ef.mp4',
-    spanClass: 'col-span-12',
+    icon: '🎬',
+    lucideIcon: <Film className="w-5 h-5 text-[#E31E24]" />,
+    title: 'Creative Production',
+    desc: 'Brand films, product shoots and cinematic social content.',
+    tag: 'Cinema & Video',
   },
   {
-    id: 'film-2',
-    title: 'MONOLITH SS26 — Sculptural Cybernetics',
-    client: 'Balenciaga Paris',
-    tag: 'Haute Couture Lookbook',
-    director: 'Dir. Sofia Kova · 65mm Sensor',
-    desc: 'Subversive architectural fashion cinema. Shot in an abandoned brutalist quarry in northern Spain with industrial tungsten lighting.',
-    specs: ['65mm Large Format', 'Kowa Prominar Anamorphic', 'Infrared Monochromatic Grade'],
-    video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260606_154941_df1a96e1-a06f-450c-bd02-d863414cc1a0.mp4',
-    spanClass: 'col-span-12 lg:col-span-7',
+    icon: '✒️',
+    lucideIcon: <PenTool className="w-5 h-5 text-[#E31E24]" />,
+    title: 'Branding & Design',
+    desc: 'Logos, identity and creatives that look the same everywhere.',
+    tag: 'Identity & Systems',
   },
   {
-    id: 'film-3',
-    title: 'NEO-CHRONO — Tourbillon Micro-Verse',
-    client: 'Audemars Piguet',
-    tag: 'Macro Horology',
-    director: 'Dir. Marcus Thorne',
-    desc: 'Ultra-macro probe optics tracking mechanical escapement springs at 1,000 frames per second using high-speed Phantom Flex4K.',
-    specs: ['Phantom Flex4K (1000 FPS)', 'Laowa 24mm Probe Lens', 'Bolt X Precision MoCo'],
-    video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260622_083515_290e5a10-0b95-41af-a5e2-32b6389baa4d.mp4',
-    spanClass: 'col-span-12 lg:col-span-5',
+    icon: '📈',
+    lucideIcon: <TrendingUp className="w-5 h-5 text-[#E31E24]" />,
+    title: 'Digital Marketing',
+    desc: 'Social media, ads and campaigns tracked to real results.',
+    tag: 'Growth & Ads',
   },
   {
-    id: 'film-4',
-    title: 'CYBERNETIC DUSK — PlayStation 6 Concept',
-    client: 'Sony Interactive',
-    tag: 'Sci-Fi Brand Anthem',
-    director: 'Dir. Kenji Sato',
-    desc: 'Hybrid live-action and Unreal Engine 5 LED volume virtual production capturing photorealistic nocturnal Tokyo environments.',
-    specs: ['Sony Venice 2 8.6K', 'LED Volume In-Camera VFX', 'Dolby Atmos Mastering'],
-    video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260516_122702_390f5305-8719-41d5-ae80-d23ab3796c28.mp4',
-    spanClass: 'col-span-12 lg:col-span-6',
+    icon: '💻',
+    lucideIcon: <Code2 className="w-5 h-5 text-[#E31E24]" />,
+    title: 'Web & App Development',
+    desc: 'Fast, mobile-friendly websites and apps that convert visitors.',
+    tag: 'Tech & Engineering',
   },
   {
-    id: 'film-5',
-    title: 'HORIZON ZERO — 2000HP Silent Storm',
-    client: 'Rimac Automobili',
-    tag: 'Hypercar World Premiere',
-    director: 'Dir. Erik Lind',
-    desc: 'Coastal Norwegian mountain pass pursuit film tracking the Nevera hypercar at dawn. Raw tactile engine sound design in Dolby 7.1.4.',
-    specs: ['RED V-Raptor XL 8K', 'Atlas Orion Anamorphic', 'Heavy-Lift Cine-Drone'],
-    video: 'https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260619_191346_9d19d66e-86a4-47f7-8dc6-712c1788c3b2.mp4',
-    spanClass: 'col-span-12 lg:col-span-6',
+    icon: '🤖',
+    lucideIcon: <Bot className="w-5 h-5 text-[#E31E24]" />,
+    title: 'AI Automation',
+    desc: 'Smart tools that save your team hours every week.',
+    tag: 'AI Workflows',
   },
 ];
 
-const CAPABILITIES = [
-  {
-    num: '01 / COMMERCIAL',
-    title: 'Narrative & Commercial Films',
-    desc: 'High-concept commercial direction and brand campaigns engineered with emotional gravitas, razor-sharp editorial pacing, and bespoke musical scores.',
-    items: ['Global Brand Campaigns', 'Automotive Commercials', 'Haute Couture Lookbooks', 'Founder & Tech Anthems'],
-  },
-  {
-    num: '02 / OPTICS',
-    title: 'Anamorphic & Specialty Glass',
-    desc: 'Uncompromising optical character. We shoot exclusively on Cooke, Atlas, and vintage Kowa anamorphic lenses delivering organic horizontal flares and oval bokeh.',
-    items: ['Cooke /i Anamorphic T2.3', 'Atlas Orion 2x Full Frame', 'Laowa 24mm Periscope Macro', 'Schneider True-Streak Filtration'],
-  },
-  {
-    num: '03 / PRECISION',
-    title: 'Bolt X Motion Control (MoCo)',
-    desc: 'Sub-millimeter camera robotics operating at up to 9.6 meters per second for impossible macro product fly-throughs, speed ramps, and seamless CGI integration.',
-    items: ['MRMC Bolt X High-Speed Rig', 'Phantom Flex4K (1,000 FPS)', 'Russian Arm Pursuit Vehicles', 'Freefly MōVI Carbon 5-Axis'],
-  },
-  {
-    num: '04 / POST & AUDIO',
-    title: 'ACES Color & Dolby Atmos',
-    desc: 'In-house Baselight and DaVinci Resolve color grading suites equipped with Barco 4K DCI laser projection and certified Dolby Atmos 7.1.4 spatial audio mastering.',
-    items: ['ACES Cinema Color Pipeline', '4K DCI Laser Master Suite', 'Dolby Atmos Spatial Audio', 'Lossless AVIF / HDR Web Delivery'],
-  },
-];
+interface WorkItem {
+  id: string;
+  title: string;
+  category: string;
+  gradient: string;
+  summary: string;
+  deliverables: string[];
+}
 
-const FLEET_DATA = [
+const WORK_ITEMS: WorkItem[] = [
   {
-    name: 'ARRI ALEXA 35',
-    sub: 'A-Camera Flagship',
-    sensor: 'Super 35 4.6K ALEV IV / ARRIRAW',
-    fps: '120 FPS Native',
-    optics: 'Cooke Anamorphic /i Full Frame Plus',
+    id: 'w1',
+    title: 'Product film',
+    category: 'Creative Production',
+    gradient: 'from-[#555555] via-[#222222] to-[#111111]',
+    summary: 'Macro cinematic lighting, slow-motion captures, and bespoke sound design engineered for high-converting product launches.',
+    deliverables: ['4K Master Commercial', '15s & 30s Social Cuts', 'Sound Mix & Foley'],
   },
   {
-    name: 'SONY VENICE 2',
-    sub: 'Large Format Low-Light',
-    sensor: '8.6K 3:2 Full Frame / X-OCN XT',
-    fps: '90 FPS @ 8.2K',
-    optics: 'ARRI Master Primes T1.3',
+    id: 'w2',
+    title: 'Automotive reel',
+    category: 'Commercial Direction',
+    gradient: 'from-[#6b4a1e] via-[#33220e] to-[#0a0a0c]',
+    summary: 'Dynamic pursuit tracking, anamorphic optical character, and aggressive editorial pacing for luxury automotive showcases.',
+    deliverables: ['Anamorphic Aspect Master', 'Color Grading (ACES)', 'Spatial Audio Master'],
   },
   {
-    name: 'VISION RESEARCH PHANTOM FLEX4K',
-    sub: 'High-Speed Fluid Stills',
-    sensor: 'Super 35 4K CMOS / Cine RAW',
-    fps: '1,000 FPS @ 4K',
-    optics: 'Laowa Cine Probe 24mm T14 Macro',
+    id: 'w3',
+    title: 'Brand campaign',
+    category: 'Identity & Campaign',
+    gradient: 'from-[#b3151a] via-[#5c0a0d] to-[#2a0507]',
+    summary: 'Full-funnel visual campaign spanning brand guidelines, social assets, outdoor digital displays, and performance marketing collateral.',
+    deliverables: ['Brand Guidelines', 'Omni-channel Creative Suite', 'Ad Variations'],
   },
   {
-    name: 'RED V-RAPTOR XL [X]',
-    sub: 'Global Shutter Cinema',
-    sensor: '8K VV Global Shutter / REDCODE RAW',
-    fps: '120 FPS @ 8K',
-    optics: 'Atlas Orion Silver Edition Anamorphic',
-  },
-  {
-    name: 'MRMC BOLT X CINEBOT',
-    sub: 'High-Speed Robotic Arm',
-    sensor: 'Flair Precision Tracking / Track Mount',
-    fps: '9.6 m/s Arm Speed',
-    optics: 'Target Tracking Optical Control',
+    id: 'w4',
+    title: 'Launch visuals',
+    category: 'Web & 3D Visuals',
+    gradient: 'from-[#3a3d45] via-[#1c1e22] to-[#0a0a0c]',
+    summary: 'Interactive web visuals, 3D product renders, and responsive web application engineered for maximum conversion velocity.',
+    deliverables: ['Responsive Web Experience', 'Keyframe Animations', 'Interactive Prototypes'],
   },
 ];
 
-const MARQUEE_ITEMS = [
-  'PORSCHE MOTORSPORT',
-  'BALENCIAGA COUTURE',
-  'CANNES LIONS GOLD 2025',
-  'AUDEMARS PIGUET',
-  'D&AD YELLOW PENCIL',
-  'SONY INTERACTIVE',
-  'CICLOPE GRAND PRIX CINEMATOGRAPHY',
-  'RIMAC AUTOMOBILI',
+interface StepItem {
+  num: string;
+  title: string;
+  desc: string;
+}
+
+const STEPS: StepItem[] = [
+  {
+    num: '01',
+    title: 'Discover',
+    desc: 'A free call to understand your goals and budget.',
+  },
+  {
+    num: '02',
+    title: 'Plan',
+    desc: 'You get a written plan, timeline and fixed quote.',
+  },
+  {
+    num: '03',
+    title: 'Create',
+    desc: 'We build it. You review drafts and give feedback.',
+  },
+  {
+    num: '04',
+    title: 'Deliver',
+    desc: 'We launch, hand over files and keep supporting you.',
+  },
 ];
 
-export default function InexStudio() {
-  const [timecode, setTimecode] = useState('00:00:24:18');
-  const [isAudioActive, setIsAudioActive] = useState(false);
-  const [activeModalVideo, setActiveModalVideo] = useState<string | null>(null);
+interface FaqItem {
+  q: string;
+  a: string;
+}
 
-  const audioRef = useRef<HTMLAudioElement | null>(null);
-  const videoRefs = useRef<(HTMLVideoElement | null)[]>([]);
+const FAQS: FaqItem[] = [
+  {
+    q: 'How much does a project cost?',
+    a: 'Every quote is written and fixed before we start, based on your goals. The first consultation is free.',
+  },
+  {
+    q: 'How long does it take?',
+    a: 'Most projects take 1–4 weeks. Your plan includes dates for every stage.',
+  },
+  {
+    q: 'Can I request changes?',
+    a: 'Yes. Each project includes review rounds so the result matches your vision.',
+  },
+  {
+    q: 'Who owns the final work?',
+    a: 'You do. We hand over all final files when the project is complete.',
+  },
+];
 
-  // 1. SMPTE Timecode Counter (24fps precision)
-  useEffect(() => {
-    let f = 18;
-    let s = 24;
-    let m = 0;
-    let h = 0;
+export default function InexStudio(): React.JSX.Element {
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeFaq, setActiveFaq] = useState<number | null>(null);
+  const [selectedWork, setSelectedWork] = useState<WorkItem | null>(null);
 
-    const interval = setInterval(() => {
-      f++;
-      if (f >= 24) {
-        f = 0;
-        s++;
-        if (s >= 60) {
-          s = 0;
-          m++;
-          if (m >= 60) {
-            m = 0;
-            h++;
-          }
-        }
-      }
-      const pad = (n: number) => String(n).padStart(2, '0');
-      setTimecode(`${pad(h)}:${pad(m)}:${pad(s)}:${pad(f)}`);
-    }, 1000 / 24);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  // 2. Audio toggle handler
-  const handleToggleAudio = () => {
-    if (!audioRef.current) return;
-    if (isAudioActive) {
-      audioRef.current.pause();
-      setIsAudioActive(false);
-    } else {
-      audioRef.current.play().then(() => {
-        setIsAudioActive(true);
-      }).catch(() => {
-        setIsAudioActive(false);
-      });
-    }
-  };
-
-  // 3. Modal close on escape key
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        setActiveModalVideo(null);
-      }
-    };
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  }, []);
-
-  // 4. Viewport IntersectionObserver to pause off-screen card videos
-  useEffect(() => {
-    if (typeof window === 'undefined' || !('IntersectionObserver' in window)) return;
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        const video = entry.target as HTMLVideoElement;
-        if (entry.isIntersecting) {
-          video.play().catch(() => {});
-        } else {
-          video.pause();
-        }
-      });
-    }, { threshold: 0.15 });
-
-    videoRefs.current.forEach((vid) => {
-      if (vid) observer.observe(vid);
-    });
-
-    return () => observer.disconnect();
-  }, []);
-
-  const scrollToSection = (id: string) => {
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
+  const toggleFaq = (idx: number) => {
+    setActiveFaq(activeFaq === idx ? null : idx);
   };
 
   return (
-    <div className="relative w-full min-h-screen bg-[#030305] text-[#F8FAFC] font-sans selection:bg-[#FF2A2A] selection:text-black">
+    <div className="min-h-screen bg-[#050506] text-[#E5E7EB] font-sans selection:bg-[#E31E24] selection:text-white antialiased">
       <SEO
-        title="INEX Studio — Commercial Videography & Cinema Motion Atelier"
-        description="Official creative photography, commercial campaigns, and cinematic reels studio. Red, Silver & Black aesthetic powered by tactile studio visuals."
-        path="/inex"
+        title="INEX Studio — Create. Grow. Build."
+        description="INEX Studio is a creative & digital studio: videos, branding, marketing, websites and AI automation. One team that plans, builds and grows your business."
       />
 
-      {/* Ambient Audio Element */}
-      <audio ref={audioRef} loop preload="none">
-        <source src="https://assets.mixkit.co/active_storage/sfx/2874/2874-preview.mp3" type="audio/mpeg" />
-      </audio>
-
-      {/* Hardware-accelerated Film Grain Overlay */}
-      <div 
-        className="fixed inset-0 pointer-events-none z-50 opacity-[0.02]"
-        style={{
-          transform: 'translateZ(0)',
-          backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E")`
-        }}
-        aria-hidden="true"
-      />
-
-      {/* ========================================================================
-          01. CINEMA HUD NAVIGATION
-          ======================================================================== */}
-      <header className="fixed top-0 left-0 right-0 z-40 flex items-center justify-between px-6 sm:px-8 py-4 bg-gradient-to-b from-[#030305]/95 via-[#030305]/80 to-transparent backdrop-blur-md border-b border-white/[0.06]">
-        <div className="flex items-center gap-4">
-          <Link to="/inex" className="inline-flex items-center gap-1.5 font-black text-lg tracking-tight uppercase text-[#F8FAFC]">
-            INEX<span className="w-2 h-2 rounded-full bg-[#FF2A2A] shadow-[0_0_8px_#FF2A2A] animate-pulse" />CINEMA
-          </Link>
-          <span className="hidden sm:inline-block font-mono text-[10px] tracking-[0.18em] text-[#94A3B8] uppercase pl-3 border-l border-white/15">
-            Commercial Motion Atelier
-          </span>
-        </div>
-
-        <nav className="hidden md:flex items-center gap-6 font-mono text-[11px] tracking-[0.12em] text-[#94A3B8] uppercase">
-          <button onClick={() => scrollToSection('films')} className="hover:text-white transition-colors cursor-pointer">
-            Selected Films
-          </button>
-          <button onClick={() => scrollToSection('capabilities')} className="hover:text-white transition-colors cursor-pointer">
-            Production
-          </button>
-          <button onClick={() => scrollToSection('fleet')} className="hover:text-white transition-colors cursor-pointer">
-            Camera & Optics
-          </button>
-          <button onClick={() => scrollToSection('booking')} className="hover:text-white transition-colors cursor-pointer">
-            Inquire
-          </button>
-        </nav>
-
-        <div className="flex items-center gap-3 sm:gap-4">
-          {/* Running SMPTE Timecode */}
-          <div className="inline-flex items-center gap-2 bg-black/70 border border-[#FF2A2A]/40 rounded-full px-3 py-1 font-mono text-[11px] text-[#F8FAFC] tabular-nums tracking-wider">
-            <span className="w-2 h-2 rounded-full bg-[#FF2A2A] shadow-[0_0_8px_#FF2A2A] animate-pulse" />
-            <span>{timecode}</span>
+      {/* Top Banner connecting back to GRAVIT Studio */}
+      <div className="bg-[#0e0f13] border-b border-[#22252c] px-4 py-1.5 text-xs text-[#8a8e98] flex items-center justify-between">
+        <div className="max-w-[1080px] w-full mx-auto flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#E31E24] animate-pulse" />
+            <span>INEX Studio — A GRAVIT Studio Venture</span>
           </div>
-
-          {/* Sound Toggle */}
-          <button
-            onClick={handleToggleAudio}
-            className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-[10px] uppercase tracking-wider transition-colors border cursor-pointer ${
-              isAudioActive
-                ? 'bg-[#FF2A2A] border-[#FF2A2A] text-white'
-                : 'bg-white/5 border-white/15 text-[#F8FAFC] hover:bg-white/10 hover:border-white/30'
-            }`}
-            aria-label="Toggle cinematic audio"
-          >
-            {isAudioActive ? <Volume2 className="w-3.5 h-3.5" /> : <VolumeX className="w-3.5 h-3.5" />}
-            <span className="hidden sm:inline">{isAudioActive ? 'Audio On' : 'Sound Off'}</span>
-          </button>
-
-          {/* Return to GRAVIT */}
           <Link
             to="/"
-            className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full font-mono text-[11px] tracking-wide bg-white/8 border border-white/15 text-[#F8FAFC] hover:bg-white hover:text-black transition-colors"
-            title="Return to GRAVIT main site"
+            className="hover:text-white transition-colors flex items-center gap-1 font-mono text-[11px]"
           >
-            <ArrowLeft className="w-3.5 h-3.5" />
-            <span>GRAVIT</span>
+            ← Back to GRAVIT Studio
           </Link>
-        </div>
-      </header>
-
-      {/* ========================================================================
-          02. HERO SECTION — DIRECTING THE UNSEEN
-          ======================================================================== */}
-      <section className="relative w-full h-screen min-h-[700px] overflow-hidden flex flex-col justify-end p-8 sm:p-12 pb-16 bg-[#030305]">
-        {/* Viewfinder Crosshairs framing the viewport */}
-        <div className="absolute top-20 left-8 sm:left-12 w-6 h-6 border-t-2 border-l-2 border-[#FF2A2A] opacity-80 pointer-events-none z-20" />
-        <div className="absolute top-20 right-8 sm:right-12 w-6 h-6 border-t-2 border-r-2 border-[#FF2A2A] opacity-80 pointer-events-none z-20" />
-        <div className="absolute bottom-8 left-8 sm:left-12 w-6 h-6 border-b-2 border-l-2 border-[#FF2A2A] opacity-80 pointer-events-none z-20" />
-        <div className="absolute bottom-8 right-8 sm:right-12 w-6 h-6 border-b-2 border-r-2 border-[#FF2A2A] opacity-80 pointer-events-none z-20" />
-
-        {/* Fullscreen Looping Background Video */}
-        <div className="absolute inset-0 z-0 overflow-hidden">
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            preload="auto"
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260517_222138_3e3205be-3364-417b-a64a-bfe087acbec4.mp4"
-            className="w-full h-full object-cover object-center filter contrast-[1.08] brightness-[0.75] saturate-[1.05]"
-          />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#030305] via-[#030305]/40 to-transparent pointer-events-none" />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_30%,rgba(3,3,5,0.7)_70%,rgba(3,3,5,0.95)_100%)] pointer-events-none" />
-        </div>
-
-        {/* Hero Bottom Content */}
-        <div className="relative z-10 max-w-[1400px] mx-auto w-full flex flex-col gap-6">
-          {/* Telemetry Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] text-[#94A3B8] tracking-[0.14em] uppercase border-b border-white/10 pb-3.5">
-            <div><span className="text-[#FF2A2A] font-bold">FPS:</span> 24.000 HIGH-SPEED</div>
-            <div><span className="text-[#FF2A2A] font-bold">OPTICS:</span> COOKE ANAMORPHIC /I FULL FRAME PLUS</div>
-            <div><span className="text-[#FF2A2A] font-bold">COLOR:</span> ACEScc CINEMA HDR</div>
-            <div><span className="text-[#FF2A2A] font-bold">STAGE:</span> PARIS / NYC / BERLIN</div>
-          </div>
-
-          {/* Grand Headline */}
-          <h1 className="font-display font-black text-[clamp(2.8rem,9vw,8rem)] leading-[0.88] uppercase tracking-[-0.03em] text-[#F8FAFC]">
-            <span className="bg-gradient-to-b from-white to-[#A0A5B5] bg-clip-text text-transparent">DIRECTING</span><br />
-            THE <span className="font-serif italic font-normal text-[#FF2A2A] lowercase tracking-normal">unseen.</span>
-          </h1>
-
-          {/* Narrative & Actions */}
-          <div className="flex flex-col md:flex-row items-start md:items-end justify-between gap-6">
-            <p className="max-w-[540px] text-[clamp(14px,1.3vw,17px)] leading-relaxed text-[#94A3B8] font-light">
-              <strong className="text-white font-semibold">INEX STUDIO</strong> is an independent commercial videography and motion picture atelier. We direct high-octane automotive commercials, haute-couture fashion films, and flagship brand cinema engineered with precision anamorphic optics and sub-second digital delivery.
-            </p>
-
-            <div className="flex items-center gap-4 flex-wrap">
-              <button
-                onClick={() => setActiveModalVideo('https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260517_222138_3e3205be-3364-417b-a64a-bfe087acbec4.mp4')}
-                className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-[#FF2A2A] hover:bg-[#FF4D4D] text-white font-bold text-xs uppercase tracking-widest shadow-[0_0_24px_rgba(255,42,42,0.35)] hover:shadow-[0_0_36px_rgba(255,42,42,0.55)] transition-all transform hover:-translate-y-0.5 cursor-pointer"
-              >
-                <Play className="w-3.5 h-3.5 fill-current" />
-                <span>Play Showreel</span>
-              </button>
-
-              <button
-                onClick={() => scrollToSection('films')}
-                className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white/5 hover:bg-white/12 border border-white/15 hover:border-white/40 text-white font-semibold text-xs uppercase tracking-widest transition-all cursor-pointer"
-              >
-                <span>View Commercials</span>
-                <ArrowDown className="w-3.5 h-3.5" />
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================
-          03. CLIENTS & AWARDS MARQUEE
-          ======================================================================== */}
-      <div className="w-full bg-[#07070B] border-y border-white/[0.06] py-4.5 overflow-hidden whitespace-nowrap relative">
-        <div className="inline-flex items-center gap-12 animate-[marquee_36s_linear_infinite] hover:[animation-play-state:paused] will-change-transform">
-          {[...MARQUEE_ITEMS, ...MARQUEE_ITEMS].map((item, idx) => (
-            <span key={idx} className="font-display font-extrabold text-sm tracking-[0.2em] uppercase text-[#94A3B8] inline-flex items-center gap-3">
-              {item} <span className="w-1.5 h-1.5 rounded-full bg-[#FF2A2A]" />
-            </span>
-          ))}
         </div>
       </div>
 
-      {/* ========================================================================
-          04. SELECTED COMMERCIAL FILMS
-          ======================================================================== */}
-      <section id="films" className="py-24 sm:py-32 px-6 sm:px-8 bg-[#030305]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-[#FF2A2A] mb-3">
-            01 / REELS & ARCHIVE
-          </div>
-          <h2 className="font-display font-extrabold text-[clamp(2.2rem,5vw,4.2rem)] tracking-tight uppercase leading-none text-white mb-4">
-            Selected Commercial Works
-          </h2>
-          <p className="text-[#94A3B8] text-[clamp(15px,1.2vw,18px)] max-w-[620px] font-light mb-14">
-            Cinematic commercials, automotive pursuit films, and high-fashion visual narratives directed for global cultural leaders.
-          </p>
-
-          <div className="grid grid-cols-12 gap-8">
-            {FILMS_DATA.map((film, idx) => (
-              <div
-                key={film.id}
-                onClick={() => setActiveModalVideo(film.video)}
-                className={`${film.spanClass} group relative bg-[#13141F] border border-white/10 hover:border-[#FF2A2A]/50 rounded-3xl overflow-hidden cursor-pointer transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_20px_48px_rgba(0,0,0,0.6),0_0_25px_rgba(255,42,42,0.12)]`}
-              >
-                {/* Media Container */}
-                <div className="relative w-full aspect-video bg-black overflow-hidden">
-                  <video
-                    ref={(el) => { videoRefs.current[idx] = el; }}
-                    muted
-                    loop
-                    playsInline
-                    preload="metadata"
-                    src={film.video}
-                    className="w-full h-full object-cover"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-[#0E0F17]/90 via-[#0E0F17]/20 to-transparent pointer-events-none" />
-                  
-                  {/* Badge & Play Pill */}
-                  <div className="absolute top-4 left-4 right-4 flex items-center justify-between z-10 pointer-events-none">
-                    <span className="bg-black/70 backdrop-blur-md border border-white/15 px-3 py-1 rounded-full font-mono text-[10px] tracking-wider text-white uppercase">
-                      {film.tag}
-                    </span>
-                    <span className="w-10 h-10 rounded-full bg-black/70 group-hover:bg-[#FF2A2A] border border-white/20 group-hover:border-[#FF2A2A] backdrop-blur-md flex items-center justify-center text-white transition-all transform group-hover:scale-105">
-                      <Play className="w-3.5 h-3.5 fill-current ml-0.5" />
-                    </span>
-                  </div>
-                </div>
-
-                {/* Info Container */}
-                <div className="p-6 sm:p-7 flex flex-col justify-between gap-4">
-                  <div>
-                    <div className="flex items-center justify-between font-mono text-[11px] text-[#94A3B8] tracking-wider uppercase mb-1.5">
-                      <span className="text-[#FF2A2A] font-bold">{film.client}</span>
-                      <span>{film.director}</span>
-                    </div>
-                    <h3 className="font-display font-extrabold text-xl sm:text-2xl uppercase tracking-tight text-white mb-2">
-                      {film.title}
-                    </h3>
-                    <p className="text-sm text-[#94A3B8] leading-relaxed font-light">
-                      {film.desc}
-                    </p>
-                  </div>
-
-                  <div className="flex flex-wrap gap-2 pt-4 border-t border-white/10">
-                    {film.specs.map((spec, sIdx) => (
-                      <span key={sIdx} className="font-mono text-[10px] tracking-wider px-2.5 py-1 rounded-md bg-white/5 border border-white/10 text-[#94A3B8]">
-                        {spec}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================
-          05. PRODUCTION CAPABILITIES & OPTICS ATELIER
-          ======================================================================== */}
-      <section id="capabilities" className="py-24 sm:py-32 px-6 sm:px-8 bg-[#07070B] border-y border-white/[0.06]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-[#FF2A2A] mb-3">
-            02 / PRODUCTION DISCIPLINES
-          </div>
-          <h2 className="font-display font-extrabold text-[clamp(2.2rem,5vw,4.2rem)] tracking-tight uppercase leading-none text-white mb-4">
-            Full-Spectrum Cinema Engineering
-          </h2>
-          <p className="text-[#94A3B8] text-[clamp(15px,1.2vw,18px)] max-w-[620px] font-light mb-14">
-            From treatment and storyboard through high-speed pursuit filming, virtual production stages, and in-house ACES color science.
-          </p>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-            {CAPABILITIES.map((cap, idx) => (
-              <div
-                key={idx}
-                className="bg-[#13141F] border border-white/10 hover:border-[#FF2A2A]/40 rounded-2xl p-7 flex flex-col justify-between gap-8 transition-all duration-300 hover:-translate-y-0.5"
-              >
-                <div>
-                  <span className="font-mono text-xs font-bold text-[#FF2A2A] tracking-widest">{cap.num}</span>
-                  <h3 className="font-display font-extrabold text-xl uppercase tracking-tight text-white my-3">
-                    {cap.title}
-                  </h3>
-                  <p className="text-sm text-[#94A3B8] leading-relaxed font-light">
-                    {cap.desc}
-                  </p>
-                </div>
-
-                <ul className="list-none font-mono text-[11px] text-[#94A3B8] border-t border-white/10 pt-4 flex flex-col gap-2">
-                  {cap.items.map((item, iIdx) => (
-                    <li key={iIdx} className="flex items-center gap-2">
-                      <span className="text-[#FF2A2A] font-bold">›</span>
-                      <span>{item}</span>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================
-          06. CAMERA & OPTICS FLEET
-          ======================================================================== */}
-      <section id="fleet" className="py-24 sm:py-32 px-6 sm:px-8 bg-[#030305]">
-        <div className="max-w-[1400px] mx-auto">
-          <div className="inline-flex items-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-[#FF2A2A] mb-3">
-            03 / STUDIO FLEET
-          </div>
-          <h2 className="font-display font-extrabold text-[clamp(2.2rem,5vw,4.2rem)] tracking-tight uppercase leading-none text-white mb-4">
-            Studio Arsenal & Hardware Specs
-          </h2>
-          <p className="text-[#94A3B8] text-[clamp(15px,1.2vw,18px)] max-w-[620px] font-light mb-12">
-            Owned cinema inventory maintained to Hollywood production standards in our Paris and Berlin ateliers.
-          </p>
-
-          <div className="bg-[#13141F] border border-white/10 rounded-2xl overflow-hidden">
-            {/* Header row */}
-            <div className="hidden md:grid grid-cols-4 px-7 py-4 bg-white/[0.03] border-b border-white/10 font-mono text-[11px] uppercase tracking-wider text-[#94A3B8]">
-              <span>Cinema Camera System</span>
-              <span>Sensor / Recording</span>
-              <span>Max Frame Rate</span>
-              <span>Primary Optical Pairing</span>
-            </div>
-
-            {/* Rows */}
-            {FLEET_DATA.map((row, idx) => (
-              <div
-                key={idx}
-                className="grid grid-cols-1 md:grid-cols-4 gap-3 md:gap-4 p-6 md:px-7 md:py-5 border-b border-white/[0.06] last:border-b-0 font-mono text-xs hover:bg-white/[0.02] transition-colors items-center"
-              >
-                <div>
-                  <div className="font-display font-bold text-base text-white">{row.name}</div>
-                  <div className="text-[11px] text-[#94A3B8]">{row.sub}</div>
-                </div>
-                <div className="text-[#E2E8F0]">{row.sensor}</div>
-                <div className="text-[#FF2A2A] font-bold">{row.fps}</div>
-                <div className="text-[#94A3B8]">{row.optics}</div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ========================================================================
-          07. BOOKING DESK & CONTACT FOOTER
-          ======================================================================== */}
-      <section id="booking" className="py-24 sm:py-32 px-6 sm:px-8 bg-[#07070B] border-t border-white/10">
-        <div className="max-w-[1000px] mx-auto bg-gradient-to-b from-[#10111A] to-[#08090D] border border-[#FF2A2A]/30 rounded-3xl p-10 sm:p-14 text-center shadow-[0_30px_80px_rgba(0,0,0,0.8),0_0_40px_rgba(255,42,42,0.15)] relative overflow-hidden">
-          <div className="inline-flex items-center justify-center gap-2 font-mono text-[11px] tracking-[0.2em] uppercase text-[#FF2A2A] mb-4">
-            CALL SHEET & COMMERCIAL ENQUIRIES
-          </div>
-          <h2 className="font-display font-black text-[clamp(2rem,4.5vw,3.6rem)] tracking-tight uppercase text-white leading-tight mb-4">
-            Commission a Cinema Project
-          </h2>
-          <p className="text-[#94A3B8] text-[clamp(14px,1.2vw,17px)] max-w-[580px] mx-auto font-light leading-relaxed mb-8">
-            Currently booking commercial directing slots, automotive commercials, and brand films for Q3/Q4. Our executive producers respond within 12 hours with treatment availability.
-          </p>
-
-          <div className="flex flex-wrap items-center justify-center gap-4">
-            <a
-              href="mailto:cinema@inex-studio.com"
-              className="inline-flex items-center gap-2 px-8 py-4 rounded-full bg-[#FF2A2A] hover:bg-[#FF4D4D] text-white font-bold text-xs uppercase tracking-widest shadow-[0_0_24px_rgba(255,42,42,0.35)] hover:shadow-[0_0_36px_rgba(255,42,42,0.55)] transition-all transform hover:-translate-y-0.5"
-            >
-              <span>Direct Commercial Desk</span>
-              <ArrowRight className="w-4 h-4" />
+      {/* Sticky Header */}
+      <header className="sticky top-0 z-50 bg-[#050506]/90 backdrop-blur-md border-b border-[#22252c]">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6">
+          <nav className="flex items-center justify-between gap-4 py-3.5" aria-label="Main Navigation">
+            {/* Logo */}
+            <a href="#" className="flex items-center gap-2 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 rounded">
+              <img
+                src="/images/inex-logo.png"
+                alt="INEX Studio"
+                className="h-10 sm:h-11 w-auto object-contain"
+                loading="eager"
+                decoding="async"
+              />
             </a>
 
-            <Link
-              to="/"
-              className="inline-flex items-center gap-2 px-7 py-4 rounded-full bg-white/5 hover:bg-white/12 border border-white/15 hover:border-white/40 text-white font-semibold text-xs uppercase tracking-widest transition-all"
-            >
-              <span>Return to GRAVIT</span>
-            </Link>
-          </div>
+            {/* Desktop Navigation Links */}
+            <div className="hidden md:flex items-center gap-6 text-sm text-[#c3c6cd]">
+              <a href="#services" className="hover:text-white transition-colors py-1">
+                Services
+              </a>
+              <a href="#work" className="hover:text-white transition-colors py-1">
+                Our Work
+              </a>
+              <a href="#process" className="hover:text-white transition-colors py-1">
+                How we work
+              </a>
+              <a href="#faq" className="hover:text-white transition-colors py-1">
+                FAQ
+              </a>
+            </div>
+
+            {/* Header CTA Button */}
+            <div className="hidden sm:flex items-center gap-3">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center px-5 py-2.5 rounded-lg text-sm font-bold bg-[#E31E24] text-white hover:bg-[#c8171d] transition-all duration-150 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 shadow-sm shadow-[#E31E24]/20 active:scale-[0.98]"
+              >
+                Get a free quote
+              </a>
+            </div>
+
+            {/* Mobile Hamburger Toggle */}
+            <div className="flex md:hidden items-center gap-2">
+              <a
+                href="#contact"
+                className="text-xs font-bold bg-[#E31E24] text-white px-3 py-1.5 rounded-md sm:hidden"
+              >
+                Quote
+              </a>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="p-2 text-[#8a8e98] hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-white rounded"
+                aria-label="Toggle navigation menu"
+              >
+                {mobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
+            </div>
+          </nav>
         </div>
 
-        <footer className="max-w-[1400px] mx-auto mt-16 pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4 font-mono text-[11px] text-[#94A3B8]">
-          <div>
-            &copy; {new Date().getFullYear()} INEX STUDIO CINEMA S.A.S. Paris · NYC · Berlin. All rights reserved.
-          </div>
-          <div>
-            Official Motion Picture & Commercial Production Atelier for{' '}
-            <Link to="/" className="text-white underline hover:text-[#FF4D4D] transition-colors">
-              GRAVIT
-            </Link>
-            .
-          </div>
-        </footer>
-      </section>
-
-      {/* ========================================================================
-          08. FULLSCREEN MODAL SHOWREEL PLAYER
-          ======================================================================== */}
-      {activeModalVideo && (
-        <div
-          className="fixed inset-0 z-50 bg-black/95 backdrop-blur-xl flex items-center justify-center p-4 sm:p-6"
-          onClick={() => setActiveModalVideo(null)}
-          role="dialog"
-          aria-modal="true"
-          aria-label="Commercial Showreel"
-        >
-          <div
-            className="relative w-full max-w-[1200px] aspect-video bg-black border border-white/20 rounded-2xl overflow-hidden shadow-[0_40px_100px_rgba(0,0,0,0.9),0_0_50px_rgba(255,42,42,0.25)]"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              onClick={() => setActiveModalVideo(null)}
-              className="absolute top-4 right-4 z-20 w-10 h-10 rounded-full bg-black/70 hover:bg-[#FF2A2A] border border-white/20 hover:border-[#FF2A2A] text-white flex items-center justify-center transition-colors cursor-pointer"
-              aria-label="Close Showreel"
+        {/* Mobile Dropdown Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-[#0e0f13] border-b border-[#22252c] px-4 py-4 space-y-3">
+            <a
+              href="#services"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm py-2 text-[#E5E7EB] hover:text-[#E31E24]"
             >
-              <X className="w-5 h-5" />
-            </button>
+              Services
+            </a>
+            <a
+              href="#work"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm py-2 text-[#E5E7EB] hover:text-[#E31E24]"
+            >
+              Our Work
+            </a>
+            <a
+              href="#process"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm py-2 text-[#E5E7EB] hover:text-[#E31E24]"
+            >
+              How we work
+            </a>
+            <a
+              href="#faq"
+              onClick={() => setMobileMenuOpen(false)}
+              className="block text-sm py-2 text-[#E5E7EB] hover:text-[#E31E24]"
+            >
+              FAQ
+            </a>
+            <div className="pt-2 border-t border-[#22252c] flex flex-col gap-2">
+              <a
+                href="#contact"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-center py-2.5 rounded-lg text-sm font-bold bg-[#E31E24] text-white"
+              >
+                Get a free quote
+              </a>
+              <Link
+                to="/"
+                onClick={() => setMobileMenuOpen(false)}
+                className="w-full text-center py-2 text-xs text-[#8a8e98] hover:text-white"
+              >
+                ← Back to GRAVIT Studio
+              </Link>
+            </div>
+          </div>
+        )}
+      </header>
 
-            <video
-              autoPlay
-              controls
-              playsInline
-              src={activeModalVideo}
-              className="w-full h-full object-cover"
-            />
+      {/* Hero Section */}
+      <section
+        className="relative min-h-[560px] sm:min-h-[620px] flex items-end border-b border-[#22252c] overflow-hidden"
+        style={{
+          background: `linear-gradient(90deg, #050506 20%, rgba(5,5,6,0.7) 65%, rgba(5,5,6,0.3) 100%), linear-gradient(0deg, #050506 5%, rgba(5,5,6,0.4) 60%, transparent 100%), url(/images/inex-bg-1.jpg) center/cover no-repeat`,
+        }}
+      >
+        <div className="max-w-[1080px] w-full mx-auto px-4 sm:px-6 py-16 sm:py-24">
+          <div className="max-w-[620px]">
+            {/* Tag */}
+            <div className="text-[#E31E24] text-xs font-bold tracking-[2.5px] uppercase mb-3 flex items-center gap-2">
+              <span className="w-2 h-2 rounded-full bg-[#E31E24]" />
+              CREATIVE &amp; DIGITAL STUDIO
+            </div>
 
-            <div className="absolute bottom-0 left-0 right-0 p-4 sm:px-6 bg-gradient-to-t from-black/90 to-transparent flex items-center justify-between font-mono text-[11px] text-white pointer-events-none">
-              <span>INEX SHOWREEL 2026 · 4K MASTER</span>
-              <span className="hidden sm:inline">ACEScc · ARRI 35 · COOKE ANAMORPHIC</span>
+            {/* Headline */}
+            <h1 className="text-4xl sm:text-5xl md:text-6xl font-black tracking-[-1.5px] leading-[1.08] text-white my-3.5">
+              Ideas into impact.{' '}
+              <em className="text-[#E31E24] not-italic block sm:inline">Brands into growth.</em>
+            </h1>
+
+            {/* Lead */}
+            <p className="text-[#c3c6cd] text-base sm:text-lg leading-relaxed mb-6 max-w-[560px]">
+              Videos, branding, marketing, websites and AI automation — one team that plans, builds and grows your business.
+            </p>
+
+            {/* Buttons */}
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4 mb-8">
+              <a
+                href="#contact"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-lg text-sm sm:text-base font-bold bg-[#E31E24] text-white hover:bg-[#c8171d] transition-all duration-150 shadow-lg shadow-[#E31E24]/20 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 active:scale-[0.98]"
+              >
+                Start your project
+              </a>
+              <a
+                href="#work"
+                className="inline-flex items-center justify-center px-6 py-3 rounded-lg text-sm sm:text-base font-bold border border-[#444444] text-[#E5E7EB] hover:border-white hover:text-white transition-all duration-150 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+              >
+                See our work
+              </a>
+            </div>
+
+            {/* Promises */}
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs sm:text-sm text-[#8a8e98]">
+              <span className="flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-[#E31E24] flex-shrink-0" />
+                Reply within 24 hours
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-[#E31E24] flex-shrink-0" />
+                Clear pricing upfront
+              </span>
+              <span className="flex items-center gap-1.5">
+                <Check className="w-4 h-4 text-[#E31E24] flex-shrink-0" />
+                Free first consultation
+              </span>
             </div>
           </div>
         </div>
-      )}
+      </section>
+
+      {/* Proof Bar (Metrics) */}
+      <div className="bg-[#0e0f13] border-b border-[#22252c]">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6 py-6 sm:py-7">
+          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
+            <div className="p-2">
+              <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
+                100+
+              </b>
+              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Projects delivered</span>
+            </div>
+            <div className="p-2">
+              <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
+                50+
+              </b>
+              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Happy clients</span>
+            </div>
+            <div className="p-2">
+              <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
+                5
+              </b>
+              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Services, one team</span>
+            </div>
+            <div className="p-2">
+              <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
+                24h
+              </b>
+              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Response time</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Services Section */}
+      <section id="services" className="py-14 sm:py-20">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight mb-2.5">
+            Everything your brand needs, in one place
+          </h2>
+          <p className="text-[#8a8e98] text-sm sm:text-base max-w-[560px] mb-8">
+            Tell us your goal. We pick the right mix — you don’t juggle five vendors.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {SERVICES.map((s, idx) => (
+              <div
+                key={idx}
+                className="bg-[#0e0f13] border border-[#22252c] rounded-xl p-6 hover:border-[#E31E24]/50 transition-all duration-200 flex flex-col justify-between group"
+              >
+                <div>
+                  <div className="flex items-center justify-between mb-4">
+                    <span className="inline-grid place-items-center w-11 h-11 rounded-lg bg-[#2a0709] border border-[#E31E24]/20 text-lg">
+                      {s.icon}
+                    </span>
+                    <span className="text-[11px] font-mono text-[#8a8e98] uppercase tracking-wider">
+                      {s.tag}
+                    </span>
+                  </div>
+                  <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#E31E24] transition-colors">
+                    {s.title}
+                  </h3>
+                  <p className="text-sm text-[#8a8e98] leading-relaxed">{s.desc}</p>
+                </div>
+                <div className="mt-5 pt-3 border-t border-[#22252c]/50 flex items-center justify-between text-xs text-[#8a8e98]">
+                  <span className="font-mono">INEX · Core 0{idx + 1}</span>
+                  <a
+                    href="#contact"
+                    className="text-[#E31E24] hover:underline flex items-center gap-1 font-medium"
+                  >
+                    Inquire <ArrowUpRight className="w-3.5 h-3.5" />
+                  </a>
+                </div>
+              </div>
+            ))}
+
+            {/* Callout Card */}
+            <div className="bg-gradient-to-br from-[#2a0709] via-[#0e0f13] to-[#050506] border border-[#E31E24]/30 rounded-xl p-6 flex flex-col justify-between">
+              <div>
+                <div className="w-11 h-11 rounded-lg bg-[#E31E24] text-white inline-grid place-items-center mb-4">
+                  <Sparkles className="w-5 h-5" />
+                </div>
+                <h3 className="text-lg font-bold text-white mb-2">Need a custom package?</h3>
+                <p className="text-sm text-[#c3c6cd] leading-relaxed">
+                  Combine video production, identity design, and web development into a single turnkey launch.
+                </p>
+              </div>
+              <div className="mt-6">
+                <a
+                  href="#contact"
+                  className="inline-flex items-center gap-2 text-sm font-bold text-white bg-[#E31E24] px-4 py-2 rounded-lg hover:bg-[#c8171d] transition-colors"
+                >
+                  Book Discovery Call <ArrowRight className="w-4 h-4" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Our Work Section */}
+      <section id="work" className="py-14 sm:py-20 bg-[#0e0f13] border-y border-[#22252c]">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+            <div>
+              <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight mb-2.5">
+                Proof, not promises
+              </h2>
+              <p className="text-[#8a8e98] text-sm sm:text-base max-w-[560px]">
+                A few recent projects. Ask us for full case studies and results.
+              </p>
+            </div>
+            <a
+              href="#contact"
+              className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#E31E24] hover:underline"
+            >
+              Request full portfolio deck <ArrowRight className="w-4 h-4" />
+            </a>
+          </div>
+
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+            {WORK_ITEMS.map((w) => (
+              <div
+                key={w.id}
+                onClick={() => setSelectedWork(w)}
+                className={`group relative aspect-[4/5] rounded-xl border border-[#22252c] p-4 flex flex-col justify-end bg-gradient-to-br ${w.gradient} cursor-pointer hover:border-[#E31E24] transition-all duration-200 overflow-hidden shadow-md`}
+              >
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/20 transition-colors" />
+                <div className="relative z-10">
+                  <span className="text-[10px] sm:text-xs font-mono text-[#E31E24] uppercase tracking-wider block mb-1">
+                    {w.category}
+                  </span>
+                  <h3 className="text-sm sm:text-base font-bold text-white group-hover:translate-x-0.5 transition-transform">
+                    {w.title}
+                  </h3>
+                  <span className="text-[11px] text-[#c3c6cd] flex items-center gap-1 mt-1 opacity-80 group-hover:opacity-100">
+                    View project <ArrowUpRight className="w-3 h-3" />
+                  </span>
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Modal for work preview */}
+          {selectedWork && (
+            <div
+              className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
+              onClick={() => setSelectedWork(null)}
+            >
+              <div
+                className="bg-[#0e0f13] border border-[#22252c] rounded-2xl max-w-lg w-full p-6 sm:p-8 relative text-left"
+                onClick={(e) => e.stopPropagation()}
+              >
+                <button
+                  type="button"
+                  onClick={() => setSelectedWork(null)}
+                  className="absolute top-4 right-4 text-[#8a8e98] hover:text-white p-2"
+                  aria-label="Close modal"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+                <span className="text-xs font-mono text-[#E31E24] uppercase tracking-wider">
+                  {selectedWork.category}
+                </span>
+                <h3 className="text-2xl font-black text-white mt-1 mb-3">
+                  {selectedWork.title}
+                </h3>
+                <p className="text-sm text-[#c3c6cd] leading-relaxed mb-5">
+                  {selectedWork.summary}
+                </p>
+                <div className="mb-6">
+                  <h4 className="text-xs font-bold text-white uppercase tracking-wider mb-2">
+                    Scope &amp; Deliverables
+                  </h4>
+                  <ul className="space-y-1.5 text-xs text-[#8a8e98]">
+                    {selectedWork.deliverables.map((d, i) => (
+                      <li key={i} className="flex items-center gap-2">
+                        <Check className="w-3.5 h-3.5 text-[#E31E24]" />
+                        <span>{d}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="flex gap-3">
+                  <a
+                    href="#contact"
+                    onClick={() => setSelectedWork(null)}
+                    className="flex-1 py-2.5 text-center text-sm font-bold bg-[#E31E24] text-white rounded-lg hover:bg-[#c8171d]"
+                  >
+                    Start a similar project
+                  </a>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedWork(null)}
+                    className="px-4 py-2.5 text-sm font-semibold border border-[#444] text-[#E5E7EB] rounded-lg hover:border-white"
+                  >
+                    Close
+                  </button>
+                </div>
+              </div>
+            </div>
+          )}
+        </div>
+      </section>
+
+      {/* How We Work (Process) */}
+      <section id="process" className="py-14 sm:py-20">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight mb-2.5">
+            You always know what happens next
+          </h2>
+          <p className="text-[#8a8e98] text-sm sm:text-base max-w-[560px] mb-8">
+            No surprises. Four steps, with updates at every stage.
+          </p>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+            {STEPS.map((step) => (
+              <div
+                key={step.num}
+                className="border-l-2 border-[#E31E24] pl-4 py-1 flex flex-col justify-start"
+              >
+                <span className="text-[#E31E24] text-xs font-bold font-mono tracking-wider mb-1 block">
+                  Step {step.num}
+                </span>
+                <b className="text-base sm:text-lg text-white font-bold mb-1.5 block">
+                  {step.title}
+                </b>
+                <span className="text-sm text-[#8a8e98] leading-relaxed">{step.desc}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonial Quote Section */}
+      <section className="py-14 sm:py-20 bg-[#0e0f13] border-y border-[#22252c]">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight mb-8">
+            Trusted by brands that dream big
+          </h2>
+          <blockquote className="bg-[#050506] border border-[#22252c] rounded-xl p-6 sm:p-8 relative">
+            <div className="text-[#E31E24] text-3xl font-serif mb-2 leading-none">“</div>
+            <q className="block text-lg sm:text-xl text-[#E5E7EB] font-medium leading-relaxed mb-5 italic">
+              INEX Studio transformed our brand with stunning visuals and a strategic approach. The team’s creativity and professionalism are truly next level.
+            </q>
+            <div className="flex items-center gap-2 text-sm">
+              <b className="text-white font-bold">Ravi Teja</b>
+              <span className="text-[#8a8e98]">· Founder, Purple Store</span>
+            </div>
+          </blockquote>
+        </div>
+      </section>
+
+      {/* FAQ Section */}
+      <section id="faq" className="py-14 sm:py-20">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6">
+          <h2 className="text-2xl sm:text-4xl font-black text-white tracking-tight mb-8">
+            Questions customers ask first
+          </h2>
+
+          <div className="divide-y divide-[#22252c] border-y border-[#22252c]">
+            {FAQS.map((faq, idx) => (
+              <div key={idx} className="py-4 sm:py-5">
+                <button
+                  type="button"
+                  onClick={() => toggleFaq(idx)}
+                  className="w-full text-left flex items-center justify-between gap-4 font-semibold text-base sm:text-lg text-white hover:text-[#E31E24] transition-colors focus:outline-none"
+                  aria-expanded={activeFaq === idx}
+                >
+                  <span>{faq.q}</span>
+                  <ChevronDown
+                    className={`w-5 h-5 text-[#8a8e98] transition-transform duration-200 flex-shrink-0 ${
+                      activeFaq === idx ? 'rotate-180 text-[#E31E24]' : ''
+                    }`}
+                  />
+                </button>
+                {activeFaq === idx && (
+                  <p className="mt-3 text-sm sm:text-base text-[#8a8e98] leading-relaxed pr-8">
+                    {faq.a}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Contact / CTA Banner Section */}
+      <section id="contact" className="py-14 sm:py-20">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6">
+          <div
+            className="border border-[#3a0c0f] rounded-2xl p-8 sm:p-12 relative overflow-hidden"
+            style={{
+              background: `linear-gradient(90deg, rgba(5,5,6,0.92) 0%, rgba(5,5,6,0.65) 100%), url(/images/inex-bg-2.jpg) center/cover no-repeat`,
+            }}
+          >
+            <div className="max-w-[640px] relative z-10">
+              <span className="text-[#E31E24] text-xs font-mono font-bold uppercase tracking-wider block mb-2">
+                Get In Touch
+              </span>
+              <h2 className="text-3xl sm:text-4xl font-black text-white tracking-tight mb-3">
+                Let’s build something extraordinary
+              </h2>
+              <p className="text-[#8a8e98] text-sm sm:text-base leading-relaxed mb-6">
+                Have a project in mind? Send a message — a real person replies within 24 hours.
+              </p>
+
+              {/* Action Buttons */}
+              <div className="flex flex-wrap items-center gap-3 sm:gap-4">
+                <a
+                  href="mailto:hello@inexstudio.com"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold bg-[#E31E24] text-white hover:bg-[#c8171d] transition-colors shadow-lg shadow-[#E31E24]/20 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2 active:scale-[0.98]"
+                >
+                  <Mail className="w-4 h-4" />
+                  Email us
+                </a>
+                <a
+                  href="https://wa.me/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold border border-[#444444] text-[#E5E7EB] hover:border-white hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                >
+                  <MessageSquare className="w-4 h-4" />
+                  WhatsApp
+                </a>
+                <a
+                  href="tel:"
+                  className="inline-flex items-center gap-2 px-6 py-3 rounded-lg text-sm font-bold border border-[#444444] text-[#E5E7EB] hover:border-white hover:text-white transition-colors focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-2"
+                >
+                  <Phone className="w-4 h-4" />
+                  Call us
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Footer */}
+      <footer className="border-t border-[#22252c] bg-[#050506] py-8">
+        <div className="max-w-[1080px] mx-auto px-4 sm:px-6">
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-6 text-xs text-[#8a8e98]">
+            <a href="#" className="flex items-center gap-2 focus-visible:outline-none" aria-label="INEX Studio home">
+              <img
+                src="/images/inex-logo.png"
+                alt="INEX Studio"
+                className="h-10 sm:h-12 w-auto object-contain"
+                loading="lazy"
+              />
+            </a>
+
+            <div className="flex items-center gap-4 text-sm font-medium text-[#c3c6cd]">
+              <span>Create.</span>
+              <span className="text-[#E31E24]">Grow.</span>
+              <span>Build.</span>
+            </div>
+
+            <div className="flex flex-col sm:flex-row items-center gap-3">
+              <span>© 2026 INEX STUDIO. All rights reserved.</span>
+              <span className="hidden sm:inline text-[#22252c]">|</span>
+              <Link to="/" className="text-[#8a8e98] hover:text-white transition-colors">
+                GRAVIT Studio
+              </Link>
+            </div>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
