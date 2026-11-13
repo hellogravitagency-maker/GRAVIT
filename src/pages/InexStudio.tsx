@@ -356,27 +356,27 @@ export default function InexStudio(): React.JSX.Element {
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center">
             <div className="p-2">
               <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
-                100+
-              </b>
-              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Projects delivered</span>
-            </div>
-            <div className="p-2">
-              <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
-                50+
-              </b>
-              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Happy clients</span>
-            </div>
-            <div className="p-2">
-              <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
                 3
               </b>
-              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Services, one team</span>
+              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">In-house disciplines</span>
             </div>
             <div className="p-2">
               <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
-                24h
+                1–4 wks
               </b>
-              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Response time</span>
+              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Average project sprint</span>
+            </div>
+            <div className="p-2">
+              <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
+                100%
+              </b>
+              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Master &amp; IP ownership</span>
+            </div>
+            <div className="p-2">
+              <b className="block text-2xl sm:text-4xl font-extrabold text-white leading-tight font-mono">
+                &lt;24h
+              </b>
+              <span className="text-xs sm:text-sm text-[#8a8e98] mt-1 block">Direct response time</span>
             </div>
           </div>
         </div>
